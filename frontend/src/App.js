@@ -1,17 +1,27 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import HomeScreen from './screens/HomeScreen';
 import CourseScreen from './screens/CourseScreen';
-import { Navbar, Container } from 'react-bootstrap';
+import { Navbar, Container, Figure } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
+import logo from './assests/Brand.png';
 function App() {
   return (
     <BrowserRouter>
       <div className="d-flex flex-column site-container">
         <header>
-          <Navbar bg="dark" variant="dark">
+          <Navbar className="sticky-nav" bg="dark" variant="dark">
             <Container>
               <LinkContainer to="/">
-                <Navbar.Brand>SmartLearn</Navbar.Brand>
+                <Navbar.Brand>
+                  <Figure>
+                    <Figure.Image
+                      width={60}
+                      height={50}
+                      alt="100x50"
+                      src={logo}
+                    />
+                  </Figure>
+                </Navbar.Brand>
               </LinkContainer>
             </Container>
           </Navbar>
@@ -20,7 +30,7 @@ function App() {
           <Container>
             <Routes>
               <Route path="/" element={<HomeScreen />} />
-              <Route path="/courses/:Course_name" element={<CourseScreen />} />
+              <Route path="/course/:slug" element={<CourseScreen />} />
             </Routes>
           </Container>
         </main>

@@ -8,6 +8,15 @@ app.get('/api/courses', (req, res) => {
   res.send(data.courses);
 });
 
+app.get('/api/course/:slug', (req, res) => {
+  const course = data.courses.find((x) => x.slug === req.params.slug);
+  if (course) {
+    res.send(course);
+  } else {
+    res.status(404).send({ message: 'Course Not Found' });
+  }
+});
+
 //listen to port
 const port = process.env.PORT || 5000;
 app.listen(port, () => {

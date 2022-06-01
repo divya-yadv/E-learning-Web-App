@@ -1,6 +1,7 @@
 import { useEffect, useReducer } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
+import Course from '../components/Course';
+import { Col, Row } from 'react-bootstrap';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -42,24 +43,13 @@ function HomeScreen() {
         ) : error ? (
           <div>{error}</div>
         ) : (
-          courses.map((course) => {
-            return (
-              <div className="course" key={course.id}>
-                <Link to={`/courses/${course.Course_name}`}>
-                  <img src={course.image} alt={course.Course_name} />
-                </Link>
-                <div className="course-info">
-                  <Link to={`/courses/${course.Course_name}`}>
-                    <p>{course.Course_name}</p>
-                  </Link>
-                  <p>{course.course_instructor}</p>
-                  <p>
-                    <strong>${course.price}</strong>
-                  </p>
-                </div>
-              </div>
-            );
-          })
+          <Row>
+            {courses.map((course) => (
+              <Col key={course.slug} sm={6} md={4} lg={3} className="mb-3">
+                <Course course={course} />
+              </Col>
+            ))}
+          </Row>
         )}
       </div>
     </div>

@@ -6,12 +6,27 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.site-container {
-  min-height: 100vh;
+.btn-primary {
+  background-color: #fe5c5d;
+  color: black;
 }
-main {
-  flex: 1;
+.btn-primary:hover {
+  background-color: #d78c90;
+  color: black;
 }
+.btn:focus,
+.btn:active {
+  outline: none !important;
+  box-shadow: none;
+  background-color: #ed5960;
+}
+.btn-lg {
+  width: 98%;
+}
+.container {
+  padding: 0px;
+}
+
 .courses {
   display: flex;
   flex-wrap: wrap;
@@ -27,4 +42,43 @@ main {
 }
 .course-info {
   padding: 1rem;
+}
+.center {
+  text-align: center;
+}
+.img-large {
+  max-width: 100rem;
+}
+figure {
+  margin: 0px;
+}
+.title {
+  text-decoration: none;
+  color: black;
+}
+.title:hover {
+  color: #404040;
+}
+main {
+  flex: 1;
+}
+.navbar-brand {
+  margin: 0px;
+  padding: 0;
+}
+.rating span {
+  color: #e8777d;
+}
+.rating-inline {
+  display: inline-block;
+}
+.site-container {
+  min-height: 100vh;
+}
+span.rating-inline {
+  display: inline-block;
+}
+.sticky-nav {
+  position: sticky;
+  top: 0;
 }

@@ -47,7 +47,8 @@ body {
   text-align: center;
 }
 .img-large {
-  max-width: 100rem;
+  max-width: 50rem;
+  max-height: 300px;
 }
 figure {
   margin: 0px;
@@ -71,6 +72,9 @@ main {
 }
 .rating-inline {
   display: inline-block;
+}
+span.rating-text {
+  color: black;
 }
 .site-container {
   min-height: 100vh;

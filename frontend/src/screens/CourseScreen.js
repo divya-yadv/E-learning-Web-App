@@ -3,6 +3,7 @@ import { useEffect, useReducer } from 'react';
 import { useParams } from 'react-router-dom';
 import { Row, Col, ListGroup, Button, Card } from 'react-bootstrap';
 import Rating from '../components/Rating';
+import { Helmet } from 'react-helmet-async';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -53,6 +54,9 @@ function CourseScreen() {
             ></img>
             <ListGroup>
               <ListGroup.Item>
+                <Helmet>
+                  <title>{course.Course_name}</title>
+                </Helmet>
                 <h1 className="title">{course.Course_name}</h1>
               </ListGroup.Item>
               <ListGroup.Item>
@@ -86,7 +90,7 @@ function CourseScreen() {
                 <p className="center">30-Day Money-back Gurantee</p>
                 <p className="center">Full Lifetime Access</p>
               </ListGroup.Item>
-              <ListGroup.Item>Share</ListGroup.Item>
+              <ListGroup.Item className="center">Share</ListGroup.Item>
             </ListGroup>
           </Card>
         </Col>

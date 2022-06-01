@@ -4,7 +4,7 @@ function Rating(props) {
   const { rating, numReviews } = props;
   return (
     <div className="rating">
-      <span> {rating} &nbsp;&nbsp;</span>
+      <span className="rating-text"> Rating: {rating} </span>
       <span>
         <i
           className={
@@ -60,7 +60,8 @@ function Rating(props) {
           }
         ></i>
       </span>
-      <span> {numReviews} Reviews</span>
+
+      <span className="rating-text"> {numReviews} Reviews</span>
     </div>
   );
 }

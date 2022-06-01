@@ -2,6 +2,7 @@ import { useEffect, useReducer } from 'react';
 import axios from 'axios';
 import Course from '../components/Course';
 import { Col, Row } from 'react-bootstrap';
+import { Helmet } from 'react-helmet-async';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -36,6 +37,9 @@ function HomeScreen() {
   }, []); //empty array coz we gonnna run this function only once after rendering this component
   return (
     <div>
+      <Helmet>
+        <title>SmartLearn</title>
+      </Helmet>
       <h1>Featured Courses</h1>
       <div className="courses">
         {loading ? (

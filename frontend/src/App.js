@@ -1,4 +1,4 @@
-import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import HomeScreen from './screens/HomeScreen';
 import CourseScreen from './screens/CourseScreen';
 import { Navbar, Container, Figure } from 'react-bootstrap';
@@ -9,7 +9,7 @@ function App() {
     <BrowserRouter>
       <div className="d-flex flex-column site-container">
         <header>
-          <Navbar className="sticky-nav" bg="dark" variant="dark">
+          <Navbar className="fixed-top" bg="dark" variant="dark">
             <Container>
               <LinkContainer to="/">
                 <Navbar.Brand>

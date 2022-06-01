@@ -3,6 +3,9 @@ import axios from 'axios';
 import Course from '../components/Course';
 import { Col, Row } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
+import Loading from '../components/Loading';
+import MessageBox from '../components/MessageBox';
+import { getError } from '../utils';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -10,7 +13,7 @@ const reducer = (state, action) => {
       return { ...state, loading: true };
     case 'FETCH_SUCCESS':
       return { ...state, courses: action.payload, loading: false };
-    case 'FECTH_FAIL':
+    case 'FETCH_FAIL':
       return { ...state, loading: false, error: action.payload };
     default:
       return state;
@@ -30,7 +33,7 @@ function HomeScreen() {
       try {
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
       } catch (err) {
-        dispatch({ type: 'FECTH_FAIL', payload: err.message });
+        dispatch({ type: 'FETCH_FAIL', payload: getError(err) });
       }
     };
     fetchData();
@@ -43,9 +46,11 @@ function HomeScreen() {
       <h1>Featured Courses</h1>
       <div className="courses">
         {loading ? (
-          <div>loading ...</div>
+          <div>
+            <Loading />
+          </div>
         ) : error ? (
-          <div>{error}</div>
+          <MessageBox variant="danger">{error}</MessageBox>
         ) : (
           <Row>
             {courses.map((course) => (

@@ -4,6 +4,9 @@ import { useParams } from 'react-router-dom';
 import { Row, Col, ListGroup, Button, Card } from 'react-bootstrap';
 import Rating from '../components/Rating';
 import { Helmet } from 'react-helmet-async';
+import Loading from '../components/Loading';
+import MessageBox from '../components/MessageBox';
+import { getError } from '../utils';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -11,7 +14,7 @@ const reducer = (state, action) => {
       return { ...state, loading: true };
     case 'FETCH_SUCCESS':
       return { ...state, course: action.payload, loading: false };
-    case 'FECTH_FAIL':
+    case 'FETCH_FAIL':
       return { ...state, loading: false, error: action.payload };
     default:
       return state;
@@ -33,15 +36,15 @@ function CourseScreen() {
       try {
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
       } catch (err) {
-        dispatch({ type: 'FECTH_FAIL', payload: err.message });
+        dispatch({ type: 'FETCH_FAIL', payload: getError(err) });
       }
     };
     fetchData();
-  }, [slug]); //empty array coz we gonnna run this function only once after rendering this component
+  }, [slug]);
   return loading ? (
-    <div>loading ...</div>
+    <Loading />
   ) : error ? (
-    <div>{error}</div>
+    <MessageBox variant="danger">{error}</MessageBox>
   ) : (
     <div>
       <Row>

@@ -53,6 +53,12 @@ body {
 figure {
   margin: 0px;
 }
+.links {
+  text-decoration: none;
+}
+main {
+  flex: 1;
+}
 .title {
   text-decoration: none;
   color: black;
@@ -60,9 +66,7 @@ figure {
 .title:hover {
   color: #404040;
 }
-main {
-  flex: 1;
-}
+
 .navbar-brand {
   margin: 0px;
   padding: 0;
@@ -79,10 +83,20 @@ span.rating-text {
 .site-container {
   min-height: 100vh;
 }
+.signupscreen {
+  background-image: url(./assests/backgroundsignup);
+}
 span.rating-inline {
   display: inline-block;
 }
 .sticky-nav {
   position: sticky;
   top: 0;
+}
+.small-container {
+  width: 400px;
+  margin-top: 7rem;
+}
+span.mr-4 {
+  margin-right: 4px;
 }

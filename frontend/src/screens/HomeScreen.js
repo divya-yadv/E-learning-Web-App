@@ -5,7 +5,7 @@ import { Col, Row } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
 import Loading from '../components/Loading';
 import MessageBox from '../components/MessageBox';
-import { getError } from '../utils';
+import getError from '../utils';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -28,9 +28,9 @@ function HomeScreen() {
   }); // current state depends on previous state
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios.get('/api/courses');
-      dispatch({ type: 'FETCH_REQUEST' });
+      // dispatch({ type: 'FETCH_REQUEST' });
       try {
+        const result = await axios.get('/api/courses');
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
       } catch (err) {
         dispatch({ type: 'FETCH_FAIL', payload: getError(err) });

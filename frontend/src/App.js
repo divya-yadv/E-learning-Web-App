@@ -4,6 +4,10 @@ import CourseScreen from './screens/CourseScreen';
 import { Navbar, Container, Figure } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import logo from './assests/Brand.png';
+import SignInScreen from './screens/SignInScreen';
+import SignUpScreen from './screens/SignUpScreen';
+import { AuthProvider } from './contexts/AuthContext';
+import Home from './screens/Home';
 function App() {
   return (
     <BrowserRouter>
@@ -28,10 +32,15 @@ function App() {
         </header>
         <main>
           <Container>
-            <Routes>
-              <Route path="/" element={<HomeScreen />} />
-              <Route path="/course/:slug" element={<CourseScreen />} />
-            </Routes>
+            <AuthProvider>
+              <Routes>
+                <Route path="/" element={<HomeScreen />} />
+                <Route path="/course/:slug" element={<CourseScreen />} />
+                <Route path="/signin" element={<SignInScreen />} />
+                <Route path="/signup" element={<SignUpScreen />} />
+                <Route path="/home" element={<Home />} />
+              </Routes>
+            </AuthProvider>
           </Container>
         </main>
         <footer>

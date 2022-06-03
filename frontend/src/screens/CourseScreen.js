@@ -6,14 +6,14 @@ import Rating from '../components/Rating';
 import { Helmet } from 'react-helmet-async';
 import Loading from '../components/Loading';
 import MessageBox from '../components/MessageBox';
-import { getError } from '../utils';
+import getError from '../utils';
 
 const reducer = (state, action) => {
   switch (action.type) {
     case 'FETCH_REQUEST':
       return { ...state, loading: true };
     case 'FETCH_SUCCESS':
-      return { ...state, course: action.payload, loading: false };
+      return { ...state, loading: false, course: action.payload };
     case 'FETCH_FAIL':
       return { ...state, loading: false, error: action.payload };
     default:
@@ -31,11 +31,12 @@ function CourseScreen() {
   }); // current state depends on previous state
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios.get(`/api/course/${slug}`);
-      dispatch({ type: 'FETCH_REQUEST' });
+      // dispatch({ type: 'FETCH_REQUEST' });
       try {
+        const result = await axios.get(`/api/course/${slug}`);
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
       } catch (err) {
+        console.log(err);
         dispatch({ type: 'FETCH_FAIL', payload: getError(err) });
       }
     };

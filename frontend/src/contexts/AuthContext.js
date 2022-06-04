@@ -16,7 +16,7 @@ export function useUserAuth() {
 }
 
 export function AuthProvider({ children }) {
-  const [currentUser, setCurrentUser] = useState();
+  const [currentUser, setCurrentUser] = useState({});
   const [loading, setLoading] = useState(true);
   function signup(email, password) {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -32,14 +32,11 @@ export function AuthProvider({ children }) {
     return signInWithPopup(auth, googleAuthProvider);
   }
   function resetPassword(email) {
-    alert('');
-    return sendPasswordResetEmail(email).then((a) => {
-      alert(a);
-    });
+    return sendPasswordResetEmail(auth, email);
   }
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user);
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setCurrentUser(currentUser);
       setLoading(false);
     });
     return unsubscribe;
@@ -51,6 +48,7 @@ export function AuthProvider({ children }) {
     signin,
     logOut,
     googleSignIn,
+    resetPassword,
   };
   return (
     <AuthContext.Provider value={value}>

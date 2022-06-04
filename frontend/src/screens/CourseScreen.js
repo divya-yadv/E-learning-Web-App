@@ -33,7 +33,7 @@ function CourseScreen() {
     const fetchData = async () => {
       // dispatch({ type: 'FETCH_REQUEST' });
       try {
-        const result = await axios.get(`/api/course/${slug}`);
+        const result = await axios.get(`/api/courses/${slug}`);
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
       } catch (err) {
         console.log(err);

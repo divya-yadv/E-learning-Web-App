@@ -6,7 +6,7 @@ function Course(props) {
   const { course } = props;
   return (
     <Card>
-      <Link to={`/course/${course.slug}`}>
+      <Link to={`/courses/${course.slug}`}>
         <Card.Img
           className="card-img-top"
           src={course.image}
@@ -14,7 +14,7 @@ function Course(props) {
         />
       </Link>
       <Card.Body>
-        <Link className="title" to={`/course/${course.slug}`}>
+        <Link className="title" to={`/courses/${course.slug}`}>
           <Card.Title>{course.Course_name}</Card.Title>
         </Link>
         <Card.Text>{course.course_instructor}</Card.Text>

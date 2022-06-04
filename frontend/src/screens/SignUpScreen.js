@@ -25,7 +25,12 @@ function SignUpScreen() {
       await signup(email, password);
       navigate('/signin');
     } catch (error) {
-      setError('Failed to create an account');
+      console.log(error.code);
+      if (error.code === 'auth/email-already-in-use') {
+        setError('Email already exits! Please Sign In');
+      } else {
+        setError('creating acccount failed!');
+      }
     }
     setLoading(false);
   }

@@ -1,3 +1,8 @@
-function Home() {}
+import React from 'react';
+import { Container } from 'react-bootstrap';
 
-export default Home;
+export default function Home() {
+  return <Container>
+      
+  </Container>;
+}

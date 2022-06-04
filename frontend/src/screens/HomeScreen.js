@@ -53,7 +53,7 @@ function HomeScreen() {
           <MessageBox variant="danger">{error}</MessageBox>
         ) : (
           <Row>
-            {courses.map((course) => (
+            {courses.courses.map((course) => (
               <Col key={course.slug} sm={6} md={4} lg={3} className="mb-3">
                 <Course course={course} />
               </Col>

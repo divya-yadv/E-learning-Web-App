@@ -1,22 +1,23 @@
 import express from 'express';
 import data from './data.js';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import seedRouter from './routes/seedRoute.js';
+import courseRouter from './routes/courseRoutes.js';
 //create express app
+dotenv.config();
 const app = express();
-
+mongoose
+  .connect(process.env.MONGODB_URI)
+  .then(() => {
+    console.log('connected to db');
+  })
+  .catch((error) => {
+    console.log(error.message);
+  });
 //create api to send data from this path
-app.get('/api/courses', (req, res) => {
-  res.send(data.courses);
-});
-
-app.get('/api/course/:slug', (req, res) => {
-  const course = data.courses.find((x) => x.slug === req.params.slug);
-  if (course) {
-    res.send(course);
-  } else {
-    res.status(404).send({ message: 'Course Not Found' });
-  }
-});
-
+app.use('/api/seed', seedRouter);
+app.use('/api/courses', courseRouter);
 //listen to port
 const port = process.env.PORT || 5000;
 app.listen(port, () => {

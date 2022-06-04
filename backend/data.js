@@ -1,7 +1,6 @@
 const data = {
   courses: [
     {
-      id: 1,
       slug: 'research-and-development',
       Course_name: 'Research and Development',
       description:
@@ -15,7 +14,6 @@ const data = {
       numReviews: 10,
     },
     {
-      id: 2,
       slug: 'support-and-maintenance',
       Course_name: 'Support & Maintenance',
       description:
@@ -29,7 +27,6 @@ const data = {
       numReviews: 11,
     },
     {
-      id: 3,
       slug: 'sales-and-marketing',
       Course_name: 'Sales & Marketing',
       course_instructor: 'Mona Stripp',
@@ -41,7 +38,6 @@ const data = {
       numReviews: 11,
     },
     {
-      id: 4,
       slug: 'legal-counseling',
       Course_name: 'Legal Counseling',
       description:
@@ -55,7 +51,6 @@ const data = {
       numReviews: 20,
     },
     {
-      id: 5,
       slug: 'graphics-design',
       Course_name: 'Graphics Design',
       description:
@@ -69,7 +64,6 @@ const data = {
       numReviews: 11,
     },
     {
-      id: 6,
       slug: 'accounting',
       Course_name: 'Accounting',
       description:
@@ -83,7 +77,6 @@ const data = {
       numReviews: 15,
     },
     {
-      id: 7,
       slug: 'web-development',
       Course_name: 'Web Development',
       description:
@@ -97,7 +90,6 @@ const data = {
       numReviews: 10,
     },
     {
-      id: 8,
       slug: 'islamic-studies',
       Course_name: 'Islamic Studies',
       description:
@@ -111,7 +103,6 @@ const data = {
       numReviews: 10,
     },
     {
-      id: 9,
       slug: 'business-management',
       Course_name: 'Business Management',
       description:
@@ -125,7 +116,6 @@ const data = {
       numReviews: 10,
     },
     {
-      id: 10,
       slug: 'data-mining',
       Course_name: 'Data Mining',
       description:
@@ -139,7 +129,6 @@ const data = {
       numReviews: 13,
     },
     {
-      id: 11,
       slug: 'neurology-and-science',
       Course_name: 'Neurology & Science',
       description:
@@ -153,7 +142,6 @@ const data = {
       numReviews: 10,
     },
     {
-      id: 12,
       slug: 'machine-learning',
       Course_name: 'Machine Learning',
       description:
@@ -167,7 +155,6 @@ const data = {
       numReviews: 10,
     },
     {
-      id: 13,
       slug: 'UI-UX-design',
       Course_name: 'UI/UX Design',
       description:
@@ -181,7 +168,6 @@ const data = {
       numReviews: 13,
     },
     {
-      id: 14,
       slug: 'artificial-intelligence',
       Course_name: 'Artificial Intelligence',
       course_instructor: "Glenna D'Onisi",

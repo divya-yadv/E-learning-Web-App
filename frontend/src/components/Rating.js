@@ -1,5 +1,3 @@
-import CourseScreen from '../screens/CourseScreen';
-
 function Rating(props) {
   const { rating, numReviews } = props;
   return (

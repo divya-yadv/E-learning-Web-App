@@ -2,85 +2,56 @@ import { Button, Card, Container, Form, FormGroup } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import GoogleButton from 'react-google-button';
 import { useUserAuth } from '../contexts/AuthContext';
 import MessageBox from '../components/MessageBox';
 
-function SignInScreen() {
+function ForgotPassword() {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const { signin, googleSignIn } = useUserAuth();
+  const { resetPassword } = useUserAuth();
   const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   let navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
     try {
+      setMessage('');
       setError('');
       setLoading(true);
-      await signin(email, password);
-      navigate('/home');
+      await resetPassword(email);
+      setMessage('check your inbox for further instructions');
     } catch (error) {
-      if (error.code === 'auth/wrong-password') {
-        setError('Wrong Password! please try again!');
-      }
-      if (error.code === 'auth/user-not-found') {
-        setError("User doesn't exist! Create new account");
-      }
+      setError('Failed to reset password');
     }
     setLoading(false);
   }
-  const handleGoogleSignIn = async (e) => {
-    e.preventDefault();
-    try {
-      await googleSignIn();
-      navigate('/home');
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
   return (
     <Container className="small-container">
-      <div>
-        <GoogleButton
-          className="g-btn text-center w-100 mb-3"
-          type="light"
-          onClick={handleGoogleSignIn}
-        />
-      </div>
       <Card>
         <Card.Body>
           <Helmet>
-            <title>Sign In</title>
+            <title>Password Reset</title>
           </Helmet>
 
-          <h3 className="my-3 text-center mb-4">Sign In with email</h3>
+          <h3 className="my-3 text-center mb-4">Enter email</h3>
           {error && <MessageBox variant="danger">{error}</MessageBox>}
+          {message && <MessageBox variant="success">{message}</MessageBox>}
           <Form onSubmit={handleSubmit}>
             <FormGroup className="mb-3" id="email">
-              <Form.Label>Email</Form.Label>
               <Form.Control
                 type="email"
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </FormGroup>
-            <FormGroup className="mb-3" id="password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </FormGroup>
             <Button className="w-100" disabled={loading} type="submit">
-              Sign In
+              Reset Password
             </Button>
           </Form>
           <div className="text-center mt-4">
-            <Link className="links ml-2" to="/forgotpassword">
-              Forgot password?
+            <Link className="links ml-2" to="/signin">
+              Sign in
             </Link>
           </div>
         </Card.Body>
@@ -94,4 +65,4 @@ function SignInScreen() {
     </Container>
   );
 }
-export default SignInScreen;
+export default ForgotPassword;

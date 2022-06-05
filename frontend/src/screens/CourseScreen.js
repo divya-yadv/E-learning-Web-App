@@ -1,12 +1,13 @@
 import axios from 'axios';
 import { useEffect, useReducer } from 'react';
 import { useParams } from 'react-router-dom';
-import { Row, Col, ListGroup, Button, Card } from 'react-bootstrap';
+import { Row, Col, ListGroup, Button, Card, Container } from 'react-bootstrap';
 import Rating from '../components/Rating';
 import { Helmet } from 'react-helmet-async';
 import Loading from '../components/Loading';
 import MessageBox from '../components/MessageBox';
 import getError from '../utils';
+import Content from '../components/Content';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -99,7 +100,12 @@ function CourseScreen() {
           </Card>
         </Col>
 
-        <Col sm={1} md={2}></Col>
+        <Col sm={1} md={2}>
+          <Container>
+            <h3>Course Content</h3>
+            <Content content={course.content} />
+          </Container>
+        </Col>
       </Row>
     </div>
   );

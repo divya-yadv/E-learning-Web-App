@@ -75,6 +75,10 @@ main {
   margin: 0px;
   padding: 0;
 }
+.nav-link {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
 .rating span {
   color: #e8777d;
 }
@@ -103,4 +107,14 @@ span.rating-inline {
 }
 span.mr-4 {
   margin-right: 4px;
+}
+.navbar-collapse {
+  flex-grow: 0;
+}
+.search-box {
+  flex-grow: 0.5;
+  margin-left: 4rem;
+}
+.navbar-dark .navbar-nav .nav-link.active {
+  color: #404040;
 }

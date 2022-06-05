@@ -43,7 +43,7 @@ function HomeScreen() {
       <Helmet>
         <title>SmartLearn</title>
       </Helmet>
-      <h1>Featured Courses</h1>
+      <h1 className="mt-4">Most Popular Courses</h1>
       <div className="courses">
         {loading ? (
           <div>

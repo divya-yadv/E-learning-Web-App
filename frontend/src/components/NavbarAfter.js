@@ -14,8 +14,8 @@ export default function NavbarAfter() {
             </Figure>
           </Navbar.Brand>
         </LinkContainer>
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
+        <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav ">
+          <Nav className="ml-3">
             {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
@@ -27,12 +27,19 @@ export default function NavbarAfter() {
                 Separated link
               </NavDropdown.Item>
             </NavDropdown> */}
-            <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/courses">Courses</Nav.Link>
-            <Nav.Link href="#pricing">Teach</Nav.Link>
-            <Nav.Link href="../screens/HomeScreen">Home</Nav.Link>
-            <Nav.Link href="#features">Courses</Nav.Link>
-            <Nav.Link href="#pricing">Teach</Nav.Link>
+
+            <Nav.Link className="Navbarlinks active"  href="/">
+              Home
+            </Nav.Link>
+            <Nav.Link className="Navbarlinks" href="/courses">
+              Courses
+            </Nav.Link>
+            <Nav.Link className="Navbarlinks" href="#pricing">
+              Teach
+            </Nav.Link>
+            <Nav.Link className="Navbarlinks" href="#pricing">
+              Contact Us
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

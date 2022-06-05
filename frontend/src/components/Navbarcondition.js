@@ -4,5 +4,5 @@ import NavbarAfter from './NavbarAfter';
 
 export default function Navbarcondition() {
   const { currentUser } = useUserAuth();
-  return <header>{!currentUser ? <NavbarAfter /> : <NavBar />}</header>;
+  return <header>{!currentUser ? <NavBar /> : <NavbarAfter />}</header>;
 }

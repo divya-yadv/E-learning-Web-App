@@ -9,7 +9,6 @@ courseRouter.get('/', async (req, res) => {
 courseRouter.get('/:slug', async (req, res) => {
   try {
     const getcourse = await Course.findOne({ slug: req.params.slug });
-    console.log(getcourse);
     res.send(getcourse);
   } catch (error) {
     res.status(404).send({ message: 'Course Not Found' });
@@ -18,7 +17,6 @@ courseRouter.get('/:slug', async (req, res) => {
 courseRouter.get('/:id', async (req, res) => {
   try {
     const getcourse = await Course.findById(req.params.id);
-    console.log(getcourse);
     res.send(getcourse);
   } catch (error) {
     res.status(404).send({ message: 'Course Not Found' });

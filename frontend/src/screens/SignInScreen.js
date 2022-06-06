@@ -20,7 +20,6 @@ function SignInScreen() {
       setError('');
       setLoading(true);
       await signin(email, password);
-      navigate('/home');
     } catch (error) {
       if (error.code === 'auth/wrong-password') {
         setError('Wrong Password! please try again!');
@@ -35,7 +34,7 @@ function SignInScreen() {
     e.preventDefault();
     try {
       await googleSignIn();
-      navigate('/home');
+      navigate('/studentdashboard');
     } catch (error) {
       console.log(error.message);
     }
@@ -55,21 +54,23 @@ function SignInScreen() {
             <title>Sign In</title>
           </Helmet>
 
-          <h3 className="my-3 text-center mb-4">Sign In with email</h3>
+          <h3 className="my-3 mb-4">Or</h3>
           {error && <MessageBox variant="danger">{error}</MessageBox>}
           <Form onSubmit={handleSubmit}>
             <FormGroup className="mb-3" id="email">
-              <Form.Label>Email</Form.Label>
+              <Form.Label>Enter Email</Form.Label>
               <Form.Control
                 type="email"
+                autoComplete="email"
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </FormGroup>
             <FormGroup className="mb-3" id="password">
-              <Form.Label>Password</Form.Label>
+              <Form.Label>Enter Password</Form.Label>
               <Form.Control
                 type="password"
+                autoComplete="password"
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />

@@ -11,18 +11,18 @@ body {
   margin-bottom: 1rem;
 }
 .btn-primary {
-  background-color: #fe5c5d;
-  color: black;
+  background-color: #273e61;
+  color: white;
 }
 .btn-primary:hover {
-  background-color: #d78c90;
+  background-color: #667ea2;
   color: black;
 }
 .btn:focus,
 .btn:active {
   outline: none !important;
   box-shadow: none;
-  background-color: #ed5960;
+  background-color: #667ea2;
 }
 .btn-lg {
   width: 98%;
@@ -57,6 +57,7 @@ body {
 figure {
   margin: 0px;
 }
+
 .links {
   text-decoration: none;
 }
@@ -80,7 +81,7 @@ main {
   margin-right: 1rem;
 }
 .rating span {
-  color: #e8777d;
+  color: goldenrod;
 }
 .rating-inline {
   display: inline-block;
@@ -102,7 +103,7 @@ span.rating-inline {
   top: 0;
 }
 .small-container {
-  width: 400px;
+  max-width: 400px;
   margin-top: 7rem;
 }
 span.mr-4 {
@@ -115,6 +116,71 @@ span.mr-4 {
   flex-grow: 0.5;
   margin-left: 4rem;
 }
-.navbar-dark .navbar-nav .nav-link.active {
-  color: #404040;
+.navbar-light .navbar-nav .nav-link {
+  color: #f3e7e7f7;
+}
+.bg-light,
+.bg-black {
+  background-color: #395783 !important;
+}
+.btn-outline-success {
+  color: white;
+  border-color: white;
+}
+.btn-outline-success:active {
+  color: white;
+  border-color: white;
+}
+.ms-1 {
+  margin-left: -2.5rem !important;
+}
+.get-started {
+  max-height: max-content;
+  max-width: 1000px;
+  position: relative;
+  top: 7rem;
+  margin-bottom: 18rem;
+  -moz-box-shadow: 10px 10px 16px #000000;
+  -webkit-box-shadow: 10px 10px 16px #000000;
+  box-shadow: 10px 10px 16px #000000;
+}
+.get-started Card {
+  position: absolute;
+  background-color: #395783;
+}
+.get-started img {
+  width: 500px;
+  height: 300px;
+  margin-left: -1rem;
+  position: relative;
+  bottom: -5rem;
+  left: -2rem;
+}
+.get-started Button {
+  position: relative;
+  margin: 3rem 5rem 3rem 5rem;
+  background-color: rgb(207, 146, 56);
+  padding: 0.5rem;
+  text-decoration-line: none;
+}
+.gettext .btn-primary a {
+  text-decoration: none;
+  color: black;
+}
+.gettext .btn-primary:hover {
+  background-color: blanchedalmond;
+}
+.gettext {
+  margin-left: 0;
+  background-color: #395783;
+  color: white;
+}
+.text-warning button {
+  border: none;
+  background-color: #395783;
+  color: #f8fc08;
+  font-size: 1rem;
+  font-weight: var(--bs-body-font-weight);
+  padding: 0px;
+  margin: 0px;
 }

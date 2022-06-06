@@ -4,12 +4,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useUserAuth } from '../contexts/AuthContext';
 import MessageBox from '../components/MessageBox';
+import GoogleButton from 'react-google-button';
 
 function SignUpScreen() {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
-  const { signup } = useUserAuth();
+  const { signup, googleSignIn } = useUserAuth();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   let navigate = useNavigate();
@@ -34,28 +36,56 @@ function SignUpScreen() {
     }
     setLoading(false);
   }
+  const handleGoogleSignIn = async (e) => {
+    e.preventDefault();
+    try {
+      await googleSignIn();
+      navigate('/studentdashboard');
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   return (
     <Container className="small-container">
+      <div>
+        <GoogleButton
+          className="g-btn text-center w-100 mb-3"
+          type="light"
+          label="Continue With Google"
+          onClick={handleGoogleSignIn}
+        />
+      </div>
       <Card>
         <Card.Body>
           <Helmet>
             <title>Sign Up</title>
           </Helmet>
-          <h1 className="my-3 text-center mb-4">Sign Up</h1>
+          <h4 className="my-3 mb-4">or </h4>
           {error && <MessageBox variant="danger">{error}</MessageBox>}
           <Form onSubmit={handleSubmit}>
+            <FormGroup className="mb-3" id="name">
+              <Form.Label>Enter Name</Form.Label>
+              <Form.Control
+                type="text"
+                autoComplete="name"
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+            </FormGroup>
             <FormGroup className="mb-3" id="email">
-              <Form.Label>Email</Form.Label>
+              <Form.Label>Enter Email</Form.Label>
               <Form.Control
                 type="email"
+                autoComplete="email"
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </FormGroup>
             <FormGroup className="mb-3" id="password">
-              <Form.Label>Password</Form.Label>
+              <Form.Label>Enter Password</Form.Label>
               <Form.Control
                 type="password"
+                autoComplete="password"
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
@@ -64,6 +94,7 @@ function SignUpScreen() {
               <Form.Label>Confirm Password</Form.Label>
               <Form.Control
                 type="password"
+                autoComplete="password"
                 onChange={(e) => setPasswordConfirm(e.target.value)}
                 required
               />

@@ -175,12 +175,20 @@ span.mr-4 {
   background-color: #395783;
   color: white;
 }
-.text-warning button {
-  border: none;
-  background-color: #395783;
-  color: #f8fc08;
-  font-size: 1rem;
-  font-weight: var(--bs-body-font-weight);
-  padding: 0px;
-  margin: 0px;
+.teachsignupbutton.nav-link {
+  text-decoration: none;
+  background-color: #990f0f;
+  color: #8e1e1e;
+  margin-bottom: 1px;
+  border-top: 1px solid #d52f2f;
+  border-right: 1px solid #631e1e;
+  border-bottom: 1px solid #611717;
+  border-left: 1px solid #7b1919;
+}
+.teachsignupbar {
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 0, 0, 0),
+    rgb(37, 95, 153)
+  );
 }

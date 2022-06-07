@@ -1,13 +1,10 @@
 import React, { useState, useContext } from 'react';
 import { Container, Figure, Nav, Navbar } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
+import { Link } from 'react-router-dom';
 import logo from '../../assests/Brand.png';
 
 export default function NavbarGetStarted({ children }) {
-  const [clicked, setClicked] = useState(false);
-  function handleClick() {
-    return setClicked(true);
-  }
   return (
     <Navbar bg="light" variant="light" expand="lg">
       <Container>
@@ -35,8 +32,8 @@ export default function NavbarGetStarted({ children }) {
             <Nav.Link href="/about">About</Nav.Link>
             <Nav.Link href="/allcourses">Browse Courses</Nav.Link>
 
-            <Nav.Link className="text-warning" href="/teachsignup">
-              <button onClick={handleClick}>Teach</button>
+            <Nav.Link className="teachsignupbutton" href="/teachsignup">
+              Teach
             </Nav.Link>
             <Nav.Link href="/signup">Sign Up</Nav.Link>
 

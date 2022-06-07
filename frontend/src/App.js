@@ -8,29 +8,29 @@ import GetStarted from './screens/GetStartedScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import StudentDashboard from './screens/StudentDashboard';
 import TeacherDashboard from './screens/TeacherDashboard';
+import TeachSignUp from './screens/TeachSignUp';
 
 import NavbarGetStarted from './components/Navbar/NavbarGetStarted';
 import NavbarSignup from './components/Navbar/NavbarSignup';
 import NavbarSignIn from './components/Navbar/NavbarSignIn';
+import NavbarTeachSignUp from './components/Navbar/NavbarTeachSignUp';
 import StudentNavbar from './components/Navbar/StudentNavbar';
 import TeacherNavbar from './components/Navbar/TeacherNavbar';
 import ForgotPassword from './components/ForgotPassword';
 import Footer from './components/footer';
 
-import { AuthProvider, useUserAuth } from './contexts/AuthContext';
+import { AuthProvider } from './contexts/AuthContext';
 import { Container } from 'react-bootstrap';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 function App() {
-  const { currentUser } = useUserAuth();
-  console.log(currentUser);
   return (
     <BrowserRouter>
       <div className="d-flex flex-column site-container">
         <AuthProvider>
           <Routes>
             <Route path="/" element={<NavbarGetStarted />} />
-            <Route path="/teachsignup" element={<NavbarSignup />} />
+            <Route path="/teachsignup" element={<NavbarTeachSignUp />} />
             <Route path="/teachsignin" element={<NavbarSignIn />} />
             <Route path="/signin" element={<NavbarSignIn />} />
             <Route path="/signup" element={<NavbarSignup />} />
@@ -46,7 +46,7 @@ function App() {
                 <Route path="/about" element={<AboutScreen />} />
                 <Route path="/contact" element={<ContactScreen />} />
                 <Route path="/allcourses" element={<AllCourses />} />
-                <Route path="/teachsignup" element={<SignUpScreen />} />
+                <Route path="/teachsignup" element={<TeachSignUp />} />
                 <Route path="/teachsignin" element={<SignInScreen />} />
                 <Route path="/courses/:slug" element={<CourseScreen />} />
                 <Route path="/signin" element={<SignInScreen />} />

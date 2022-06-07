@@ -1,13 +1,13 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 const firebaseConfig = {
-  apiKey: `${process.env.REACT_APP_FIREBASE_apiKey}`,
-  authDomain: `${process.env.REACT_APP_FIREBASE_authDomain}`,
-  databaseURL: `${process.env.REACT_APP_FIREBASE_databaseURL}`,
-  projectId: `${process.env.REACT_APP_FIREBASE_projectId}`,
-  storageBucket: `${process.env.REACT_APP_FIREBASE_storageBucket}`,
-  messagingSenderId: `${process.env.REACT_APP_FIREBASE_messagingSenderId}`,
-  appId: `${process.env.REACT_APP_FIREBASE_appId}`,
+  apiKey: 'AIzaSyATsL0INCf1mcvclbUIdieLJV2dnVf97_Y',
+  authDomain: 'e-learning-auth-dev.firebaseapp.com',
+  databaseURL: 'https://e-learning-auth-dev-default-rtdb.firebaseio.com/',
+  projectId: 'e-learning-auth-dev',
+  storageBucket: 'e-learning-auth-dev.appspot.com',
+  messagingSenderId: '136394273630',
+  appId: '1:136394273630:web:d2787aa94b8fbd38f2d5cf',
 };
 
 // Initialize Firebase

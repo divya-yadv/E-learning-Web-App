@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useUserAuth } from '../contexts/AuthContext';
 import MessageBox from '../components/MessageBox';
 import GoogleButton from 'react-google-button';
+import axios from 'axios';
 
 function SignUpScreen() {
   const [name, setName] = useState('');
@@ -15,7 +16,6 @@ function SignUpScreen() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   let navigate = useNavigate();
-
   async function handleSubmit(e) {
     e.preventDefault();
     if (password !== passwordConfirm) {
@@ -24,7 +24,16 @@ function SignUpScreen() {
     try {
       setError('');
       setLoading(true);
-      await signup(email, password);
+      const res = await signup(email, password);
+      try {
+        await axios.post('/api/users/signup', {
+          email: res.user.email,
+          name: name,
+          type: 'student',
+        });
+      } catch (error) {
+        setError(error);
+      }
       navigate('/signin');
     } catch (error) {
       console.log(error.code);
@@ -39,7 +48,18 @@ function SignUpScreen() {
   const handleGoogleSignIn = async (e) => {
     e.preventDefault();
     try {
-      await googleSignIn();
+      const response = await googleSignIn();
+      console.log(response.user.displayName);
+      try {
+        await axios.post('/api/users/signup', {
+          email: response.user.email,
+          name: response.user.displayName,
+          type: 'student',
+          photoURL: response.user.photoURL,
+        });
+      } catch (error) {
+        setError(error);
+      }
       navigate('/studentdashboard');
     } catch (error) {
       console.log(error.message);
@@ -106,8 +126,8 @@ function SignUpScreen() {
         </Card.Body>
       </Card>
       <div className="text-center mt-4">
-        <span>
-          Already have an account?
+        <span>Already have an account?</span>
+        <span className="ms-2">
           <Link className="links" to="/signin">
             Sign In
           </Link>

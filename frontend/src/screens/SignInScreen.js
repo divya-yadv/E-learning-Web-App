@@ -5,6 +5,7 @@ import { useState } from 'react';
 import GoogleButton from 'react-google-button';
 import { useUserAuth } from '../contexts/AuthContext';
 import MessageBox from '../components/MessageBox';
+import axios from 'axios';
 
 function SignInScreen() {
   const [email, setEmail] = useState('');
@@ -19,7 +20,16 @@ function SignInScreen() {
     try {
       setError('');
       setLoading(true);
-      await signin(email, password);
+      const data = await signin(email, password);
+      try {
+        const response = await axios.post('/api/users/signin', {
+          email: data.user.email,
+        });
+        console.log(response);
+      } catch (error) {
+        setError(error);
+      }
+      navigate('/studentdashboard');
     } catch (error) {
       if (error.code === 'auth/wrong-password') {
         setError('Wrong Password! please try again!');
@@ -33,7 +43,15 @@ function SignInScreen() {
   const handleGoogleSignIn = async (e) => {
     e.preventDefault();
     try {
-      await googleSignIn();
+      const data = await googleSignIn();
+      try {
+        const response = await axios.post('/api/users/signin', {
+          email: data.user.email,
+        });
+        console.log(response);
+      } catch (error) {
+        setError(error);
+      }
       navigate('/studentdashboard');
     } catch (error) {
       console.log(error.message);

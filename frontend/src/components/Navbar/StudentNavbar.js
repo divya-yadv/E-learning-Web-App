@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Container, Figure, Nav, Navbar } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
+import { Link } from 'react-router-dom';
 import logo from '../../assests/Brand.png';
-export default function NavbarGetStarted() {
-  const [role, setRole] = useState('student');
-  function handleClick() {
-    return setRole('teacher');
-  }
+
+export default function StudentNavbar({ children }) {
   return (
     <Navbar bg="light" variant="light" expand="lg">
       <Container>
@@ -14,9 +12,9 @@ export default function NavbarGetStarted() {
           <Navbar.Brand>
             <Figure>
               <Figure.Image
-                width={250}
-                height={250}
-                className="rounded ms-1 mb-1 mt-1"
+                width={300}
+                height={300}
+                className="rounded ms-1 mb-2 mt-2"
                 alt="logo"
                 src={logo}
               />
@@ -27,20 +25,15 @@ export default function NavbarGetStarted() {
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
-            className="me-2 nav-tabs homenavbar"
+            className="me-0 nav-tabs homenavbar"
             style={{ maxHeight: '200px' }}
             navbarScroll
           >
             <Nav.Link href="/allcourses">Browse Courses</Nav.Link>
 
-            <Nav.Link className="text-warning" href="/teachsignup">
-              <button onClick={handleClick}>Teach</button>
+            <Nav.Link className="teachsignupbutton" href="/teacherdashboard">
+              Teach
             </Nav.Link>
-            <Nav.Link href="/signup">Sign Up</Nav.Link>
-
-            <Nav.Link href="/signin">Sign In</Nav.Link>
-
-            <Nav.Link href="/contact">Contact Us</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

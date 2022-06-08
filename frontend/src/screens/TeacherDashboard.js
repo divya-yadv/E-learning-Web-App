@@ -1,7 +1,7 @@
 import React from 'react';
 
 function TeacherDashboard() {
-  return <div></div>;
+  return ;
 }
 
 export default TeacherDashboard;

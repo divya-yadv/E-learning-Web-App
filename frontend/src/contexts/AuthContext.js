@@ -8,6 +8,7 @@ import {
   signInWithPopup,
   sendPasswordResetEmail,
   sendSignInLinkToEmail,
+  deleteUser,
 } from 'firebase/auth';
 import { auth } from '../firebase';
 const AuthContext = React.createContext();
@@ -27,6 +28,9 @@ export function AuthProvider({ children }) {
   }
   function logOut() {
     return signOut(auth);
+  }
+  function deleteuser() {
+    return deleteUser(auth, currentUser);
   }
   function googleSignIn() {
     const googleAuthProvider = new GoogleAuthProvider();
@@ -54,6 +58,7 @@ export function AuthProvider({ children }) {
     googleSignIn,
     resetPassword,
     sendLinkToVerify,
+    deleteuser,
   };
   return (
     <AuthContext.Provider value={value}>

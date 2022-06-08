@@ -12,9 +12,9 @@ export default function NavbarGetStarted({ children }) {
           <Navbar.Brand>
             <Figure>
               <Figure.Image
-                width={250}
-                height={250}
-                className="rounded ms-1 mb-1 mt-1"
+                width={300}
+                height={300}
+                className="rounded ms-1 mb-3 mt-3"
                 alt="logo"
                 src={logo}
               />
@@ -25,14 +25,14 @@ export default function NavbarGetStarted({ children }) {
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
-            className="me-2 nav-tabs homenavbar"
+            className="me-0 nav-tabs homenavbar"
             style={{ maxHeight: '200px' }}
             navbarScroll
           >
             <Nav.Link href="/about">About</Nav.Link>
             <Nav.Link href="/allcourses">Browse Courses</Nav.Link>
 
-            <Nav.Link className="teachsignupbutton" href="/teachsignup">
+            <Nav.Link className="teachsignupbutton" href="/signup">
               Teach
             </Nav.Link>
             <Nav.Link href="/signup">Sign Up</Nav.Link>

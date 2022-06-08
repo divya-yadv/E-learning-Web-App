@@ -6,6 +6,7 @@ import GoogleButton from 'react-google-button';
 import { useUserAuth } from '../contexts/AuthContext';
 import MessageBox from '../components/MessageBox';
 import axios from 'axios';
+import { sendEmailVerification } from 'firebase/auth';
 
 function SignInScreen() {
   const [email, setEmail] = useState('');
@@ -20,16 +21,21 @@ function SignInScreen() {
     try {
       setError('');
       setLoading(true);
+
       const data = await signin(email, password);
-      try {
-        const response = await axios.post('/api/users/signin', {
-          email: data.user.email,
-        });
-        console.log(response);
-      } catch (error) {
-        setError(error);
+      if (data.user.emailVerified === true) {
+        try {
+          const response = await axios.post('/api/users/signin', {
+            email: data.user.email,
+          });
+        } catch (error) {
+          setError(error);
+        }
+        navigate('/dashboard');
+      } else {
+        sendEmailVerification(data.user);
+        setError('Check your inbox and verify your email first!');
       }
-      navigate('/studentdashboard');
     } catch (error) {
       if (error.code === 'auth/wrong-password') {
         setError('Wrong Password! please try again!');
@@ -44,35 +50,28 @@ function SignInScreen() {
     e.preventDefault();
     try {
       const data = await googleSignIn();
+      sendEmailVerification(data.user);
       try {
         const response = await axios.post('/api/users/signin', {
           email: data.user.email,
         });
-        console.log(response);
       } catch (error) {
         setError(error);
       }
-      navigate('/studentdashboard');
+      navigate('/dashboard');
     } catch (error) {
       console.log(error.message);
     }
   };
   return (
     <Container className="small-container">
-      <div>
-        <GoogleButton
-          className="g-btn text-center w-100 mb-3"
-          type="light"
-          onClick={handleGoogleSignIn}
-        />
-      </div>
       <Card>
         <Card.Body>
           <Helmet>
             <title>Sign In</title>
           </Helmet>
 
-          <h3 className="my-3 mb-4">Or</h3>
+          <h3 className="text-center my-3 mb-4">Welcome</h3>
           {error && <MessageBox variant="danger">{error}</MessageBox>}
           <Form onSubmit={handleSubmit}>
             <FormGroup className="mb-3" id="email">
@@ -104,6 +103,13 @@ function SignInScreen() {
           </div>
         </Card.Body>
       </Card>
+      <div>
+        <GoogleButton
+          className="g-btn text-center w-100 mt-3 mb-3"
+          type="light"
+          onClick={handleGoogleSignIn}
+        />
+      </div>
       <div className="text-center mt-4">
         <span className="mr-4">Don't have an account?</span>
         <Link className="links ml-2" to="/signup">

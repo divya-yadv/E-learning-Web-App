@@ -98,10 +98,6 @@ span.rating-text {
 span.rating-inline {
   display: inline-block;
 }
-.sticky-nav {
-  position: sticky;
-  top: 0;
-}
 .small-container {
   max-width: 400px;
   margin-top: 7rem;
@@ -133,16 +129,18 @@ span.mr-4 {
 }
 .ms-1 {
   margin-left: -2.5rem !important;
+  margin-right: 1rem;
 }
 .get-started {
   max-height: max-content;
-  max-width: 1000px;
+  max-width: 1050px;
   position: relative;
-  top: 7rem;
-  margin-bottom: 18rem;
+  top: 13rem;
+  margin-bottom: 25rem;
   -moz-box-shadow: 10px 10px 16px #000000;
   -webkit-box-shadow: 10px 10px 16px #000000;
   box-shadow: 10px 10px 16px #000000;
+  line-height: 2;
 }
 .get-started Card {
   position: absolute;
@@ -174,6 +172,7 @@ span.mr-4 {
   margin-left: 0;
   background-color: #395783;
   color: white;
+  padding-left: 2rem;
 }
 .teachsignupbutton.nav-link {
   text-decoration: none;
@@ -191,4 +190,47 @@ span.mr-4 {
     rgba(255, 0, 0, 0),
     rgb(37, 95, 153)
   );
+  margin-top: 100px;
+}
+.g-btn {
+  background-color: #41464b !important;
+  color: white !important;
+  width: 90% !important;
+  margin: auto;
+}
+.navbars {
+  box-shadow: 1px 0 5px rgb(0 0 0 / 80%);
+}
+.sidenavbar {
+  position: fixed;
+  left: 0px;
+  margin: 62px 0 0 0;
+  overflow-y: auto;
+  flex-direction: column;
+  width: 20%;
+  height: 100% !important;
+  box-sizing: border-box;
+  justify-content: safe;
+  background-color: #395783;
+}
+.profilepic {
+  border-radius: 100%;
+  border: 3px solid rgba(0, 0, 0, 0.249);
+}
+
+.sidebarcolumn {
+  width: 100%;
+}
+.profilediv {
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+}
+
+.buttonsidebar {
+  width: 50%;
+}
+.sidebarcolumn .row {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }

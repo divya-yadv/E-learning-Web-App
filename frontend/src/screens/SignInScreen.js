@@ -64,7 +64,7 @@ function SignInScreen() {
     }
   };
   return (
-    <Container className="small-container">
+    <Container className="small-container shadow ">
       <Card>
         <Card.Body>
           <Helmet>

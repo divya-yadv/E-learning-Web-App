@@ -5,16 +5,16 @@ import Rating from './Rating';
 function Course(props) {
   const { course } = props;
   return (
-    <Card>
-      <Link to={`/courses/${course.slug}`}>
+    <Card className="shadow">
+      <Link to={`/courses/slug/${course.slug}`}>
         <Card.Img
           className="card-img-top"
-          src={course.image}
+          src={course.thumbnail}
           alt={course.Course_name}
         />
       </Link>
       <Card.Body>
-        <Link className="title" to={`/courses/${course.slug}`}>
+        <Link className="title" to={`/courses/slug/${course.slug}`}>
           <Card.Title>{course.Course_name}</Card.Title>
         </Link>
         <Card.Text>{course.course_instructor}</Card.Text>

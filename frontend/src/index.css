@@ -5,6 +5,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #b2cecf;
+}
+.shadow {
+  box-shadow: 10px 10px 16px #000000 !important;
 }
 .alert-warning {
   margin-top: 1rem;
@@ -47,9 +51,6 @@ body {
 .course-info {
   padding: 1rem;
 }
-.center {
-  text-align: center;
-}
 .img-large {
   max-width: 50rem;
   max-height: 300px;
@@ -91,6 +92,8 @@ span.rating-text {
 }
 .site-container {
   min-height: 100vh;
+  justify-content: center;
+  align-items: center;
 }
 .signupscreen {
   background-image: url(./assests/backgroundsign.jpg);
@@ -233,4 +236,72 @@ span.mr-4 {
 .sidebarcolumn .row {
   margin-top: 1rem;
   margin-bottom: 1rem;
+}
+
+#thumbnailinput {
+  display: none;
+}
+input[type='file'] {
+  display: none;
+}
+.thumbnail-file-upload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+  background-color: #273e61;
+  color: white;
+  width: 70%;
+  margin: auto;
+}
+.inputoutlines {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 2px solid #000000;
+  margin: auto;
+  width: 70%;
+}
+.inputoutlines:focus {
+  border-bottom: 5px solid #000000;
+  box-shadow: none;
+}
+.newcourse {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  padding: 0;
+  min-width: 29%;
+}
+.marginsetapp {
+  min-width: 100vw !important;
+  margin: 0px !important;
+}
+
+.card {
+  background-color: #b2cecf;
+}
+.container {
+  min-width: 90vw;
+  margin: auto;
+}
+.btn-danger {
+  background-color: #611717;
+}
+.uploadbutton {
+  float: right;
+  clear: left;
+  margin-top: -4rem;
+}
+
+.text-start {
+  margin-left: 2rem;
+  margin-bottom: 2rem;
+}
+.teacherdashboard {
+  margin-top: 6rem !important;
+  min-width: 100vh !important;
+}
+.addbutton {
+  width: 25%;
+  margin-left: 2rem;
 }

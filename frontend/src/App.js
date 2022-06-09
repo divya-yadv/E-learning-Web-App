@@ -16,16 +16,18 @@ import StudentNavbar from './components/Navbar/StudentNavbar';
 import TeacherNavbar from './components/Navbar/TeacherNavbar';
 import ForgotPassword from './components/ForgotPassword';
 import Footer from './components/footer';
+import NewCourse from './components/Newcourse';
 
 import { AuthProvider } from './contexts/AuthContext';
 import { Container } from 'react-bootstrap';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import PrivateRoute from './components/PrivateRoute';
+import CreateCourseNavbar from './components/Navbar/CreateCourseNavbar';
 
 function App() {
   return (
     <BrowserRouter>
-      <div className="d-flex flex-column site-container">
+      <div className="d-flex flex-column site-container ">
         <AuthProvider>
           <header className="fixed-top h5-small navbars">
             <Routes>
@@ -34,22 +36,34 @@ function App() {
               <Route path="/signup" element={<NavbarSignup />} />
               <Route path="/dashboard" element={<StudentNavbar />} />
               <Route path="/teacherdashboard" element={<TeacherNavbar />} />
+              <Route
+                path="/teach/createnewcourse"
+                element={<CreateCourseNavbar />}
+              />
             </Routes>
           </header>
         </AuthProvider>
-        <main>
-          <Container>
+        <main className="w-100">
+          <Container className="marginsetapp">
             <AuthProvider>
               <Routes>
                 <Route path="/" element={<GetStarted />} />
                 <Route path="/about" element={<AboutScreen />} />
                 <Route path="/contact" element={<ContactScreen />} />
                 <Route path="/allcourses" element={<AllCourses />} />
-                <Route path="/courses/:slug" element={<CourseScreen />} />
+                <Route path="/courses/slug/:slug" element={<CourseScreen />} />
                 <Route path="/signin" element={<SignInScreen />} />
                 <Route path="/signup" element={<SignUpScreen />} />
                 <Route path="/profile" element={<ProfileScreen />} />
                 <Route path="/forgotpassword" element={<ForgotPassword />} />
+                <Route
+                  path="/teach/createnewcourse"
+                  element={
+                    <PrivateRoute>
+                      <NewCourse />
+                    </PrivateRoute>
+                  }
+                />
                 <Route
                   path="/dashboard"
                   element={
@@ -60,7 +74,11 @@ function App() {
                 />
                 <Route
                   path="/teacherdashboard"
-                  element={<TeacherDashboard />}
+                  element={
+                    <PrivateRoute>
+                      <TeacherDashboard />
+                    </PrivateRoute>
+                  }
                 />
               </Routes>
             </AuthProvider>

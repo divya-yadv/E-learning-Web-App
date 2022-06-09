@@ -2,7 +2,8 @@ import React from 'react';
 import { Button, Container, Figure, Nav, Navbar } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import logo from '../../assests/Brand.png';
-export default function TeacherNavbar() {
+
+export default function CreateCourseNavbar() {
   return (
     <Navbar bg="light" variant="light" expand="lg">
       <Container>
@@ -27,7 +28,7 @@ export default function TeacherNavbar() {
             style={{ maxHeight: '200px' }}
             navbarScroll
           >
-            <Nav.Link href="/allcourses">Browse Courses</Nav.Link>
+            <Nav.Link href="/teachdashboard">Go to Dashboard</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

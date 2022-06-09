@@ -22,7 +22,7 @@ app.use(express.urlencoded());
 //create api to send data from this path
 app.use('/api/seed', seedRouter);
 app.use('/api/courses', courseRouter);
-app.use('/api/users', userRouter);
+app.use('/', userRouter);
 //listen to port
 app.use((err, req, res, next) => {
   res.status(500).send({ message: err.message });

@@ -1,10 +1,16 @@
 import mongoose from 'mongoose';
+import Course from '../models/courseModel.js';
 
 const userSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
     user_name: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
+    createdCourses: [
+      { type: mongoose.Schema.Types.ObjectId, ref: 'Course' },
+    ],
+    buyedCourses: [ { type: mongoose.Schema.Types.ObjectId, ref: 'Course' },],
+    cart: [ { type: mongoose.Schema.Types.ObjectId, ref: 'Course' },],
   },
   {
     timestamps: true,

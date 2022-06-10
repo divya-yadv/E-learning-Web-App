@@ -1,5 +1,5 @@
 import express, { urlencoded } from 'express';
-import data from './data.js';
+import path from 'path';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import seedRouter from './routes/seedRoute.js';
@@ -14,7 +14,6 @@ mongoose
   .connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useFindAndModify: false,
   })
   .then(() => {
     console.log('connected to db');
@@ -35,7 +34,14 @@ let port = process.env.PORT;
 if (port == null || port == '') {
   port = 5000;
 }
+const __dirname = path.resolve();
+// Serve static files from the React frontend app
+app.use(express.static(path.join(__dirname, '/frontend/build')));
 
+// AFTER defining routes: Anything that doesn't match what's above, send back index.html; (the beginning slash ('/') in the string is important!)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + '/frontend/build/index.html'));
+});
 app.listen(port, function () {
   console.log('Server started succesfully');
 });

@@ -11,7 +11,11 @@ dotenv.config();
 const app = express();
 app.use(cors());
 mongoose
-  .connect(process.env.MONGODB_URI, { useNewUrlParser: true })
+  .connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+  })
   .then(() => {
     console.log('connected to db');
   })

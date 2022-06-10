@@ -1,9 +1,8 @@
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import BrandLogo from '../BrandLogo';
 import { useUserAuth } from '../../contexts/AuthContext';
-import GetUser from '../GetUser';
 
-export default function NavbarGetStarted({ children }) {
+export default function NavbarCourse({ children }) {
   const { currentUser } = useUserAuth();
   return (
     <Navbar bg="light" variant="light" expand="lg">
@@ -16,23 +15,9 @@ export default function NavbarGetStarted({ children }) {
             style={{ maxHeight: '200px' }}
             navbarScroll
           >
-            <Nav.Link href="/about">About</Nav.Link>
             <Nav.Link href="/allcourses">Browse Courses</Nav.Link>
-
-            <Nav.Link
-              className="teachsignupbutton"
-              href={currentUser ? '/teacherdashboard' : '/signup'}
-            >
-              Teach
-            </Nav.Link>
-            <Nav.Link href="/contact">Contact Us</Nav.Link>
             {!currentUser && <Nav.Link href="/signup">Sign Up</Nav.Link>}
             {!currentUser && <Nav.Link href="/signin">Sign In</Nav.Link>}
-            {currentUser && (
-              <Nav.Link href="/cart">
-                <i className="fa-solid fa-cart-shopping"></i>
-              </Nav.Link>
-            )}
             {currentUser && (
               <Nav.Link href="/userprofile">{currentUser.email}</Nav.Link>
             )}

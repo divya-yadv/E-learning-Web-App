@@ -29,9 +29,9 @@ export default function NewCourse() {
   const [price, setPrice] = useState(0);
   const [link, setLink] = useState('');
   const [sectionTitle, setTitle] = useState('');
-  const [sections, updateSections] = useState([{ title: '', link: '' }]);
+  const [sections, updateSections] = useState([]);
   const [img, setImg] = useState(
-    'https://images.unsplash.com/photo-1609602644879-dd158c2b56b4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887&q=80'
+    'https://images.unsplash.com/photo-1609602644879-dd158c2b56b4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=40'
   );
   const { currentUser } = useUserAuth();
   const [error, setError] = useState();
@@ -111,8 +111,8 @@ export default function NewCourse() {
 
                 <Figure>
                   <Figure.Image
-                    width={300}
-                    height={300}
+                    width={200}
+                    height={100}
                     className="rounded m-auto mb-3 mt-5"
                     alt="logo"
                     src={img}

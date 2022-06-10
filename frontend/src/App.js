@@ -23,11 +23,13 @@ import { Container } from 'react-bootstrap';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import PrivateRoute from './components/PrivateRoute';
 import CreateCourseNavbar from './components/Navbar/CreateCourseNavbar';
+import UpdateCourse from './components/UpdateCourse';
+import NavbarCourse from './components/Navbar/NavbarCourse';
 
 function App() {
   return (
     <BrowserRouter>
-      <div className="d-flex flex-column site-container ">
+      <div className="d-flex flex-column">
         <AuthProvider>
           <header className="fixed-top h5-small navbars">
             <Routes>
@@ -35,7 +37,12 @@ function App() {
               <Route path="/signin" element={<NavbarSignIn />} />
               <Route path="/signup" element={<NavbarSignup />} />
               <Route path="/dashboard" element={<StudentNavbar />} />
+              <Route path="/courses/slug/:slug" element={<NavbarCourse />} />
               <Route path="/teacherdashboard" element={<TeacherNavbar />} />
+              <Route
+                path="/courses/update/slug/:slug"
+                element={<CreateCourseNavbar />}
+              />
               <Route
                 path="/teach/createnewcourse"
                 element={<CreateCourseNavbar />}
@@ -43,8 +50,8 @@ function App() {
             </Routes>
           </header>
         </AuthProvider>
-        <main className="w-100">
-          <Container className="marginsetapp">
+        <main className="marginsetapp">
+          <Container>
             <AuthProvider>
               <Routes>
                 <Route path="/" element={<GetStarted />} />
@@ -52,6 +59,10 @@ function App() {
                 <Route path="/contact" element={<ContactScreen />} />
                 <Route path="/allcourses" element={<AllCourses />} />
                 <Route path="/courses/slug/:slug" element={<CourseScreen />} />
+                <Route
+                  path="/courses/update/slug/:slug"
+                  element={<UpdateCourse />}
+                />
                 <Route path="/signin" element={<SignInScreen />} />
                 <Route path="/signup" element={<SignUpScreen />} />
                 <Route path="/profile" element={<ProfileScreen />} />

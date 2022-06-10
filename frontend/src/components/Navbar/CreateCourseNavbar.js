@@ -28,7 +28,7 @@ export default function CreateCourseNavbar() {
             style={{ maxHeight: '200px' }}
             navbarScroll
           >
-            <Nav.Link href="/teachdashboard">Go to Dashboard</Nav.Link>
+            <Nav.Link href="/teacherdashboard">Go to Dashboard</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

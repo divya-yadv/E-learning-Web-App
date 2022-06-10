@@ -67,7 +67,7 @@ function GetStarted() {
           </Row>
         </Card>
       </Container>
-      <h1 className="mt-4">Most Popular Courses</h1>
+      <h1 className="mt-5 mb-5">Most Popular Courses</h1>
       <div className="courses">
         {loading ? (
           <div>
@@ -78,13 +78,7 @@ function GetStarted() {
         ) : (
           <Row>
             {courses.courses.map((course) => (
-              <Col
-                key={course.slug}
-                sm={6}
-                md={4}
-                lg={3}
-                className="mb-3"
-              >
+              <Col key={course.slug} sm={6} md={4} lg={4} className="mb-5 mt-5">
                 <Course course={course} />
               </Col>
             ))}

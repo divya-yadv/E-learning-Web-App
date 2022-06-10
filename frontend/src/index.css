@@ -9,6 +9,7 @@ body {
 }
 .shadow {
   box-shadow: 10px 10px 16px #000000 !important;
+  margin-bottom: 1rem;
 }
 .alert-warning {
   margin-top: 1rem;
@@ -30,9 +31,6 @@ body {
 }
 .btn-lg {
   width: 98%;
-}
-.container {
-  padding: 0px;
 }
 
 .courses {
@@ -90,20 +88,11 @@ main {
 span.rating-text {
   color: black;
 }
-.site-container {
-  min-height: 100vh;
-  justify-content: center;
-  align-items: center;
-}
 .signupscreen {
   background-image: url(./assests/backgroundsign.jpg);
 }
 span.rating-inline {
   display: inline-block;
-}
-.small-container {
-  max-width: 400px;
-  margin-top: 7rem;
 }
 span.mr-4 {
   margin-right: 4px;
@@ -129,10 +118,6 @@ span.mr-4 {
 .btn-outline-success:active {
   color: white;
   border-color: white;
-}
-.ms-1 {
-  margin-left: -2.5rem !important;
-  margin-right: 1rem;
 }
 .get-started {
   max-height: max-content;
@@ -272,18 +257,11 @@ input[type='file'] {
   padding: 0;
   min-width: 29%;
 }
-.marginsetapp {
-  min-width: 100vw !important;
-  margin: 0px !important;
-}
 
 .card {
   background-color: #b2cecf;
 }
-.container {
-  min-width: 90vw;
-  margin: auto;
-}
+
 .btn-danger {
   background-color: #611717;
 }
@@ -299,9 +277,38 @@ input[type='file'] {
 }
 .teacherdashboard {
   margin-top: 6rem !important;
-  min-width: 100vh !important;
+  min-width: 90vh !important;
 }
 .addbutton {
   width: 25%;
   margin-left: 2rem;
+}
+
+.marginsetapp {
+  margin: 1rem !important;
+  justify-content: center;
+  align-items: center;
+  margin-top: 7rem !important;
+}
+.container {
+  min-width: 90%;
+}
+.container-small {
+  width: 75%;
+  min-width: 75%;
+}
+.w-80 {
+  width: 80%;
+  align-items: center;
+  margin: auto;
+}
+.coursescreendiv .list-group-item {
+  border: none;
+}
+.sections ol li iframe {
+  display: none;
+}
+
+.sections ol li:first-child iframe {
+  display: flex !important;
 }

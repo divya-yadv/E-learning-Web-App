@@ -49,7 +49,7 @@ function GetCourse(props) {
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
         <Card className="shadow">
-          <Link to={`/courses/slug/${course.slug}`}>
+          <Link to={`/courses/update/slug/${course.slug}`}>
             <Card.Img
               className="card-img-top"
               src={course.thumbnail}
@@ -57,7 +57,7 @@ function GetCourse(props) {
             />
           </Link>
           <Card.Body>
-            <Link className="title" to={`/courses/slug/${course.slug}`}>
+            <Link className="title" to={`/courses/update/slug/${course.slug}`}>
               <Card.Title>{course.Course_name}</Card.Title>
             </Link>
             <Card.Text>{course.course_instructor}</Card.Text>

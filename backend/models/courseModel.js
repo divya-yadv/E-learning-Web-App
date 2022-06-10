@@ -2,7 +2,6 @@ import mongoose from 'mongoose';
 
 export const courseSchema = new mongoose.Schema(
   {
-    _id: mongoose.ObjectId,
     Course_name: { type: String, required: true, unique: true },
     slug: { type: String, required: true, unique: true },
     description: { type: String },
@@ -15,8 +14,7 @@ export const courseSchema = new mongoose.Schema(
     Requirements: [String],
     About: [String],
     Reviews: [String],
-    CourseContent: [{ String, String }],
-    creationDate: { type: Date },
+    CourseContent: [{ title: String, link: String }],
   },
   {
     timestamps: true,

@@ -1,6 +1,7 @@
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import BrandLogo from '../BrandLogo';
 import { useUserAuth } from '../../contexts/AuthContext';
+import { Link } from 'react-router-dom';
 
 export default function NavbarAllcourses({ children }) {
   const { currentUser } = useUserAuth();
@@ -15,22 +16,20 @@ export default function NavbarAllcourses({ children }) {
             style={{ maxHeight: '200px' }}
             navbarScroll
           >
-            <Nav.Link
-              className="teachsignupbutton"
-              href={currentUser ? '/teacherdashboard' : '/signup'}
+            <Link
+              className="teachsignupbutton nav-link"
+              to={currentUser ? '/teacherdashboard' : '/signup'}
             >
               Teach
-            </Nav.Link>
-            {!currentUser && <Nav.Link href="/signup">Sign Up</Nav.Link>}
-            {!currentUser && <Nav.Link href="/signin">Sign In</Nav.Link>}
+            </Link>
+            {!currentUser && <Link className="nav-link" to="/signup">Sign Up</Link>}
+            {!currentUser && <Link className="nav-link" to="/signin">Sign In</Link>}
             {currentUser && (
-              <Nav.Link href="/cart">
+              <Link className="nav-link" to="/cart">
                 <i className="fa-solid fa-cart-shopping"></i>
-              </Nav.Link>
+              </Link>
             )}
-            {currentUser && (
-              <Nav.Link href="/dashboard">{currentUser.email}</Nav.Link>
-            )}
+            {currentUser && <Link className="nav-link" to="/dashboard">{currentUser.email}</Link>}
           </Nav>
         </Navbar.Collapse>
       </Container>

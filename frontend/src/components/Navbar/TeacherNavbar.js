@@ -1,25 +1,14 @@
 import React from 'react';
 import { Button, Container, Figure, Nav, Navbar } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
+import { Link } from 'react-router-dom';
 import logo from '../../assests/Brand.png';
+import BrandLogo from '../BrandLogo';
 export default function TeacherNavbar() {
   return (
     <Navbar bg="light" variant="light" expand="lg">
       <Container>
-        <LinkContainer to="/">
-          <Navbar.Brand>
-            <Figure>
-              <Figure.Image
-                width={300}
-                height={300}
-                className="rounded ms-1 mb-2 mt-2"
-                alt="logo"
-                src={logo}
-              />
-            </Figure>
-          </Navbar.Brand>
-        </LinkContainer>
-
+        <BrandLogo />
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
@@ -27,7 +16,9 @@ export default function TeacherNavbar() {
             style={{ maxHeight: '200px' }}
             navbarScroll
           >
-            <Nav.Link href="/allcourses">Browse Courses</Nav.Link>
+            <Link className="nav-link" to="/allcourses">
+              Browse Courses
+            </Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

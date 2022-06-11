@@ -1,27 +1,17 @@
 import React from 'react';
 import { Container, Figure, Nav, Navbar } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
+import { Link } from 'react-router-dom';
 import logo from '../../assests/Brand.png';
+import BrandLogo from '../BrandLogo';
 export default function NavbarSignup() {
   return (
     <Navbar bg="light" variant="light" expand="lg">
       <Container>
-        <LinkContainer to="/">
-          <Navbar.Brand>
-            <Figure>
-              <Figure.Image
-                width={250}
-                height={250}
-                className="rounded ms-1 mb-1 mt-1"
-                alt="logo"
-                src={logo}
-              />
-            </Figure>
-          </Navbar.Brand>
-        </LinkContainer>
-
+         <BrandLogo />
         <Nav className="me-2 nav-tabs homenavbar">
-          <Nav.Link href="/signup">Sign Up</Nav.Link>
+          <Link className="nav-link" to="/">Back to Start Page</Link>
+          <Link className="nav-link" to="/signup">Sign Up</Link>
         </Nav>
       </Container>
     </Navbar>

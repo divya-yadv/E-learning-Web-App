@@ -73,7 +73,7 @@ function SignUpScreen() {
     }
   };
   return (
-    <div className="m-1 shadow w-40 m-auto">
+    <div className="shadow w-40 m-auto mt-5 p-4 pb-5">
       <Card>
         <Card.Body>
           <Helmet>

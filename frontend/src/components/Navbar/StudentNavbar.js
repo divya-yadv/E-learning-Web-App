@@ -19,20 +19,18 @@ export default function StudentNavbar({ children }) {
             style={{ maxHeight: '200px' }}
             navbarScroll
           >
-            <Nav.Link href="/allcourses">Browse Courses</Nav.Link>
+            <Link className="nav-link" to="/allcourses">Browse Courses</Link>
 
-            <Nav.Link className="teachsignupbutton" href="teacherdashboard">
+            <Link className="teachsignupbutton nav-link" to="teacherdashboard">
               Teach
-            </Nav.Link>
+            </Link>
 
             {currentUser && (
-              <Nav.Link href="/cart">
+              <Link className="nav-link" to="/cart">
                 <i className="fa-solid fa-cart-shopping"></i>
-              </Nav.Link>
+              </Link>
             )}
-            {currentUser && (
-              <Nav.Link href="/dashboard">{currentUser.email}</Nav.Link>
-            )}
+            {currentUser && <Link className="nav-link" to="/dashboard">{currentUser.email}</Link>}
           </Nav>
         </Navbar.Collapse>
       </Container>

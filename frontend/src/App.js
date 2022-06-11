@@ -30,7 +30,7 @@ import NavbarAllcourses from './components/Navbar/NavbarAllcourses';
 function App() {
   return (
     <BrowserRouter>
-      <div className="d-flex flex-column">
+      <div className="d-flex flex-column heightall">
         <AuthProvider>
           <header className="fixed-top h5-small navbars">
             <Routes>
@@ -52,7 +52,7 @@ function App() {
             </Routes>
           </header>
         </AuthProvider>
-        <main className="marginsetapp">
+        <main className="marginsetapp marginbottom">
           <Container>
             <AuthProvider>
               <Routes>

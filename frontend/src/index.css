@@ -201,6 +201,7 @@ span.mr-4 {
   box-sizing: border-box;
   align-items: center;
   background-color: #395783;
+  z-index: 100;
 }
 .profilepic {
   border-radius: 100%;
@@ -317,9 +318,17 @@ input[type='file'] {
   max-width: 40% !important;
 }
 .footer {
+  display: flex;
+  bottom: 0px;
+  margin-top: 30px;
   height: 200px;
   background-color: white;
-  margin-top: -1rem;
   justify-content: center;
-  padding-top: 50px;
+  align-items: center;
+}
+.heightall {
+  height: 100vh;
+}
+.marginbottom {
+  margin-bottom: 10rem !important;
 }

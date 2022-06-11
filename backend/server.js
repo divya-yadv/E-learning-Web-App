@@ -26,14 +26,6 @@ app.use(express.urlencoded());
 app.use('/api/seed', seedRouter);
 app.use('/api/courses', courseRouter);
 app.use('/', userRouter);
-//listen to port
-app.use((err, req, res, next) => {
-  res.status(500).send({ message: err.message });
-});
-let port = process.env.PORT;
-if (port == null || port == '') {
-  port = 5000;
-}
 const __dirname = path.resolve();
 // Serve static files from the React frontend app
 app.use(express.static(path.join(__dirname, '/frontend/build')));
@@ -42,6 +34,15 @@ app.use(express.static(path.join(__dirname, '/frontend/build')));
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname + '/frontend/build/index.html'));
 });
+//listen to port
+app.use((err, req, res, next) => {
+  res.status(500).send({ message: err.message });
+});
+let port = process.env.PORT;
+if (port == null || port == '') {
+  port = 5000;
+}
+
 app.listen(port, function () {
   console.log('Server started succesfully');
 });

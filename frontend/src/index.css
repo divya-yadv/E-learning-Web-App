@@ -190,15 +190,16 @@ span.mr-4 {
   box-shadow: 1px 0 5px rgb(0 0 0 / 80%);
 }
 .sidenavbar {
-  position: fixed;
-  left: 0px;
-  margin: 62px 0 0 0;
+  display: flex;
+  float: right;
+  margin-top: -2rem;
+  margin-right: -7rem;
   overflow-y: auto;
   flex-direction: column;
-  width: 20%;
-  height: 100% !important;
+  height: 100vh !important;
+  width: 25%;
   box-sizing: border-box;
-  justify-content: safe;
+  align-items: center;
   background-color: #395783;
 }
 .profilepic {
@@ -311,4 +312,14 @@ input[type='file'] {
 
 .sections ol li:first-child iframe {
   display: flex !important;
+}
+.w-40 {
+  max-width: 40% !important;
+}
+.footer {
+  height: 200px;
+  background-color: white;
+  margin-top: -1rem;
+  justify-content: center;
+  padding-top: 50px;
 }

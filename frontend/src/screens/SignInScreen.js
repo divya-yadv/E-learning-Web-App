@@ -64,7 +64,7 @@ function SignInScreen() {
     }
   };
   return (
-    <Container className="small-container shadow ">
+    <div className="m-1 shadow w-40 m-auto">
       <Card>
         <Card.Body>
           <Helmet>
@@ -116,7 +116,7 @@ function SignInScreen() {
           Create one here
         </Link>
       </div>
-    </Container>
+    </div>
   );
 }
 export default SignInScreen;

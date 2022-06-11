@@ -8,6 +8,8 @@ import MessageBox from '../components/MessageBox';
 import getError from '../utils';
 import { Link } from 'react-router-dom';
 import photo from '../assests/getStarted.jpg';
+import { useUserAuth } from '../contexts/AuthContext';
+import { Navigate } from 'react-router-dom';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -22,6 +24,8 @@ const reducer = (state, action) => {
   }
 };
 function GetStarted() {
+  const { currentUser } = useUserAuth();
+
   // const [courses, setCourses] = useState([]); // in order to save courses from backend
   const [{ loading, error, courses }, dispatch] = useReducer(reducer, {
     loading: true,
@@ -40,6 +44,7 @@ function GetStarted() {
     };
     fetchData();
   }, []); //empty array coz we gonnna run this function only once after rendering this component
+
   return (
     <div>
       <Helmet>
@@ -57,8 +62,18 @@ function GetStarted() {
                 provide vast knowlege in different fields with the ease at your
                 home.Learn anywhere, anytime you want.
               </Card.Text>
-              <Button>
-                <Link to="/signup">Get Started</Link>
+              <Button
+                onClick={() => {
+                  currentUser ? (
+                    <Navigate to="dashboard" />
+                  ) : (
+                    <Navigate to="/signup" />
+                  );
+                }}
+              >
+                <Link to={currentUser ? '/dashboard' : '/signup'}>
+                  Get Started
+                </Link>
               </Button>
             </Col>
             <Col sm={12} md={6}>
@@ -67,7 +82,7 @@ function GetStarted() {
           </Row>
         </Card>
       </Container>
-      <h1 className="mt-5 mb-5">Most Popular Courses</h1>
+      <h1 className="mt-5 mb-5"> Courses</h1>
       <div className="courses">
         {loading ? (
           <div>

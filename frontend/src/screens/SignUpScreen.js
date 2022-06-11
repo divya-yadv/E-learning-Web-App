@@ -1,4 +1,12 @@
-import { Button, Card, Container, Form, FormGroup } from 'react-bootstrap';
+import {
+  Button,
+  Card,
+  Col,
+  Container,
+  Form,
+  FormGroup,
+  Row,
+} from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -65,7 +73,7 @@ function SignUpScreen() {
     }
   };
   return (
-    <Container className="small-container shadow">
+    <div className="m-1 shadow w-40 m-auto">
       <Card>
         <Card.Body>
           <Helmet>
@@ -133,7 +141,7 @@ function SignUpScreen() {
           </Link>
         </span>
       </div>
-    </Container>
+    </div>
   );
 }
 

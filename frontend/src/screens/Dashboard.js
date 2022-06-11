@@ -5,7 +5,9 @@ export default function Dashboard() {
   return (
     <div>
       <Sidebar />
-      <Container></Container>
+      <Container>
+        <h1>My courses</h1>
+      </Container>
     </div>
   );
 }

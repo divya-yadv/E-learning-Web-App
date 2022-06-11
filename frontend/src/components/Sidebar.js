@@ -11,7 +11,7 @@ import {
 import { useUserAuth } from '../contexts/AuthContext';
 import MessageBox from './MessageBox';
 import profile from '../assests/blank.jpg';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 
 export default function Sidebar() {
   const { currentUser, logOut, deleteuser } = useUserAuth();
@@ -36,23 +36,33 @@ export default function Sidebar() {
     }
   }
   return (
-    <Container className="sidenavbar d-flex">
+    <div className="sidenavbar">
       <Navbar bg="light" variant="light" expand="xl">
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav navbarScroll className="sidebarcolumn">
             {error && <MessageBox variant="danger">{error}</MessageBox>}
             <Col className="sidebarcolumn">
-              <Row className="profilediv">
+              <Row className="profilediv mt-5">
                 <Figure>
                   <Figure.Image
                     width={150}
                     height={150}
                     className="profilepic"
                     alt="profile"
-                    src={profile}
+                    src={currentUser.photoURL || profile}
                   />
                 </Figure>
+              </Row>
+              <Row>
+                <Button
+                  onClick={() => {
+                    <Navigate to="/user/updateprofile" />;
+                  }}
+                  className="btn btn-primary"
+                >
+                  Update Profile
+                </Button>
               </Row>
               <Row>
                 <Nav.Link href="/about">About</Nav.Link>
@@ -65,15 +75,10 @@ export default function Sidebar() {
                   Logout
                 </Button>
               </Row>
-              <Row>
-                <Button onClick={handledeleteClick} className="btn btn-danger">
-                  Delete Account
-                </Button>
-              </Row>
             </Col>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-    </Container>
+    </div>
   );
 }

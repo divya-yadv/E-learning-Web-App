@@ -25,6 +25,7 @@ import PrivateRoute from './components/PrivateRoute';
 import CreateCourseNavbar from './components/Navbar/CreateCourseNavbar';
 import UpdateCourse from './components/UpdateCourse';
 import NavbarCourse from './components/Navbar/NavbarCourse';
+import NavbarAllcourses from './components/Navbar/NavbarAllcourses';
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
               <Route path="/dashboard" element={<StudentNavbar />} />
               <Route path="/courses/slug/:slug" element={<NavbarCourse />} />
               <Route path="/teacherdashboard" element={<TeacherNavbar />} />
+              <Route path="/allcourses" element={<NavbarAllcourses />} />
               <Route
                 path="/courses/update/slug/:slug"
                 element={<CreateCourseNavbar />}

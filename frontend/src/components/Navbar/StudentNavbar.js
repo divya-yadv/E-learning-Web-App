@@ -1,8 +1,5 @@
-import React, { useState, useContext } from 'react';
-import { Container, Figure, Nav, Navbar } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
+import { Container,Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import logo from '../../assests/Brand.png';
 import { useUserAuth } from '../../contexts/AuthContext';
 import BrandLogo from '../BrandLogo';
 
@@ -21,7 +18,7 @@ export default function StudentNavbar({ children }) {
           >
             <Link className="nav-link" to="/allcourses">Browse Courses</Link>
 
-            <Link className="teachsignupbutton nav-link" to="teacherdashboard">
+            <Link className="teachsignupbutton nav-link" to="/teacherdashboard">
               Teach
             </Link>
 

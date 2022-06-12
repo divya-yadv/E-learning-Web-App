@@ -13,7 +13,7 @@ import { useEffect, useState } from 'react';
 import { useUserAuth } from '../contexts/AuthContext';
 import MessageBox from '../components/MessageBox';
 import GoogleButton from 'react-google-button';
-import axios from 'axios';
+import axios from '../components/axios';
 import { sendEmailVerification } from 'firebase/auth';
 
 function SignUpScreen() {

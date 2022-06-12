@@ -1,11 +1,11 @@
-import { Button, Card, Container, Form, FormGroup } from 'react-bootstrap';
+import { Button, Card, Form, FormGroup } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import GoogleButton from 'react-google-button';
 import { useUserAuth } from '../contexts/AuthContext';
 import MessageBox from '../components/MessageBox';
-import axios from 'axios';
+import axios from '../components/axios';
 import { sendEmailVerification } from 'firebase/auth';
 
 function SignInScreen() {

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from './axios';
 import { useEffect, useReducer } from 'react';
 import { useParams } from 'react-router-dom';
 import { Row, Col, ListGroup, Button, Card, Container } from 'react-bootstrap';

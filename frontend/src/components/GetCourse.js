@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer } from 'react';
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 import { useUserAuth } from '../contexts/AuthContext';
-import axios from 'axios';
+import axios from './axios';
 import getError from '../utils';
 import Loading from '../components/Loading';
 import MessageBox from '../components/MessageBox';

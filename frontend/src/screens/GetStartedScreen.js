@@ -1,5 +1,5 @@
 import { useEffect, useReducer } from 'react';
-import axios from 'axios';
+import axios from '../components/axios';
 import Course from '../components/Course';
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';

@@ -14,7 +14,7 @@ import DisplayList from './DisplayList';
 import { useUserAuth } from '../contexts/AuthContext';
 import MessageBox from '../components/MessageBox';
 import getError from '../utils';
-import axios from 'axios';
+import axios from './axios';
 import Loading from '../components/Loading';
 import { useNavigate } from 'react-router-dom';
 

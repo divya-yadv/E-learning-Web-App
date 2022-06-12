@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   Button,
   Col,
-  Container,
   Figure,
   Nav,
   Navbar,
@@ -65,10 +64,10 @@ export default function Sidebar() {
                 </Button>
               </Row>
               <Row>
-                <Nav.Link href="/about">About</Nav.Link>
+                <Link className="nav-link" to="/about">About</Link>
               </Row>
               <Row>
-                <Nav.Link href="/allcourses">Contact Us</Nav.Link>
+                <Link className="nav-link" to="/allcourses">Contact Us</Link>
               </Row>
               <Row>
                 <Button onClick={handleLogoutClick} className="btn btn-danger">

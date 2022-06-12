@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from './axios';
 import { useEffect, useReducer } from 'react';
 import { Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';

@@ -13,7 +13,6 @@ export default function NavbarGetStarted({ children }) {
         <Navbar.Collapse id="navbarScroll">
           <Nav
             className="me-0 nav-tabs homenavbar"
-            style={{ maxHeight: '200px' }}
             navbarScroll
           >
             <Link className="nav-link" to="/about">

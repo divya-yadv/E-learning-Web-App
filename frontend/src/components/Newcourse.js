@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React, {useState } from 'react';
 import {
   Button,
   Card,
@@ -7,15 +7,11 @@ import {
   Figure,
   Form,
   FormGroup,
-  InputGroup,
   Row,
 } from 'react-bootstrap';
-import DisplayList from './DisplayList';
 import { useUserAuth } from '../contexts/AuthContext';
 import MessageBox from '../components/MessageBox';
-import getError from '../utils';
 import axios from './axios';
-import Loading from '../components/Loading';
 import { useNavigate } from 'react-router-dom';
 
 export default function NewCourse() {

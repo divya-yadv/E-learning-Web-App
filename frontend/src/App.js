@@ -26,6 +26,7 @@ import CreateCourseNavbar from './components/Navbar/CreateCourseNavbar';
 import UpdateCourse from './components/UpdateCourse';
 import NavbarCourse from './components/Navbar/NavbarCourse';
 import NavbarAllcourses from './components/Navbar/NavbarAllcourses';
+import UpdateProfile from './components/UpdateProfile';
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
               <Route path="/courses/slug/:slug" element={<NavbarCourse />} />
               <Route path="/teacherdashboard" element={<TeacherNavbar />} />
               <Route path="/allcourses" element={<NavbarAllcourses />} />
+              <Route path="/updateprofile" element={<CreateCourseNavbar />} />
               <Route
                 path="/courses/update/slug/:slug"
                 element={<CreateCourseNavbar />}
@@ -69,6 +71,7 @@ function App() {
                 <Route path="/signup" element={<SignUpScreen />} />
                 <Route path="/profile" element={<ProfileScreen />} />
                 <Route path="/forgotpassword" element={<ForgotPassword />} />
+                <Route path="/updateprofile" element={<UpdateProfile />} />
                 <Route
                   path="/teach/createnewcourse"
                   element={

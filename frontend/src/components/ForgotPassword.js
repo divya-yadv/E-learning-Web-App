@@ -27,7 +27,7 @@ function ForgotPassword() {
     setLoading(false);
   }
   return (
-    <Container className="small-container">
+    <div className="shadow w-40 m-auto mt-5 p-4 pb-5">
       <Card>
         <Card.Body>
           <Helmet>
@@ -62,7 +62,7 @@ function ForgotPassword() {
           Create one here
         </Link>
       </div>
-    </Container>
+    </div>
   );
 }
 export default ForgotPassword;

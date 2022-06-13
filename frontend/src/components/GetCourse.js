@@ -1,6 +1,5 @@
 import React, { useEffect, useReducer } from 'react';
-import { Button, Card, Col, Container, Row } from 'react-bootstrap';
-import { useUserAuth } from '../contexts/AuthContext';
+import {  Card,  } from 'react-bootstrap';
 import axios from './axios';
 import getError from '../utils';
 import Loading from '../components/Loading';

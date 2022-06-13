@@ -40,7 +40,20 @@ userRouter.get('/api/users/:email', async (req, res) => {
     res.status(404).send({ message: 'User Not Found' });
   }
 });
-
+userRouter.post(
+  '/api/users/updateuser',
+  express.json(),
+  expressAsyncHandler(async (req, res) => {
+    User.findOneAndUpdate({ email: req.body.email}, { "$set": { name: req.body.name, user_name: req.body.user_name}}).exec(function(err, User){
+      if(err) {
+          console.log(err);
+          res.status(500).send(err);
+      } else {
+               res.status(200).send(User);
+      }
+   });
+  })
+);
 userRouter.post(
   '/teach/api/users/addcourse',
   express.json(),

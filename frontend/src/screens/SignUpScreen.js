@@ -1,15 +1,12 @@
 import {
   Button,
   Card,
-  Col,
-  Container,
   Form,
   FormGroup,
-  Row,
 } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
 import { Link, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useUserAuth } from '../contexts/AuthContext';
 import MessageBox from '../components/MessageBox';
 import GoogleButton from 'react-google-button';

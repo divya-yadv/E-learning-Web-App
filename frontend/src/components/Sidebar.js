@@ -1,12 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Button,
-  Col,
-  Figure,
-  Nav,
-  Navbar,
-  Row,
-} from 'react-bootstrap';
+import { Button, Col, Figure, Nav, Navbar, Row } from 'react-bootstrap';
 import { useUserAuth } from '../contexts/AuthContext';
 import MessageBox from './MessageBox';
 import profile from '../assests/blank.jpg';
@@ -24,6 +17,9 @@ export default function Sidebar() {
     } catch (err) {
       setError('Failed to logout!');
     }
+  }
+  function HandleClick() {
+    return navigate('/updateprofile');
   }
   async function handledeleteClick() {
     setError('');
@@ -54,20 +50,19 @@ export default function Sidebar() {
                 </Figure>
               </Row>
               <Row>
-                <Button
-                  onClick={() => {
-                    <Navigate to="/user/updateprofile" />;
-                  }}
-                  className="btn btn-primary"
-                >
+                <Button onClick={HandleClick} className="btn btn-primary">
                   Update Profile
                 </Button>
               </Row>
               <Row>
-                <Link className="nav-link" to="/about">About</Link>
+                <Link className="nav-link" to="/about">
+                  About
+                </Link>
               </Row>
               <Row>
-                <Link className="nav-link" to="/allcourses">Contact Us</Link>
+                <Link className="nav-link" to="/allcourses">
+                  Contact Us
+                </Link>
               </Row>
               <Row>
                 <Button onClick={handleLogoutClick} className="btn btn-danger">

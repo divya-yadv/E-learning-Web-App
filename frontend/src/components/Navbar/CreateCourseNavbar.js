@@ -1,8 +1,6 @@
 import React from 'react';
-import { Button, Container, Figure, Nav, Navbar } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
+import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import logo from '../../assests/Brand.png';
 import BrandLogo from '../BrandLogo';
 
 export default function CreateCourseNavbar() {
@@ -12,11 +10,7 @@ export default function CreateCourseNavbar() {
         <BrandLogo />
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
-          <Nav
-            className="me-0 nav-tabs homenavbar"
-            style={{ maxHeight: '200px' }}
-            navbarScroll
-          >
+          <Nav className="me-0 nav-tabs homenavbar" navbarScroll>
             <Link className="nav-link" to="/teacherdashboard">
               Go to Dashboard
             </Link>

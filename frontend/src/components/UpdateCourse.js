@@ -1,7 +1,7 @@
 import axios from './axios';
 import { useEffect, useReducer } from 'react';
 import { useParams } from 'react-router-dom';
-import { Row, Col, ListGroup, Button, Card, Container } from 'react-bootstrap';
+import { Row, Col, ListGroup,Card, Container } from 'react-bootstrap';
 import Rating from './Rating';
 import { Helmet } from 'react-helmet-async';
 import Loading from './Loading';

@@ -1,9 +1,7 @@
 import React from 'react';
-import { Figure, Nav, Navbar } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
+import {Nav} from 'react-bootstrap';
 import { useUserAuth } from '../contexts/AuthContext';
 import GetUser from './GetUser';
-import picture from '../assests/blank.jpg';
 import { Link } from 'react-router-dom';
 
 export default function UserProfile() {

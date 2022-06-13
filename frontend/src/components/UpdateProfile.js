@@ -69,8 +69,9 @@ export default function UpdateProfile() {
         }
       }
       const res = await axios.post('/api/users/updateuser', {
-        user_name: username,
         name: name,
+        user_name: username,
+        
       });
       console.log(res);
       navigate('/dashboard');

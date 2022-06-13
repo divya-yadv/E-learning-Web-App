@@ -107,9 +107,9 @@ export default function NewCourse() {
 
                 <Figure>
                   <Figure.Image
-                    width={200}
+                    width={100}
                     height={100}
-                    className="rounded m-auto mb-3 mt-5"
+                    className="rounded m-auto mb-3 mt-5 thumbnail"
                     alt="logo"
                     src={img}
                   />

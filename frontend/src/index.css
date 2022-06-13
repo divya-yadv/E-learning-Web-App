@@ -333,3 +333,7 @@ input[type='file'] {
 .marginbottom {
   margin-bottom: 10rem !important;
 }
+.thumbnail {
+  height: 100px;
+  width: 100px;
+}

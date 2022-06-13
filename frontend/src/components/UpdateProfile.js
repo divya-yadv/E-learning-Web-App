@@ -25,8 +25,8 @@ export default function UpdateProfile() {
   const { currentUser, updatepassword } = useUserAuth();
 
   const [message, setMessage] = useState('');
-  const [password, setPassword] = useState(currentUser.password);
-  const [passwordConfirm, setPasswordConfirm] = useState(currentUser.password);
+  const [password, setPassword] = useState();
+  const [passwordConfirm, setPasswordConfirm] = useState();
 
   const [Error, setError] = useState('');
   const [Loading, setLoading] = useState('');
@@ -60,7 +60,7 @@ export default function UpdateProfile() {
       setLoading(false);
       setError('');
       try {
-        if (password !== currentUser.password) {
+        if (password) {
           try {
             await updatepassword(password);
           } catch {

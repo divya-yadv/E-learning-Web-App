@@ -10,6 +10,7 @@ import {
   sendSignInLinkToEmail,
   deleteUser,
   updatePassword,
+  updateEmail,
 } from 'firebase/auth';
 import { auth } from '../firebase';
 const AuthContext = React.createContext();
@@ -43,11 +44,11 @@ export function AuthProvider({ children }) {
   function sendLinkToVerify(email) {
     return sendSignInLinkToEmail(auth, email);
   }
-  function updateEmail(email) {
-    return currentUser.updateEmail(auth, email);
+  function updateemail(email) {
+    return updateEmail(auth, email);
   }
   function updatepassword(password) {
-    return updatePassword(auth,password);
+    return updatePassword(auth, password);
   }
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -66,7 +67,7 @@ export function AuthProvider({ children }) {
     resetPassword,
     sendLinkToVerify,
     deleteuser,
-    updateEmail,
+    updateemail,
     updatepassword,
   };
   return (

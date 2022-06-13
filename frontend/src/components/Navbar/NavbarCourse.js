@@ -18,7 +18,7 @@ export default function NavbarCourse({ children }) {
             <Link className="nav-link" to="/allcourses">Browse Courses</Link>
             {!currentUser && <Link className="nav-link" to="/signup">Sign Up</Link>}
             {!currentUser && <Link className="nav-link" to="/signin">Sign In</Link>}
-            {currentUser && <Link className="nav-link" to="/userprofile">{currentUser.name}</Link>}
+            {currentUser && <Link className="nav-link" to="/userprofile">{currentUser.email}</Link>}
           </Nav>
         </Navbar.Collapse>
       </Container>

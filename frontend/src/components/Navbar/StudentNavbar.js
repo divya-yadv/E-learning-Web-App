@@ -27,7 +27,7 @@ export default function StudentNavbar({ children }) {
             )}
             {currentUser && (
               <Link className="nav-link" to="/userprofile">
-                {currentUser.name}
+                {currentUser.email}
               </Link>
             )}
           </Nav>

@@ -1,4 +1,4 @@
-import React, {useState } from 'react';
+import React, { useState } from 'react';
 import {
   Button,
   Card,
@@ -40,7 +40,7 @@ export default function NewCourse() {
       setError('');
       setLoading(true);
       try {
-        const res = await axios.post('api/users/addcourse', {
+        const res = await axios.post('/teach/api/users/addcourse', {
           email: currentUser.email,
           title: coursename,
           instructor: instructorname,

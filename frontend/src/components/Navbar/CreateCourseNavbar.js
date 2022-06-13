@@ -17,7 +17,7 @@ export default function CreateCourseNavbar() {
             </Link>
             {currentUser && (
               <Link className="nav-link" to="/userprofile">
-                {currentUser.name}
+                {currentUser.email}
               </Link>
             )}
           </Nav>

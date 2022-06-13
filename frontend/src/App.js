@@ -38,9 +38,23 @@ function App() {
               <Route path="/" element={<NavbarGetStarted />} />
               <Route path="/signin" element={<NavbarSignIn />} />
               <Route path="/signup" element={<NavbarSignup />} />
-              <Route path="/dashboard" element={<StudentNavbar />} />
+              <Route
+                path="/dashboard"
+                element={
+                  <PrivateRoute>
+                    <StudentNavbar />
+                  </PrivateRoute>
+                }
+              />
               <Route path="/courses/slug/:slug" element={<NavbarCourse />} />
-              <Route path="/teacherdashboard" element={<TeacherNavbar />} />
+              <Route
+                path="/teacherdashboard"
+                element={
+                  <PrivateRoute>
+                    <TeacherNavbar />
+                  </PrivateRoute>
+                }
+              />
               <Route path="/allcourses" element={<NavbarAllcourses />} />
               <Route path="/updateprofile" element={<CreateCourseNavbar />} />
               <Route
@@ -65,13 +79,24 @@ function App() {
                 <Route path="/courses/slug/:slug" element={<CourseScreen />} />
                 <Route
                   path="/courses/update/slug/:slug"
-                  element={<UpdateCourse />}
+                  element={
+                    <PrivateRoute>
+                      <UpdateCourse />
+                    </PrivateRoute>
+                  }
                 />
                 <Route path="/signin" element={<SignInScreen />} />
                 <Route path="/signup" element={<SignUpScreen />} />
                 <Route path="/profile" element={<ProfileScreen />} />
                 <Route path="/forgotpassword" element={<ForgotPassword />} />
-                <Route path="/updateprofile" element={<UpdateProfile />} />
+                <Route
+                  path="/updateprofile"
+                  element={
+                    <PrivateRoute>
+                      <UpdateProfile />
+                    </PrivateRoute>
+                  }
+                />
                 <Route
                   path="/teach/createnewcourse"
                   element={

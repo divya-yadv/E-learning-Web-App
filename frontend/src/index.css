@@ -226,12 +226,6 @@ span.mr-4 {
   margin-bottom: 1rem;
 }
 
-#thumbnailinput {
-  display: none;
-}
-input[type='file'] {
-  display: none;
-}
 .thumbnail-file-upload {
   border: 1px solid #ccc;
   display: inline-block;
@@ -339,5 +333,4 @@ input[type='file'] {
   width: 100px;
 }
 .getStartedphoto {
-  
 }

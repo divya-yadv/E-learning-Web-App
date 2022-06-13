@@ -60,9 +60,9 @@ export default function NewCourse() {
     setLoading(false);
   }
   const uploadThumbnail = async (e) => {
-    const file = e.target.file;
+    const files = e.target.files;
     const data = new FormData();
-    data.append('file', file);
+    data.append('file', files[0]);
     data.append('upload_preset', 'Image_upload');
     const res = await fetch(
       'https://api.cloudinary.com/v1_1/educatify-image/image/upload',

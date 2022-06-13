@@ -29,9 +29,31 @@ export default function NewCourse() {
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
   const [thumbnail, setThumbnail] = useState('');
+  const [thumbnailURL, setThumbnailURL] = useState('');
 
   const navigate = useNavigate();
-
+  const uploadThumbnail = async (event) => {
+    const files = event.target.files;
+    const data = new FormData();
+    data.append('file', files[0]);
+    data.append('upload_preset', 'Image_upload');
+    data.append('cloud_name', 'educatify-image');
+    data.append('');
+    await fetch(
+      'https://api.cloudinary.com/v1_1/educatify-image/image/upload',
+      {
+        method: 'POST',
+        body: data,
+      }
+    )
+      .then((data) => {
+        thumbnail(data.url);
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -59,21 +81,7 @@ export default function NewCourse() {
     }
     setLoading(false);
   }
-  const uploadThumbnail = async (e) => {
-    const files = e.target.files;
-    const data = new FormData();
-    data.append('file', files[0]);
-    data.append('upload_preset', 'Image_upload');
-    const res = await fetch(
-      'https://api.cloudinary.com/v1_1/educatify-image/image/upload',
-      {
-        method: 'POST',
-        body: data,
-      }
-    );
-    const url = await res.json();
-    console.log(url);
-  };
+
   function HandleRequirementAdd() {
     setrequirements((prevValue) => {
       return [...prevValue, requirement];

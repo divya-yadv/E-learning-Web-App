@@ -69,9 +69,9 @@ export default function UpdateProfile() {
         setError(error);
         setLoading(false);
       }
-      // if (password) {
-      //   await updatepassword(password);
-      // }
+      if (password) {
+        await updatepassword(password);
+      }
       navigate('/dashboard');
     } catch (error) {
       getError(error);

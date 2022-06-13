@@ -21,11 +21,9 @@ const reducer = (state, action) => {
 };
 
 export default function UpdateProfile() {
-  const { currentUser, updatepassword } = useUserAuth();
+  const { currentUser } = useUserAuth();
 
   const [message, setMessage] = useState('');
-  const [password, setPassword] = useState();
-  const [passwordConfirm, setPasswordConfirm] = useState();
 
   const [Error, setError] = useState('');
   const [Loading, setLoading] = useState('');
@@ -52,9 +50,6 @@ export default function UpdateProfile() {
   const [username, setUserName] = useState(user.user_name);
   async function HandleSubmit(e) {
     e.preventDefault();
-    if (password !== passwordConfirm) {
-      return setError('Passwords do not match');
-    }
     try {
       setLoading(false);
       setError('');
@@ -68,9 +63,6 @@ export default function UpdateProfile() {
       } catch (error) {
         setError(error);
         setLoading(false);
-      }
-      if (password) {
-        await updatepassword(currentUser, password);
       }
       navigate('/dashboard');
     } catch (error) {
@@ -106,24 +98,6 @@ export default function UpdateProfile() {
                 autoComplete="username"
                 onChange={(e) => setUserName(e.target.value)}
                 defaultValue={user.user_name}
-              />
-            </FormGroup>
-            <FormGroup className="mb-3" id="password">
-              <Form.Label>Enter Password</Form.Label>
-              <Form.Control
-                type="password"
-                autoComplete="password"
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Leave blank to keep the same"
-              />
-            </FormGroup>
-            <FormGroup className="mb-3" id="confirm-password">
-              <Form.Label>Confirm Password</Form.Label>
-              <Form.Control
-                type="password"
-                autoComplete="password"
-                onChange={(e) => setPasswordConfirm(e.target.value)}
-                placeholder="Leave blank to keep the same"
               />
             </FormGroup>
             <Button className="w-100" disabled={Loading} type="submit">

@@ -62,7 +62,7 @@ export default function UpdateProfile() {
       try {
         if (password !== currentUser.password) {
           try {
-            await updatePassword(password);
+            await updatepassword(password);
           } catch {
             setError('could not reset password!');
             setLoading(false);

@@ -27,7 +27,7 @@ export default function NewCourse() {
   const [sectionTitle, setTitle] = useState('');
   const [sections, updateSections] = useState([]);
   const [img, setImg] = useState(
-    'https://images.unsplash.com/photo-1609602644879-dd158c2b56b4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=40'
+    'https://images.unsplash.com/photo-1609602644879-dd158c2b56b4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=700&q=40'
   );
   const { currentUser } = useUserAuth();
   const [error, setError] = useState();

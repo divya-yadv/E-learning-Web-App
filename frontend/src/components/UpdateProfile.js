@@ -68,11 +68,15 @@ export default function UpdateProfile() {
             setLoading(false);
           }
         }
-        const res = await axios.post('/api/users/updateuser', {
-          name: name,
-          user_name: username,
-        });
-        console.log(res);
+        try {
+          const res = await axios.post('/api/users/updateuser', {
+            name: name,
+            user_name: username,
+          });
+          console.log(res);
+        } catch (error) {
+          setError(error);
+        }
         navigate('/dashboard');
       } catch (error) {
         setError(error);

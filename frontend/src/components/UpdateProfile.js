@@ -6,7 +6,6 @@ import { useEffect, useReducer, useState } from 'react';
 import MessageBox from '../components/MessageBox';
 import axios from '../components/axios';
 import getError from '../utils';
-import { updatePassword } from 'firebase/auth';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -64,7 +63,7 @@ export default function UpdateProfile() {
           try {
             await updatepassword(password);
           } catch {
-            setError('could not reset password!');
+            getError('could not reset password!');
             setLoading(false);
           }
         }
@@ -75,15 +74,15 @@ export default function UpdateProfile() {
           });
           console.log(res);
         } catch (error) {
-          setError(error);
+          getError(error);
         }
         navigate('/dashboard');
       } catch (error) {
-        setError(error);
+        getError(error);
         setLoading(false);
       }
     } catch (error) {
-      setError(error);
+      getError(error);
       setLoading(false);
     }
   }
@@ -105,7 +104,6 @@ export default function UpdateProfile() {
                 type="text"
                 autoComplete="name"
                 onChange={(e) => setName(e.target.value)}
-                required
                 defaultValue={user.name}
               />
             </FormGroup>
@@ -115,7 +113,6 @@ export default function UpdateProfile() {
                 type="text"
                 autoComplete="username"
                 onChange={(e) => setUserName(e.target.value)}
-                required
                 defaultValue={user.user_name}
               />
             </FormGroup>

@@ -59,22 +59,25 @@ export default function UpdateProfile() {
     try {
       setLoading(false);
       setError('');
-      if(password !== currentUser.password)
-      {
-        try{
+      try {
+        if (password !== currentUser.password) {
+          try {
             await updatePassword(password);
+          } catch {
+            setError('could not reset password!');
+            setLoading(false);
+          }
         }
-        catch{
-            setError("could not reset password!")
-        }
+        const res = await axios.post('/api/users/updateuser', {
+          name: name,
+          user_name: username,
+        });
+        console.log(res);
+        navigate('/dashboard');
+      } catch (error) {
+        setError(error);
+        setLoading(false);
       }
-      const res = await axios.post('/api/users/updateuser', {
-        name: name,
-        user_name: username,
-        
-      });
-      console.log(res);
-      navigate('/dashboard');
     } catch (error) {
       setError(error);
       setLoading(false);

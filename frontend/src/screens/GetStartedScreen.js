@@ -77,7 +77,7 @@ function GetStarted() {
               </Button>
             </Col>
             <Col sm={12} md={6}>
-              <img src={photo} alt=" a girl with laptop" />
+              <img className="getStartedphoto"src={photo} alt=" a girl with laptop" />
             </Col>
           </Row>
         </Card>

@@ -1,4 +1,6 @@
 import express, { urlencoded } from 'express';
+import Image from './models/imageModel.js';
+import multer from 'multer';
 import path from 'path';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
@@ -21,11 +23,12 @@ mongoose
   .catch((error) => {
     console.log(error.message);
   });
-app.use(express.urlencoded());
+
 //create api to send data from this path
 app.use('/api/seed', seedRouter);
 app.use('/api/courses', courseRouter);
 app.use('/', userRouter);
+
 const __dirname = path.resolve();
 // Serve static files from the React frontend app
 app.use(express.static(path.join(__dirname, '/frontend/build')));

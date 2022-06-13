@@ -4,7 +4,6 @@ import {
   Card,
   Col,
   Container,
-  Figure,
   Form,
   FormGroup,
   Row,
@@ -26,16 +25,16 @@ export default function NewCourse() {
   const [link, setLink] = useState('');
   const [sectionTitle, setTitle] = useState('');
   const [sections, updateSections] = useState([]);
-  const [img, setImg] = useState(
-    'https://images.unsplash.com/photo-1609602644879-dd158c2b56b4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=700&q=40'
-  );
   const { currentUser } = useUserAuth();
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
+  const [thumbnail, setThumbnail] = useState('');
+
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
+
     try {
       setError('');
       setLoading(true);
@@ -49,7 +48,6 @@ export default function NewCourse() {
           requirement: requirements,
           courseprice: price,
           sections: sections,
-          thumbnail: img,
         });
         console.log(res);
         navigate('/teacherdashboard');
@@ -61,10 +59,20 @@ export default function NewCourse() {
     }
     setLoading(false);
   }
-
-  const onImageChange = (e) => {
-    const [file] = e.target.files;
-    setImg(URL.createObjectURL(file));
+  const uploadThumbnail = async (e) => {
+    const file = e.target.file;
+    const data = new FormData();
+    data.append('file', file);
+    data.append('upload_preset', 'Image_upload');
+    const res = await fetch(
+      'https://api.cloudinary.com/v1_1/educatify-image/image/upload',
+      {
+        method: 'POST',
+        body: data,
+      }
+    );
+    const url = await res.json();
+    console.log(url);
   };
   function HandleRequirementAdd() {
     setrequirements((prevValue) => {
@@ -85,6 +93,7 @@ export default function NewCourse() {
     setTitle('');
     setLink('');
   }
+
   return (
     <Container className="teacherdashboard w-100 text-center">
       <h1 className="text-start sm-3">Course details</h1>
@@ -104,21 +113,13 @@ export default function NewCourse() {
             <Col sm={12} md={3} lg={3} className="shadow newcourse">
               <Card>
                 <Card.Title>Basic details</Card.Title>
-
-                <Figure>
-                  <Figure.Image
-                    width={100}
-                    height={100}
-                    className="rounded m-auto mb-3 mt-5 thumbnail"
-                    alt="logo"
-                    src={img}
-                  />
-                </Figure>
-
-                <label htmlFor="file-upload" className="thumbnail-file-upload">
-                  Upload thumbnail
-                </label>
-                <input id="file-upload" type="file" onChange={onImageChange} />
+                <img id="uploadedimage" src="" alt="thumbnail"></img>
+                <input
+                  type="file"
+                  name="thumbnail"
+                  placeholder="upload thumbnail"
+                  onChange={uploadThumbnail}
+                />
 
                 <FormGroup className="mt-4 mb-4" id="coursename">
                   <Form.Control

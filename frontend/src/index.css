@@ -272,6 +272,7 @@ input[type='file'] {
   float: right;
   clear: left;
   margin-top: -4rem;
+  margin-right: 6rem;
 }
 
 .text-start {
@@ -336,4 +337,7 @@ input[type='file'] {
 .thumbnail {
   height: 100px;
   width: 100px;
+}
+.getStartedphoto {
+  
 }

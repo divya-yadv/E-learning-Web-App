@@ -70,7 +70,7 @@ export default function UpdateProfile() {
         setLoading(false);
       }
       if (password) {
-        await updatepassword(password);
+        await updatepassword(currentUser, password);
       }
       navigate('/dashboard');
     } catch (error) {

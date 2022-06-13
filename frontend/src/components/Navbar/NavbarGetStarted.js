@@ -44,11 +44,7 @@ export default function NavbarGetStarted({ children }) {
                 <i className="fa-solid fa-cart-shopping"></i>
               </Link>
             )}
-            {currentUser && (
-              <Link className="nav-link" to="/dashboard">
-                {currentUser.email}
-              </Link>
-            )}
+            {currentUser && <Link className="nav-link" to="/userprofile">{currentUser.name}</Link>}
           </Nav>
         </Navbar.Collapse>
       </Container>

@@ -1,4 +1,4 @@
-import { Container,Nav, Navbar } from 'react-bootstrap';
+import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useUserAuth } from '../../contexts/AuthContext';
 import BrandLogo from '../BrandLogo';
@@ -11,11 +11,10 @@ export default function StudentNavbar({ children }) {
         <BrandLogo />
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
-          <Nav
-            className="me-0 nav-tabs homenavbar"
-            navbarScroll
-          >
-            <Link className="nav-link" to="/allcourses">Browse Courses</Link>
+          <Nav className="me-0 nav-tabs homenavbar" navbarScroll>
+            <Link className="nav-link" to="/allcourses">
+              Browse Courses
+            </Link>
 
             <Link className="teachsignupbutton nav-link" to="/teacherdashboard">
               Teach
@@ -26,7 +25,11 @@ export default function StudentNavbar({ children }) {
                 <i className="fa-solid fa-cart-shopping"></i>
               </Link>
             )}
-            {currentUser && <Link className="nav-link" to="/dashboard">{currentUser.email}</Link>}
+            {currentUser && (
+              <Link className="nav-link" to="/userprofile">
+                {currentUser.name}
+              </Link>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>

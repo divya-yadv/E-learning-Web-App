@@ -2,7 +2,9 @@ import React from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import BrandLogo from '../BrandLogo';
+import { useUserAuth } from '../../contexts/AuthContext';
 export default function TeacherNavbar() {
+  const { currentUser } = useUserAuth();
   return (
     <Navbar bg="light" variant="light" expand="lg">
       <Container>
@@ -13,6 +15,11 @@ export default function TeacherNavbar() {
             <Link className="nav-link" to="/allcourses">
               Browse Courses
             </Link>
+            {currentUser && (
+              <Link className="nav-link" to="/userprofile">
+                {currentUser.name}
+              </Link>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>

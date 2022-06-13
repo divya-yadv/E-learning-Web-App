@@ -44,7 +44,7 @@ userRouter.post(
   '/api/users/updateuser',
   express.json(),
   expressAsyncHandler(async (req, res) => {
-    User.findOneAndUpdate({ email: req.body.email}, { "$set": { name: req.body.name, user_name: req.body.user_name}}).exec(function(err, User){
+    User.findOneAndUpdate({ email: req.body.email},{new:true}, { "$set": { name: req.body.name, user_name: req.body.user_name}}).exec(function(err, User){
       if(err) {
           console.log(err);
           res.status(500).send(err);

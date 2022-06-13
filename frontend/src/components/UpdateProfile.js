@@ -6,6 +6,7 @@ import { useEffect, useReducer, useState } from 'react';
 import MessageBox from '../components/MessageBox';
 import axios from '../components/axios';
 import getError from '../utils';
+import { updatePassword } from 'firebase/auth';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -58,6 +59,15 @@ export default function UpdateProfile() {
     try {
       setLoading(false);
       setError('');
+      if(password !== currentUser.password)
+      {
+        try{
+            await updatePassword(password);
+        }
+        catch{
+            setError("could not reset password!")
+        }
+      }
       const res = await axios.post('/api/users/updateuser', {
         user_name: username,
         name: name,

@@ -58,20 +58,20 @@ export default function UpdateProfile() {
     try {
       setLoading(false);
       setError('');
-      // try {
-      //   const res = await axios.post('/api/users/updateuser', {
-      //     email: currentUser.email,
-      //     name: name,
-      //     user_name: username,
-      //   });
-      //   console.log(res);
-      // } catch (error) {
-      //   setError(error);
-      //   setLoading(false);
-      // }
-      if (password) {
-        await updatepassword(password);
+      try {
+        const res = await axios.post('/api/users/updateuser', {
+          email: currentUser.email,
+          name: name,
+          user_name: username,
+        });
+        console.log(res);
+      } catch (error) {
+        setError(error);
+        setLoading(false);
       }
+      // if (password) {
+      //   await updatepassword(password);
+      // }
       navigate('/dashboard');
     } catch (error) {
       getError(error);

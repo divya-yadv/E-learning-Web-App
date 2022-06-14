@@ -3,8 +3,10 @@ import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import BrandLogo from '../BrandLogo';
 import { useUserAuth } from '../../contexts/AuthContext';
+import { useNewUserAuth } from '../GetUser';
 export default function TeacherNavbar() {
   const { currentUser } = useUserAuth();
+  // const { user } = useNewUserAuth();
   return (
     <Navbar bg="light" variant="light" expand="lg">
       <Container>
@@ -16,7 +18,7 @@ export default function TeacherNavbar() {
               Browse Courses
             </Link>
             {currentUser && (
-              <Link className="nav-link" to="/userprofile">
+              <Link className="nav-link" to="/updateprofile">
                 {currentUser.email}
               </Link>
             )}

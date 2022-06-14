@@ -1,9 +1,22 @@
+import { useContext } from 'react';
 import { Button, Card } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { Store } from '../store';
+import { useNewUserAuth } from './GetUser';
 import Rating from './Rating';
 
 function Course(props) {
   const { course } = props;
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { cart } = state;
+  const navigate = useNavigate();
+
+  const addToCartHandler = () => {
+    const existItem = cart.cartItems.find((x) => x._id === course._id);
+    const quantity = existItem ? existItem.quantity : 1;
+    ctxDispatch({ type: 'CART_ADD_ITEM', payload: { ...course, quantity: 1 } });
+    navigate('/cart');
+  };
   return (
     <Card className="shadow">
       <Link to={`/courses/slug/${course.slug}`}>
@@ -22,7 +35,7 @@ function Course(props) {
         <Card.Text>
           <strong>${course.price}</strong>
         </Card.Text>
-        <Button>Add to cart</Button>
+        <Button onClick={addToCartHandler}>Add to cart</Button>
       </Card.Body>
     </Card>
   );

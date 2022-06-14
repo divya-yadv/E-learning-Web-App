@@ -28,17 +28,20 @@ export default function NewCourse() {
   const { currentUser } = useUserAuth();
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
-  const [thumbnail, setThumbnail] = useState('');
-  const [thumbnailURL, setThumbnailURL] = useState('');
+  const [img, setImg] = useState('upload thumbnail');
+  const [thumbnailURL, setThumbnailURL] = useState(
+    'https://m.media-amazon.com/images/I/51UW1849rJL._AC_SY450_.jpg'
+  );
 
   const navigate = useNavigate();
   const uploadThumbnail = async (event) => {
+    var filename = event.target.value.replace(/^.*(\\|\/|\:)/, '');
+    setImg(filename);
     const files = event.target.files;
     const data = new FormData();
     data.append('file', files[0]);
     data.append('upload_preset', 'Image_upload');
     data.append('cloud_name', 'educatify-image');
-    data.append('');
     await fetch(
       'https://api.cloudinary.com/v1_1/educatify-image/image/upload',
       {
@@ -46,9 +49,9 @@ export default function NewCourse() {
         body: data,
       }
     )
+      .then((resp) => resp.json())
       .then((data) => {
-        thumbnail(data.url);
-        console.log(data);
+        setThumbnailURL(data.secure_url);
       })
       .catch((err) => {
         console.log(err);
@@ -70,6 +73,7 @@ export default function NewCourse() {
           requirement: requirements,
           courseprice: price,
           sections: sections,
+          thumbnail: thumbnailURL,
         });
         console.log(res);
         navigate('/teacherdashboard');
@@ -121,8 +125,37 @@ export default function NewCourse() {
             <Col sm={12} md={3} lg={3} className="shadow newcourse">
               <Card>
                 <Card.Title>Basic details</Card.Title>
-                <img id="uploadedimage" src="" alt="thumbnail"></img>
+                <img
+                  className="m-4"
+                  id="uploadedimage"
+                  src={thumbnailURL}
+                  alt="thumbnail"
+                ></img>
+                <label
+                  htmlFor="filePicker"
+                  className="m-auto"
+                  style={{
+                    background: 'rgb(36 58 91)',
+                    padding: '5px 10px',
+                    color: 'white',
+                  }}
+                >
+                  {img}
+                </label>
+                <button
+                  onClick={() => {
+                    setImg('upload thumbnail');
+                    setThumbnailURL(
+                      'https://m.media-amazon.com/images/I/51UW1849rJL._AC_SY450_.jpg'
+                    );
+                  }}
+                  className="btn btn-danger m-auto mt-3"
+                >
+                  remove
+                </button>
                 <input
+                  className="m-auto thumbnailupload"
+                  id="filePicker"
                   type="file"
                   name="thumbnail"
                   placeholder="upload thumbnail"
@@ -179,39 +212,37 @@ export default function NewCourse() {
               <Card>
                 <Card.Title>Other info</Card.Title>
                 <h3 className="text-start">Keywords</h3>
-                <span className="ms-2">
-                  <input
-                    className="inputoutlines d-inline "
-                    type="text"
-                    onChange={(e) => setKeyword(e.target.value)}
-                    value={keyword}
-                  />
-                </span>
-                <span className="d-inline">
-                  <Button onClick={HandleKeywordAdd} className="addbutton">
-                    Add
-                  </Button>
-                </span>
-                <ul>
+
+                <input
+                  className="inputoutlines d-inline "
+                  type="text"
+                  onChange={(e) => setKeyword(e.target.value)}
+                  value={keyword}
+                />
+
+                <Button onClick={HandleKeywordAdd} className="addbutton">
+                  Add
+                </Button>
+
+                <ul className="text-start mt-2">
                   {keywords.map((keyword, index) => {
                     return <li key={index}>{keyword}</li>;
                   })}
                 </ul>
                 <h3 className="text-start">Requirements</h3>
-                <span className="ms-2">
-                  <input
-                    className="inputoutlines d-inline "
-                    type="text"
-                    onChange={(e) => setRequirement(e.target.value)}
-                    value={requirement}
-                  />
-                </span>
-                <span className="d-inline">
-                  <Button onClick={HandleRequirementAdd} className="addbutton">
-                    Add
-                  </Button>
-                </span>
-                <ul>
+
+                <input
+                  className="inputoutlines d-inline "
+                  type="text"
+                  onChange={(e) => setRequirement(e.target.value)}
+                  value={requirement}
+                />
+
+                <Button onClick={HandleRequirementAdd} className="addbutton">
+                  Add
+                </Button>
+
+                <ul className="text-start mt-2">
                   {requirements.map((requirement, index) => {
                     return <li key={index}>{requirement}</li>;
                   })}
@@ -227,23 +258,25 @@ export default function NewCourse() {
                   type="text"
                   onChange={(e) => setTitle(e.target.value)}
                   value={sectionTitle}
+                  placeholder="Enter section title"
                 />
                 <input
-                  className="inputoutlines d-inline "
+                  className="inputoutlines d-inline mt-3"
                   type="link"
                   onChange={(e) => setLink(e.target.value)}
                   value={link}
+                  placeholder="Enter video url"
                 />
                 <Button onClick={HandleSectionAdd} className="addbutton">
                   Add
                 </Button>
-                <ul>
+                <ul className="text-start mt-2">
                   {sections.map((section, index) => {
                     return (
                       <li key={index}>
                         <div>
-                          {section.title}
-                          {section.link}
+                          <div>{section.title}</div>
+                          <div>{section.link}</div>
                         </div>
                       </li>
                     );

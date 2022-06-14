@@ -1,9 +1,4 @@
-import {
-  Button,
-  Card,
-  Form,
-  FormGroup,
-} from 'react-bootstrap';
+import { Button, Card, Form, FormGroup } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
@@ -36,6 +31,7 @@ function SignUpScreen() {
         await axios.post('/api/users/signup', {
           email: res.user.email,
           name: name,
+          photoURL: '',
         });
       } catch (error) {
         setError(error);

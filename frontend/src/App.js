@@ -27,7 +27,9 @@ import UpdateCourse from './components/UpdateCourse';
 import NavbarCourse from './components/Navbar/NavbarCourse';
 import NavbarAllcourses from './components/Navbar/NavbarAllcourses';
 import UpdateProfile from './components/UpdateProfile';
-
+import Cart from './components/Cart';
+import { AuthUserProvider } from './components/GetUser';
+import NavbarCart from './components/Navbar/NavbarCart';
 function App() {
   return (
     <BrowserRouter>
@@ -39,10 +41,20 @@ function App() {
               <Route path="/signin" element={<NavbarSignIn />} />
               <Route path="/signup" element={<NavbarSignup />} />
               <Route
+                path="/cart"
+                element={
+                  <PrivateRoute>
+                    <NavbarCart />
+                  </PrivateRoute>
+                }
+              />
+              <Route
                 path="/dashboard"
                 element={
                   <PrivateRoute>
-                    <StudentNavbar />
+                    <AuthUserProvider>
+                      <StudentNavbar />
+                    </AuthUserProvider>
                   </PrivateRoute>
                 }
               />
@@ -51,12 +63,23 @@ function App() {
                 path="/teacherdashboard"
                 element={
                   <PrivateRoute>
-                    <TeacherNavbar />
+                    <AuthUserProvider>
+                      <TeacherNavbar />
+                    </AuthUserProvider>
                   </PrivateRoute>
                 }
               />
               <Route path="/allcourses" element={<NavbarAllcourses />} />
-              <Route path="/updateprofile" element={<CreateCourseNavbar />} />
+              <Route
+                path="/updateprofile"
+                element={
+                  <PrivateRoute>
+                    <AuthUserProvider>
+                      <CreateCourseNavbar />
+                    </AuthUserProvider>
+                  </PrivateRoute>
+                }
+              />
               <Route
                 path="/courses/update/slug/:slug"
                 element={<CreateCourseNavbar />}
@@ -90,10 +113,20 @@ function App() {
                 <Route path="/profile" element={<ProfileScreen />} />
                 <Route path="/forgotpassword" element={<ForgotPassword />} />
                 <Route
+                  path="/cart"
+                  element={
+                    <PrivateRoute>
+                      <Cart />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
                   path="/updateprofile"
                   element={
                     <PrivateRoute>
-                      <UpdateProfile />
+                      <AuthUserProvider>
+                        <UpdateProfile />
+                      </AuthUserProvider>
                     </PrivateRoute>
                   }
                 />
@@ -109,7 +142,9 @@ function App() {
                   path="/dashboard"
                   element={
                     <PrivateRoute>
-                      <Dashboard />
+                      <AuthUserProvider>
+                        <Dashboard />
+                      </AuthUserProvider>
                     </PrivateRoute>
                   }
                 />
@@ -117,7 +152,9 @@ function App() {
                   path="/teacherdashboard"
                   element={
                     <PrivateRoute>
-                      <TeacherDashboard />
+                      <AuthUserProvider>
+                        <TeacherDashboard />
+                      </AuthUserProvider>
                     </PrivateRoute>
                   }
                 />

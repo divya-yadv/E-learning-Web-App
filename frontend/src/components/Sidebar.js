@@ -3,10 +3,12 @@ import { Button, Col, Figure, Nav, Navbar, Row } from 'react-bootstrap';
 import { useUserAuth } from '../contexts/AuthContext';
 import MessageBox from './MessageBox';
 import profile from '../assests/blank.jpg';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useNewUserAuth } from './GetUser';
 
 export default function Sidebar() {
   const { currentUser, logOut, deleteuser } = useUserAuth();
+  const { user } = useNewUserAuth();
   const [error, setError] = useState('');
   let navigate = useNavigate();
   async function handleLogoutClick() {
@@ -32,7 +34,7 @@ export default function Sidebar() {
   }
   return (
     <div className="sidenavbar">
-      <Navbar bg="light" variant="light" expand="xl">
+      <Navbar bg="light" variant="light" expand="sm">
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav navbarScroll className="sidebarcolumn">
@@ -45,10 +47,11 @@ export default function Sidebar() {
                     height={150}
                     className="profilepic"
                     alt="profile"
-                    src={currentUser.photoURL || profile}
+                    src={user.image || profile}
                   />
                 </Figure>
               </Row>
+              <Row className="margin-auto text-white h5 ">{user.name}</Row>
               <Row>
                 <Button onClick={HandleClick} className="btn btn-primary">
                   Update Profile

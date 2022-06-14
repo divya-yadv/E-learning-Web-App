@@ -1,6 +1,6 @@
-import axios from './axios';
-import { useEffect, useReducer } from 'react';
-import { Link } from 'react-router-dom';
+import axios from 'axios';
+import React, { useContext, useEffect, useReducer } from 'react';
+import { useUserAuth } from '../contexts/AuthContext';
 import getError from '../utils';
 
 const reducer = (state, action) => {
@@ -8,14 +8,22 @@ const reducer = (state, action) => {
     case 'FETCH_REQUEST':
       return { ...state, loading: true };
     case 'FETCH_SUCCESS':
-      return { ...state, user: action.payload, loading: false };
+      return { ...state, loading: false, user: action.payload };
     case 'FETCH_FAIL':
       return { ...state, loading: false, error: action.payload };
     default:
       return state;
   }
 };
-export default function GetUser(email) {
+const AuthUserContext = React.createContext();
+
+export function useNewUserAuth() {
+  return useContext(AuthUserContext);
+}
+
+export function AuthUserProvider({ children }) {
+  const { currentUser } = useUserAuth();
+  const email = currentUser.email;
   const [{ loading, error, user }, dispatch] = useReducer(reducer, {
     loading: true,
     error: '',
@@ -24,8 +32,7 @@ export default function GetUser(email) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await axios.get(`/api/users/${email}`);
-        console.log(user);
+        const result = await axios.get(`/api/users/${currentUser.email}`);
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
       } catch (err) {
         console.log(err);
@@ -33,7 +40,13 @@ export default function GetUser(email) {
       }
     };
     fetchData();
-  }, [email, user]);
-
-  return <Link to="/userprofile"> {user.name}</Link>;
+  }, [currentUser.email]);
+  const value = {
+    user,
+  };
+  return (
+    <AuthUserContext.Provider value={value}>
+      {!loading && children}
+    </AuthUserContext.Provider>
+  );
 }

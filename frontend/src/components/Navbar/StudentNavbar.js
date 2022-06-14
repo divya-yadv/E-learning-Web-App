@@ -2,9 +2,11 @@ import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useUserAuth } from '../../contexts/AuthContext';
 import BrandLogo from '../BrandLogo';
+import { useNewUserAuth } from '../GetUser';
 
 export default function StudentNavbar({ children }) {
   const { currentUser } = useUserAuth();
+  // const { user } = useNewUserAuth();
   return (
     <Navbar bg="light" variant="light" expand="lg">
       <Container>
@@ -26,7 +28,7 @@ export default function StudentNavbar({ children }) {
               </Link>
             )}
             {currentUser && (
-              <Link className="nav-link" to="/userprofile">
+              <Link className="nav-link" to="/updateprofile">
                 {currentUser.email}
               </Link>
             )}

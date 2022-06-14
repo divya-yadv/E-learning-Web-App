@@ -2,8 +2,10 @@ import React from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import BrandLogo from '../BrandLogo';
+import { useNewUserAuth } from '../GetUser';
 import { useUserAuth } from '../../contexts/AuthContext';
 export default function CreateCourseNavbar() {
+  // const { user } = useNewUserAuth();
   const { currentUser } = useUserAuth();
   return (
     <Navbar bg="light" variant="light" expand="lg">
@@ -16,7 +18,7 @@ export default function CreateCourseNavbar() {
               Go to Dashboard
             </Link>
             {currentUser && (
-              <Link className="nav-link" to="/userprofile">
+              <Link className="nav-link" to="/updateprofile">
                 {currentUser.email}
               </Link>
             )}

@@ -2,9 +2,11 @@ import { Container, Nav, Navbar } from 'react-bootstrap';
 import BrandLogo from '../BrandLogo';
 import { useUserAuth } from '../../contexts/AuthContext';
 import { Link } from 'react-router-dom';
+import { useNewUserAuth } from '../GetUser';
 
 export default function NavbarAllcourses({ children }) {
   const { currentUser } = useUserAuth();
+  // const { user } = useNewUserAuth();
   return (
     <Navbar bg="light" variant="light" expand="lg">
       <Container>
@@ -33,7 +35,11 @@ export default function NavbarAllcourses({ children }) {
                 <i className="fa-solid fa-cart-shopping"></i>
               </Link>
             )}
-            {currentUser && <Link className="nav-link" to="/userprofile">{currentUser.email}</Link>}
+            {currentUser && (
+              <Link className="nav-link" to="/updateprofile">
+                {currentUser.email}
+              </Link>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>

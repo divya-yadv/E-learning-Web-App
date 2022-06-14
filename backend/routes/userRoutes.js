@@ -12,6 +12,7 @@ userRouter.post(
       name: req.body.name,
       user_name: req.body.email,
       email: req.body.email,
+      image: req.body.photoURL,
     });
     const user = await newUser.save();
     res.send('receieved');
@@ -44,20 +45,31 @@ userRouter.post(
   '/api/users/updateuser',
   express.json(),
   expressAsyncHandler(async (req, res) => {
-    User.findOneAndUpdate(
-      { email: req.body.email },
-      { $set: { name: req.body.name, user_name: req.body.user_name } },
-      { new: true },
-      (err, doc) => {
-        if (err) {
-          console.log('Something wrong when updating data!');
-          console.log(doc);
-          res.status(500).send(err);
-        } else {
-          res.status(200).send(User);
-        }
-      }
-    );
+    try {
+      User.findOneAndUpdate(
+        { email: req.body.email },
+        {
+          $set: {
+            name: req.body.name,
+            user_name: req.body.user_name,
+            image: req.body.image,
+          },
+        },
+        { new: true },(err, result)=>{
+          if(err){
+              res.status(400).send({
+                  data: "couldn't update user"
+              })
+          }else{
+              console.log(result);
+              res.status(200).send({
+                  data: "User Updated"
+              })
+          }
+      })
+    } catch (err) {
+      res.status(500).send(err);
+    }
   })
 );
 userRouter.post(

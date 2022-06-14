@@ -1,53 +1,47 @@
-import { useUserAuth } from '../contexts/AuthContext';
 import { Button, Card, Form, FormGroup } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
 import { Link, useNavigate } from 'react-router-dom';
-import { useEffect, useReducer, useState } from 'react';
+import { useState } from 'react';
 import MessageBox from '../components/MessageBox';
 import axios from '../components/axios';
 import getError from '../utils';
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'FETCH_REQUEST':
-      return { ...state, loading: true };
-    case 'FETCH_SUCCESS':
-      return { ...state, loading: false, user: action.payload };
-    case 'FETCH_FAIL':
-      return { ...state, loading: false, error: action.payload };
-    default:
-      return state;
-  }
-};
+import { useNewUserAuth } from './GetUser';
 
 export default function UpdateProfile() {
-  const { currentUser } = useUserAuth();
-
-  const [message, setMessage] = useState('');
-
-  const [Error, setError] = useState('');
-  const [Loading, setLoading] = useState('');
+  const { user } = useNewUserAuth();
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState('');
   let navigate = useNavigate();
-
-  const [{ loading, error, user }, dispatch] = useReducer(reducer, {
-    loading: true,
-    error: '',
-    user: {},
-  }); // current state depends on previous state
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await axios.get(`/api/users/${currentUser.email}`);
-        dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
-      } catch (err) {
-        console.log(err);
-        dispatch({ type: 'FETCH_FAIL', payload: getError(err) });
-      }
-    };
-    fetchData();
-  }, [currentUser.email]);
   const [name, setName] = useState(user.name);
   const [username, setUserName] = useState(user.user_name);
+  const [img, setImg] = useState('upload profile pic');
+  const [profileURL, setProfileURL] = useState(
+    user.image ||
+      'https://m.media-amazon.com/images/I/51UW1849rJL._AC_SY450_.jpg'
+  );
+
+  const uploadProfileImage = async (event) => {
+    const files = event.target.files;
+    const data = new FormData();
+    data.append('file', files[0]);
+    data.append('upload_preset', 'Image_upload');
+    data.append('cloud_name', 'educatify-image');
+    await fetch(
+      'https://api.cloudinary.com/v1_1/educatify-image/image/upload',
+      {
+        method: 'POST',
+        body: data,
+      }
+    )
+      .then((resp) => resp.json())
+      .then((data) => {
+        setProfileURL(data.url);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   async function HandleSubmit(e) {
     e.preventDefault();
     try {
@@ -55,34 +49,61 @@ export default function UpdateProfile() {
       setError('');
       try {
         const res = await axios.post('/api/users/updateuser', {
-          email: currentUser.email,
+          email: user.email,
           name: name,
           user_name: username,
+          image: profileURL,
         });
-        console.log(res);
       } catch (error) {
         setError(error);
-        setLoading(false);
       }
       navigate('/dashboard');
     } catch (error) {
       getError(error);
-      setLoading(false);
     }
+    setLoading(false);
   }
   return (
-    <div className="shadow w-40 m-auto mt-5 p-4 pb-5">
+    <div className="shadow w-40 m-auto mt-5 p-4 pb-5 ps-2">
       <Card>
         <Card.Body>
           <Helmet>
-            <title>Update Profie</title>
+            <title>Update Profile</title>
           </Helmet>
           <h4 className="my-3 text-center mb-4">Update Account Details </h4>
           {error && <MessageBox variant="danger">{error}</MessageBox>}
-          {Error && <MessageBox variant="danger">{Error}</MessageBox>}
-          {message && <MessageBox variant="danger">{message}</MessageBox>}
+
           <Form onSubmit={HandleSubmit}>
-            <FormGroup className="mb-3" id="name">
+            <img
+              height={200}
+              width={200}
+              className="m-4"
+              id="uploadedimage"
+              src={profileURL}
+              alt="profile-pic"
+            ></img>
+            <label
+              htmlFor="filePicker"
+              className="m-auto"
+              style={{
+                background: 'rgb(36 58 91)',
+                padding: '5px 10px',
+                color: 'white',
+              }}
+            >
+              {img}
+            </label>
+
+            <input
+              className="m-auto thumbnailupload"
+              id="filePicker"
+              type="file"
+              name="thumbnail"
+              placeholder="upload profile pic"
+              onChange={uploadProfileImage}
+            />
+
+            <FormGroup className="mb-3 mt-3" id="name">
               <Form.Label>Enter Name</Form.Label>
               <Form.Control
                 type="text"
@@ -100,12 +121,12 @@ export default function UpdateProfile() {
                 defaultValue={user.user_name}
               />
             </FormGroup>
-            <Button className="w-100" disabled={Loading} type="submit">
+            <Button className="w-100" disabled={loading} type="submit">
               Update
             </Button>
           </Form>
           <div className="text-center mt-5">
-            <Button disabled={Loading} type="submit">
+            <Button disabled={loading}>
               <Link className="text-decoration-none text-white" to="/dashboard">
                 Cancel
               </Link>

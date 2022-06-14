@@ -198,7 +198,7 @@ span.mr-4 {
   overflow-y: auto;
   flex-direction: column;
   height: 100vh !important;
-  width: 25%;
+  width: 370px;
   box-sizing: border-box;
   align-items: center;
   background-color: #395783;
@@ -279,7 +279,8 @@ span.mr-4 {
 }
 .addbutton {
   width: 25%;
-  margin-left: 2rem;
+  margin-top: 1rem;
+  margin-left: 3.5rem;
 }
 
 .marginsetapp {
@@ -333,4 +334,9 @@ span.mr-4 {
   width: 100px;
 }
 .getStartedphoto {
+}
+.thumbnailupload {
+  visibility: hidden;
+  margin: auto;
+  margin-top: 3rem;
 }

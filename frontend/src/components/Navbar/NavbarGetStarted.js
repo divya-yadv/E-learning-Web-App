@@ -4,6 +4,7 @@ import { useUserAuth } from '../../contexts/AuthContext';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { Store } from '../../store';
+import CartIcon from '../CartIcon';
 
 export default function NavbarGetStarted({ children }) {
   const { currentUser } = useUserAuth();
@@ -42,16 +43,7 @@ export default function NavbarGetStarted({ children }) {
                 Sign In
               </Link>
             )}
-            {currentUser && (
-              <Link className="nav-link" to="/cart">
-                <i className="fa-solid fa-cart-shopping"></i>
-                {cart.cartItems.length > 0 && (
-                  <Badge pill bg="danger">
-                    {cart.cartItems.length}
-                  </Badge>
-                )}
-              </Link>
-            )}
+            <CartIcon />
             {currentUser && (
               <Link className="nav-link" to="/dashboard">
                 {currentUser.email}

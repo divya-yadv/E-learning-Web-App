@@ -1,6 +1,6 @@
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import GetCourse from '../components/GetCourse';
+import GetCourse from '../components/Getcourse';
 import { useNewUserAuth } from '../components/GetUser';
 
 function TeacherDashboard() {

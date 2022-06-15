@@ -4,6 +4,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { Link } from 'react-router-dom';
 import logo from '../../assests/Brand.png';
 import BrandLogo from '../BrandLogo';
+import CartIcon from '../CartIcon';
 export default function NavbarSignup() {
   return (
     <Navbar bg="light" variant="light" expand="lg">
@@ -13,6 +14,7 @@ export default function NavbarSignup() {
           <Link className="nav-link" to="/">
             Back to Start Page
           </Link>
+          <CartIcon />
           <Link className="nav-link" to="/signin">
             Sign In
           </Link>

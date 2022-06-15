@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from 'react';
+import { useContext, useEffect, useReducer } from 'react';
 import axios from '../components/axios';
 import Course from '../components/Course';
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
@@ -26,7 +26,6 @@ const reducer = (state, action) => {
 function GetStarted() {
   const { currentUser } = useUserAuth();
 
-  // const [courses, setCourses] = useState([]); // in order to save courses from backend
   const [{ loading, error, courses }, dispatch] = useReducer(reducer, {
     loading: true,
     error: '',
@@ -77,7 +76,7 @@ function GetStarted() {
               </Button>
             </Col>
             <Col sm={12} md={6}>
-              <img className="getStartedphoto"src={photo} alt=" a girl with laptop" />
+              <img src={photo} alt=" a girl with laptop" />
             </Col>
           </Row>
         </Card>

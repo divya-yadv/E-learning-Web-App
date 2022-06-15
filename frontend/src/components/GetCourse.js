@@ -1,9 +1,9 @@
 import React, { useEffect, useReducer } from 'react';
-import {  Card,  } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import axios from './axios';
 import getError from '../utils';
-import Loading from '../components/Loading';
-import MessageBox from '../components/MessageBox';
+import Loading from './Loading';
+import MessageBox from './MessageBox';
 import { Link } from 'react-router-dom';
 import Rating from './Rating';
 
@@ -19,7 +19,7 @@ const reducer = (state, action) => {
       return state;
   }
 };
-function GetCourse(props) {
+function Getcourse(props) {
   const id = props.courseid;
   const [{ loading, error, course }, dispatch] = useReducer(reducer, {
     loading: true,
@@ -71,4 +71,4 @@ function GetCourse(props) {
   );
 }
 
-export default GetCourse;
+export default Getcourse;

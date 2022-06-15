@@ -30,7 +30,9 @@ function Course(props) {
         <Link className="title" to={`/courses/slug/${course.slug}`}>
           <Card.Title>{course.Course_name}</Card.Title>
         </Link>
-        <Card.Text>{course.course_instructor}</Card.Text>
+        <Card.Text>
+          By <strong>{course.course_instructor}</strong>
+        </Card.Text>
         <Rating rating={course.rating} numReviews={course.numReviews} />
         <Card.Text>
           <strong>${course.price}</strong>

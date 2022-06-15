@@ -55,18 +55,90 @@ userRouter.post(
             image: req.body.image,
           },
         },
-        { new: true },(err, result)=>{
-          if(err){
-              res.status(400).send({
-                  data: "couldn't update user"
-              })
-          }else{
-              console.log(result);
-              res.status(200).send({
-                  data: "User Updated"
-              })
+        { new: true },
+        (err, result) => {
+          if (err) {
+            res.status(400).send({
+              data: "couldn't update user",
+            });
+          } else {
+            console.log(result);
+            res.status(200).send({
+              data: 'User Updated',
+            });
           }
-      })
+        }
+      );
+    } catch (err) {
+      res.status(500).send(err);
+    }
+  })
+);
+userRouter.post(
+  '/api/users/addcart',
+  express.json(),
+  expressAsyncHandler(async (req, res) => {
+    try {
+      User.findOneAndUpdate(
+        { email: req.body.email },
+        {
+          $set: {
+            cart: [
+              req.body.cart.map((course) => {
+                return course._id;
+              }),
+            ],
+          },
+        },
+        { new: true },
+        (err, result) => {
+          if (err) {
+            res.status(400).send({
+              data: "couldn't add to cart",
+            });
+          } else {
+            console.log(result);
+            res.status(200).send({
+              data: 'Added to cart',
+            });
+          }
+        }
+      );
+    } catch (err) {
+      res.status(500).send(err);
+    }
+  })
+);
+userRouter.post(
+  '/api/users/buy',
+  express.json(),
+  expressAsyncHandler(async (req, res) => {
+    try {
+      User.findOneAndUpdate(
+        { email: req.body.email },
+        {
+          $set: {
+            buyedCourses: [
+              req.body.buyedCourses.map((course) => {
+                return course._id;
+              }),
+            ],
+          },
+        },
+        { new: true },
+        (err, result) => {
+          if (err) {
+            res.status(400).send({
+              data: "couldn't buy",
+            });
+          } else {
+            console.log(result);
+            res.status(200).send({
+              data: 'User buyed',
+            });
+          }
+        }
+      );
     } catch (err) {
       res.status(500).send(err);
     }

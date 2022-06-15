@@ -23,7 +23,7 @@ export function useNewUserAuth() {
 
 export function AuthUserProvider({ children }) {
   const { currentUser } = useUserAuth();
-  const email = currentUser.email;
+  const email = currentUser ? currentUser.email : '';
   const [{ loading, error, user }, dispatch] = useReducer(reducer, {
     loading: true,
     error: '',
@@ -32,7 +32,7 @@ export function AuthUserProvider({ children }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await axios.get(`/api/users/${currentUser.email}`);
+        const result = await axios.get(`/api/users/${email}`);
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
       } catch (err) {
         console.log(err);
@@ -40,7 +40,7 @@ export function AuthUserProvider({ children }) {
       }
     };
     fetchData();
-  }, [currentUser.email]);
+  }, [email]);
   const value = {
     user,
   };

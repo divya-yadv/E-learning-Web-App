@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useUserAuth } from '../../contexts/AuthContext';
 import BrandLogo from '../BrandLogo';
 import { useNewUserAuth } from '../GetUser';
+import CartIcon from '../CartIcon';
 
 export default function StudentNavbar({ children }) {
   const { currentUser } = useUserAuth();
@@ -22,11 +23,7 @@ export default function StudentNavbar({ children }) {
               Teach
             </Link>
 
-            {currentUser && (
-              <Link className="nav-link" to="/cart">
-                <i className="fa-solid fa-cart-shopping"></i>
-              </Link>
-            )}
+            <CartIcon />
             {currentUser && (
               <Link className="nav-link" to="/updateprofile">
                 {currentUser.email}

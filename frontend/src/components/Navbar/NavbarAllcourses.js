@@ -3,6 +3,7 @@ import BrandLogo from '../BrandLogo';
 import { useUserAuth } from '../../contexts/AuthContext';
 import { Link } from 'react-router-dom';
 import { useNewUserAuth } from '../GetUser';
+import CartIcon from '../CartIcon';
 
 export default function NavbarAllcourses({ children }) {
   const { currentUser } = useUserAuth();
@@ -30,11 +31,7 @@ export default function NavbarAllcourses({ children }) {
                 Sign In
               </Link>
             )}
-            {currentUser && (
-              <Link className="nav-link" to="/cart">
-                <i className="fa-solid fa-cart-shopping"></i>
-              </Link>
-            )}
+            <CartIcon />
             {currentUser && (
               <Link className="nav-link" to="/updateprofile">
                 {currentUser.email}

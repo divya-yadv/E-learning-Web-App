@@ -1,6 +1,6 @@
 import axios from '../components/axios';
-import { useEffect, useReducer } from 'react';
-import { useParams } from 'react-router-dom';
+import { useContext, useEffect, useReducer } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Row, Col, ListGroup, Button, Card } from 'react-bootstrap';
 import Rating from '../components/Rating';
 import { Helmet } from 'react-helmet-async';
@@ -8,6 +8,7 @@ import Loading from '../components/Loading';
 import MessageBox from '../components/MessageBox';
 import getError from '../utils';
 import Content from '../components/Content';
+import { Store } from '../store';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -25,6 +26,10 @@ const reducer = (state, action) => {
 function CourseScreen() {
   const params = useParams();
   const { slug } = params;
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { cart } = state;
+  const navigate = useNavigate();
+
   const [{ loading, error, course }, dispatch] = useReducer(reducer, {
     loading: true,
     error: '',
@@ -43,6 +48,12 @@ function CourseScreen() {
     };
     fetchData();
   }, [slug]);
+  const addToCartHandler = () => {
+    const existItem = cart.cartItems.find((x) => x._id === course._id);
+    const quantity = existItem ? existItem.quantity : 1;
+    ctxDispatch({ type: 'CART_ADD_ITEM', payload: { ...course, quantity: 1 } });
+    navigate('/cart');
+  };
   return loading ? (
     <Loading />
   ) : error ? (
@@ -95,7 +106,9 @@ function CourseScreen() {
                   <h1>${course.price}</h1>
                 </ListGroup.Item>
                 <ListGroup.Item>
-                  <Button className="btn-lg">Add to cart</Button>
+                  <Button onClick={addToCartHandler} className="btn-lg">
+                    Add to cart
+                  </Button>
                 </ListGroup.Item>
                 <ListGroup.Item className="text-center">
                   <p>30-Day Money-back Gurantee</p>

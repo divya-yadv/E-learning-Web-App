@@ -30,6 +30,8 @@ import UpdateProfile from './components/UpdateProfile';
 import Cart from './components/Cart';
 import { AuthUserProvider } from './components/GetUser';
 import NavbarCart from './components/Navbar/NavbarCart';
+import Payment from './components/Payment';
+import NavbarUpdateprofile from './components/Navbar/NavbarUpdateprofile';
 function App() {
   return (
     <BrowserRouter>
@@ -41,13 +43,14 @@ function App() {
               <Route path="/signin" element={<NavbarSignIn />} />
               <Route path="/signup" element={<NavbarSignup />} />
               <Route
-                path="/cart"
+                path="/payment"
                 element={
                   <PrivateRoute>
                     <NavbarCart />
                   </PrivateRoute>
                 }
               />
+              <Route path="/cart" element={<NavbarCart />} />
               <Route
                 path="/dashboard"
                 element={
@@ -75,7 +78,7 @@ function App() {
                 element={
                   <PrivateRoute>
                     <AuthUserProvider>
-                      <CreateCourseNavbar />
+                      <NavbarUpdateprofile />
                     </AuthUserProvider>
                   </PrivateRoute>
                 }
@@ -113,13 +116,14 @@ function App() {
                 <Route path="/profile" element={<ProfileScreen />} />
                 <Route path="/forgotpassword" element={<ForgotPassword />} />
                 <Route
-                  path="/cart"
+                  path="/payment"
                   element={
                     <PrivateRoute>
-                      <Cart />
+                      <Payment />
                     </PrivateRoute>
                   }
                 />
+                <Route path="/cart" element={<Cart />} />
                 <Route
                   path="/updateprofile"
                   element={

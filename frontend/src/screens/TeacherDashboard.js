@@ -1,6 +1,6 @@
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import Getcourse from '../components/Getcourse';
+import GetCourse from '../components/GetCourse';
 import { useNewUserAuth } from '../components/GetUser';
 
 function TeacherDashboard() {
@@ -17,7 +17,7 @@ function TeacherDashboard() {
             {user.createdCourses &&
               user.createdCourses.map((courseid, index) => (
                 <Col key={index} sm={6} md={4} lg={4} className="mb-3">
-                  <Getcourse courseid={courseid} />
+                  <GetCourse courseid={courseid} />
                 </Col>
               ))}
           </Row>

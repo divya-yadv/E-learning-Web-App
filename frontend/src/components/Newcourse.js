@@ -24,7 +24,7 @@ export default function NewCourse() {
   const [price, setPrice] = useState(0);
   const [link, setLink] = useState('');
   const [sectionTitle, setTitle] = useState('');
-  const [sections, updateSections] = useState([]);
+  const [sections, setSections] = useState([]);
   const { currentUser } = useUserAuth();
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
@@ -99,13 +99,24 @@ export default function NewCourse() {
     setKeyword('');
   }
   function HandleSectionAdd() {
-    updateSections((prevValue) => {
+    setSections((prevValue) => {
       return [...prevValue, { title: sectionTitle, link: link }];
     });
     setTitle('');
     setLink('');
   }
-
+  function deleteHandlekeywords(target) {
+    const items = keywords.filter((item) => item !== target);
+    return setKeywords(items);
+  }
+  function deleteHandlereq(target) {
+    const items = requirements.filter((item) => item !== target);
+    return setrequirements(items);
+  }
+  function deleteHandlesections(target) {
+    const items = sections.filter((item) => item !== target);
+    return setSections(items);
+  }
   return (
     <Container className="teacherdashboard w-100 text-center">
       <h1 className="text-start sm-3">Course details</h1>
@@ -143,6 +154,7 @@ export default function NewCourse() {
                   {img}
                 </label>
                 <button
+                  type="button"
                   onClick={() => {
                     setImg('upload thumbnail');
                     setThumbnailURL(
@@ -226,7 +238,20 @@ export default function NewCourse() {
 
                 <ul className="text-start mt-2">
                   {keywords.map((keyword, index) => {
-                    return <li key={index}>{keyword}</li>;
+                    return (
+                      <li key={index}>
+                        {keyword}{' '}
+                        <Button
+                          className="ms-5"
+                          onClick={() =>
+                            deleteHandlekeywords(keyword)
+                          }
+                          variant="light"
+                        >
+                          <i className="fas fa-trash "></i>
+                        </Button>
+                      </li>
+                    );
                   })}
                 </ul>
                 <h3 className="text-start">Requirements</h3>
@@ -244,7 +269,18 @@ export default function NewCourse() {
 
                 <ul className="text-start mt-2">
                   {requirements.map((requirement, index) => {
-                    return <li key={index}>{requirement}</li>;
+                    return (
+                      <li key={index}>
+                        {requirement}
+                        <Button
+                          className="ms-5"
+                          onClick={() => deleteHandlereq(requirement)}
+                          variant="light"
+                        >
+                          <i className="fas fa-trash "></i>
+                        </Button>
+                      </li>
+                    );
                   })}
                 </ul>
               </Card>
@@ -278,6 +314,13 @@ export default function NewCourse() {
                           <div>{section.title}</div>
                           <div>{section.link}</div>
                         </div>
+                        <Button
+                          className="ms-5"
+                          onClick={() => deleteHandlesections(section)}
+                          variant="light"
+                        >
+                          <i className="fas fa-trash "></i>
+                        </Button>
                       </li>
                     );
                   })}

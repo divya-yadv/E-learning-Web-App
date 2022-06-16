@@ -37,6 +37,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  margin-left: -1rem;
 }
 .course {
   border: 1px solid #404040;

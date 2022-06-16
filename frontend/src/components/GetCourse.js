@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer } from 'react';
-import { Card } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
 import axios from './axios';
 import getError from '../utils';
 import Loading from './Loading';
@@ -19,7 +19,7 @@ const reducer = (state, action) => {
       return state;
   }
 };
-function Getcourse(props) {
+function GetCourse(props) {
   const id = props.courseid;
   const [{ loading, error, course }, dispatch] = useReducer(reducer, {
     loading: true,
@@ -48,27 +48,35 @@ function Getcourse(props) {
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
         <Card className="shadow">
-          <Link to={`/courses/update/slug/${course.slug}`}>
+          <Link to={`/courses/yours/slug/${course.slug}`}>
             <Card.Img
               className="card-img-top"
               src={course.thumbnail}
               alt={course.Course_name}
+              height={250}
+              width={250}
             />
           </Link>
           <Card.Body>
-            <Link className="title" to={`/courses/update/slug/${course.slug}`}>
+            <Link className="title" to={`/courses/yours/slug/${course.slug}`}>
               <Card.Title>{course.Course_name}</Card.Title>
             </Link>
-            <Card.Text>{course.course_instructor}</Card.Text>
+            <Card.Text>{course.description}</Card.Text>
             <Rating rating={course.rating} numReviews={course.numReviews} />
             <Card.Text>
               <strong>${course.price}</strong>
             </Card.Text>
           </Card.Body>
+          <Link
+            className="text-decoration-none text-white"
+            to={`/courses/update/slug/${course.slug}`}
+          >
+            <Button className="btn btn-primary w-100">Update Course</Button>
+          </Link>
         </Card>
       )}
     </>
   );
 }
 
-export default Getcourse;
+export default GetCourse;

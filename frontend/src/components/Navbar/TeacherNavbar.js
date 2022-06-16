@@ -15,6 +15,11 @@ export default function TeacherNavbar() {
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav className="me-0 nav-tabs homenavbar" navbarScroll>
+          {currentUser && (
+              <Link className="nav-link" to="/dashboard">
+                Dashboard
+              </Link>
+            )}
             <Link className="nav-link" to="/allcourses">
               Browse Courses
             </Link>

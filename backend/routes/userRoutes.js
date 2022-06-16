@@ -154,7 +154,6 @@ userRouter.post(
     const newCourse = new Course({
       Course_name: req.body.title,
       slug: str,
-      email: req.body.email,
       description: req.body.coursedescrip,
       thumbnail: req.body.thumbnail,
       keywords: req.body.keywords,

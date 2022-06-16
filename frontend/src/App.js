@@ -2,6 +2,7 @@ import AboutScreen from './screens/AboutScreen';
 import ContactScreen from './screens/ContactScreen';
 import AllCourses from './screens/AllCourses';
 import CourseScreen from './screens/CourseScreen';
+import CourseScreenAuth from './screens/CourseScreenAuth';
 import SignInScreen from './screens/SignInScreen';
 import SignUpScreen from './screens/SignUpScreen';
 import GetStarted from './screens/GetStartedScreen';
@@ -62,6 +63,16 @@ function App() {
                 }
               />
               <Route path="/courses/slug/:slug" element={<NavbarCourse />} />
+              <Route
+                path="/courses/yours/slug/:slug"
+                element={
+                  <PrivateRoute>
+                    <AuthUserProvider>
+                      <NavbarCourse />
+                    </AuthUserProvider>
+                  </PrivateRoute>
+                }
+              />
               <Route
                 path="/teacherdashboard"
                 element={
@@ -158,6 +169,16 @@ function App() {
                     <PrivateRoute>
                       <AuthUserProvider>
                         <TeacherDashboard />
+                      </AuthUserProvider>
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/courses/yours/slug/:slug"
+                  element={
+                    <PrivateRoute>
+                      <AuthUserProvider>
+                        <CourseScreenAuth />
                       </AuthUserProvider>
                     </PrivateRoute>
                   }

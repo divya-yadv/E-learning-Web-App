@@ -321,6 +321,14 @@ span.mr-4 {
     max-width: 90% !important;
   }
 }
+@media screen and (max-width: 600px) {
+  .w-40 {
+    max-width: 90% !important;
+  }
+  .sidenavbar {
+    max-width: 100px !important;
+  }
+}
 .footer {
   display: flex;
   bottom: 0px;

@@ -51,24 +51,38 @@ export default function Sidebar() {
                   />
                 </Figure>
               </Row>
-              <Row className="m-auto text-white h5 ">{user.name}</Row>
-              <Row>
-                <Button onClick={HandleClick} className="btn btn-primary buttonsidebar">
-                  Update Profile
-                </Button>
+              <Row className="m-auto  justify-content-center text-center text-white h5 ">
+                {user.name}
               </Row>
               <Row>
-                <Link className="nav-link text-center h5" to="/about">
+                <Button
+                  onClick={HandleClick}
+                  className="btn btn-primary buttonsidebar"
+                >
+                  Update
+                </Button>
+              </Row>
+              <Row className=" justify-content-center">
+                <Link
+                  className="nav-link text-center justify-content-center h5"
+                  to="/about"
+                >
                   About
                 </Link>
               </Row>
-              <Row>
-                <Link className="nav-link text-center h5" to="/allcourses">
+              <Row className=" justify-content-center">
+                <Link
+                  className="nav-link text-center justify-content-center h5"
+                  to="/allcourses"
+                >
                   Contact Us
                 </Link>
               </Row>
               <Row>
-                <Button onClick={handleLogoutClick} className="btn btn-danger buttonsidebar">
+                <Button
+                  onClick={handleLogoutClick}
+                  className="btn btn-danger buttonsidebar"
+                >
                   Logout
                 </Button>
               </Row>

@@ -8,7 +8,7 @@ export default function Dashboard() {
   return (
     <div>
       <Sidebar />
-      <Container>
+      <Container className="mt-4">
         <h1>My courses</h1>
         {user &&
           user.buyedCourses.map((course) => {

@@ -48,12 +48,12 @@ export default function AddCart() {
     }
   };
   return (
-    <div>
+    <div className="mt-5">
       <Helmet>
         <title>Cart</title>
       </Helmet>
       <h1>Buy Courses</h1>
-      <Row>
+      <Row className="mt-5">
         <Col md={8}>
           {cartItems.length === 0 ? (
             <MessageBox>

@@ -11,6 +11,10 @@ body {
   box-shadow: 10px 10px 16px #000000 !important;
   margin-bottom: 1rem;
 }
+.shadow1 {
+  box-shadow: 0px 10px 10px 3px #000000 !important;
+  margin-bottom: 1rem;
+}
 .alert-warning {
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -195,7 +199,7 @@ span.mr-4 {
   display: flex;
   float: right;
   margin-top: -2rem;
-  margin-right: -7rem;
+  margin-right: -8rem;
   overflow-y: auto;
   flex-direction: column;
   height: 100vh !important;
@@ -311,6 +315,11 @@ span.mr-4 {
 }
 .w-40 {
   max-width: 40% !important;
+}
+@media screen and (max-width: 600px) {
+  .w-40 {
+    max-width: 90% !important;
+  }
 }
 .footer {
   display: flex;

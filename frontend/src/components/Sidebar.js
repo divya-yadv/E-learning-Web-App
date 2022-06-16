@@ -33,7 +33,7 @@ export default function Sidebar() {
     }
   }
   return (
-    <div className="sidenavbar">
+    <div className="sidenavbar shadow1">
       <Navbar bg="light" variant="light" expand="sm">
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">

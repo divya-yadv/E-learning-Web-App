@@ -7,7 +7,7 @@ import { Helmet } from 'react-helmet-async';
 import Loading from '../components/Loading';
 import MessageBox from '../components/MessageBox';
 import getError from '../utils';
-import Content from '../components/Content';
+import Section from '../components/Section';
 import { Store } from '../store';
 
 const reducer = (state, action) => {
@@ -143,7 +143,16 @@ function CourseScreen() {
         <Col sm={1} md={2}>
           <Card className="shadow sections">
             <h3>Course Sections</h3>
-            <Content sections={course.CourseContent} />
+            {course.sections &&
+              course.sections.map((section, index) => {
+                return (
+                  <li key={index}>
+                    <Row sm={12} md={12} lg={12}>
+                      <Section section={section} />
+                    </Row>
+                  </li>
+                );
+              })}
           </Card>
         </Col>
       </Row>

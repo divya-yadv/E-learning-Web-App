@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import Section from './Section';
+
 export default function Content(props) {
   const { sections } = props;
   return (

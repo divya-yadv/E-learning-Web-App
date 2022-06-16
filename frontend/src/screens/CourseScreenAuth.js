@@ -1,14 +1,12 @@
 import axios from '../components/axios';
-import { useContext, useEffect, useReducer } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { Row, Col, ListGroup, Button, Card } from 'react-bootstrap';
+import { useEffect, useReducer, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { Row, Col, ListGroup, Card } from 'react-bootstrap';
 import Rating from '../components/Rating';
 import { Helmet } from 'react-helmet-async';
 import Loading from '../components/Loading';
 import MessageBox from '../components/MessageBox';
 import getError from '../utils';
-import Content from '../components/Content';
-import { Store } from '../store';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -26,9 +24,6 @@ const reducer = (state, action) => {
 function CourseScreenAuth() {
   const params = useParams();
   const { slug } = params;
-  const { state, dispatch: ctxDispatch } = useContext(Store);
-  const { cart } = state;
-  const navigate = useNavigate();
 
   const [{ loading, error, course }, dispatch] = useReducer(reducer, {
     loading: true,
@@ -48,28 +43,76 @@ function CourseScreenAuth() {
     };
     fetchData();
   }, [slug]);
-  const addToCartHandler = () => {
-    const existItem = cart.cartItems.find((x) => x._id === course._id);
-    const quantity = existItem ? existItem.quantity : 1;
-    ctxDispatch({ type: 'CART_ADD_ITEM', payload: { ...course, quantity: 1 } });
-    navigate('/cart');
-  };
+  const [selected, setSelect] = useState(
+    course.CourseContent ? course.CourseContent[0].link : ''
+  );
   return loading ? (
     <Loading />
   ) : error ? (
     <MessageBox variant="danger">{error}</MessageBox>
   ) : (
-    <div className="coursescreendiv">
-      <Row>
-        <Col sm={12} md={6}>
-          <Card className="align-center">
-            <Card className="shadow ">
-              <img
-                className="img-large p-5 w-80"
-                src={course.thumbnail}
-                alt={course.Course_name}
-              ></img>
+    <div>
+      <div
+        className="text-center h3"
+        style={{
+          backgroundImage:
+            'linear-gradient(to right,rgba(255, 0, 0, 0),rgb(37, 95, 153) )',
+          padding: '20px',
+        }}
+      >
+        {course.Course_name}
+      </div>
+      <div className="coursescreendiv">
+        <Row>
+          <Col sm={12} md={6}>
+            <Card className="align-center">
+              <Card className="shadow videospacecard border border-primary justify-content-center ">
+                {!selected && (
+                  <img
+                    style={{ height: '500px !important' }}
+                    className="img-large"
+                    src={course.thumbnail}
+                    alt={course.Course_name}
+                  ></img>
+                )}
+
+                <iframe
+                  className="videospace"
+                  src={selected}
+                  frameBorder="0"
+                  allow="autoplay; encrypted-media"
+                  allowFullScreen
+                  title="video"
+                />
+              </Card>
             </Card>
+          </Col>
+          <Col sm={12} md={6} lg={6}>
+            <Card className="shadow">
+              <h3>Course Sections</h3>
+              <ul>
+                {course.CourseContent &&
+                  course.CourseContent.map((section, index) => {
+                    return (
+                      <li key={index}>
+                        <input
+                          name="video"
+                          key={index}
+                          id={index}
+                          type="radio"
+                        />
+                        <label htmlFor={index}>
+                          {index + 1}
+                          {''}
+                          {section.title}
+                        </label>
+                      </li>
+                    );
+                  })}
+              </ul>
+            </Card>
+          </Col>
+          <Col sm={12} md={6} lg={6}>
             <Card className="shadow p-3">
               <ListGroup>
                 <ListGroup.Item>
@@ -125,23 +168,24 @@ function CourseScreenAuth() {
                 </ListGroup.Item>
                 <ListGroup.Item className="border">
                   <h3>Requirements</h3>
-                  {course.Requirements &&
-                    course.Requirements.map((requirement, index) => {
-                      return <span key={index}>{requirement}, </span>;
-                    })}
+                  <ul>
+                    <Row>
+                      {course.Requirements &&
+                        course.Requirements.map((requirement, index) => {
+                          return (
+                            <Col sm={6} className="text-wrap text-break">
+                              <li key={index}>{requirement}</li>
+                            </Col>
+                          );
+                        })}
+                    </Row>
+                  </ul>
                 </ListGroup.Item>
               </ListGroup>
             </Card>
-          </Card>
-        </Col>
-
-        <Col sm={1} md={2}>
-          <Card className="shadow sections">
-            <h3>Course Sections</h3>
-            <Content sections={course.CourseContent} />
-          </Card>
-        </Col>
-      </Row>
+          </Col>
+        </Row>
+      </div>
     </div>
   );
 }

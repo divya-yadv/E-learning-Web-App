@@ -20,7 +20,7 @@ function TeacherDashboard() {
           userInfo.createdCourses.map((courseid, index) => (
             <Col key={index} sm={6} md={4} lg={4} className="mb-3">
               {console.log(courseid)};
-              <GetCourse courseid={courseid} />
+              <GetCourse courseid={courseid._id} />
             </Col>
           ))}
       </Row>

@@ -53,6 +53,7 @@ The demo of this website is live on https://educatify-edu.herokuapp.com/
 
 - Login with email and password, email verification will be required in this case
 - login with google
+- logout
 - An account can be used for teacher as well as for students
 - teacher has a seperate dashboard where created courses can be seen
 - teacher can edit the course
@@ -71,6 +72,7 @@ The demo of this website is live on https://educatify-edu.herokuapp.com/
 - multiple videos in one section
 - comments and ratings system
 - search bar implementation
+- Right now there is some problem with video playing will be that (thumbnail is there instead of video)
 
 ### Home page without login (/)
 
@@ -116,6 +118,50 @@ The demo of this website is live on https://educatify-edu.herokuapp.com/
 ### create course page with content
 
 ![image](https://user-images.githubusercontent.com/90103759/174441799-cc7ae2dc-13c2-4b57-9b5d-9dac09dcc839.png)
+
+### after creating course
+
+![image](https://user-images.githubusercontent.com/90103759/174442756-f5b8021f-257b-4147-99fd-729e6297f811.png)
+
+### update course(/courses/update/slug/web-developement-course)
+
+![image](https://user-images.githubusercontent.com/90103759/174442800-138e7979-a585-454d-a050-ae54d332de2b.png)
+
+### cart after adding course (/cart)
+
+![image](https://user-images.githubusercontent.com/90103759/174442838-c29852cb-27de-48e9-966e-10187605878a.png)
+
+### all courses screen after adding courses in cart(/allcourses)
+
+![image](https://user-images.githubusercontent.com/90103759/174442868-39e572e7-9f4b-4523-b5f5-7085a0ab4e3a.png)
+
+### after removing one course
+
+![image](https://user-images.githubusercontent.com/90103759/174442894-f4ba460d-c2fc-4e2a-9d82-bf07ff56596e.png)
+
+### payment screen (/payment)
+
+![image](https://user-images.githubusercontent.com/90103759/174442914-a9db1fd9-6cd8-4f62-ba16-b895abc623eb.png)
+
+### after payment (/payment)
+
+![image](https://user-images.githubusercontent.com/90103759/174442942-a6ae58c9-8ce8-4b87-8642-3b6956b0704a.png)
+
+### after buying course allcourses screen (/allcourses)
+
+![image](https://user-images.githubusercontent.com/90103759/174442967-793f8d92-c454-4cab-bb3e-4d69fc898e00.png)
+
+### will be visible on dashboard (/dashboard)
+
+![image](https://user-images.githubusercontent.com/90103759/174442990-5fc4cf35-a51c-4d69-b195-4f3277c6dc44.png)
+
+### coursescreen without buying courses
+
+![image](https://user-images.githubusercontent.com/90103759/174443088-699eea82-d9ba-43f5-8e4b-61097d91a372.png)
+
+### coursescreen after buying course (thumbnail will be visible incase video can't be played)
+
+![image](https://user-images.githubusercontent.com/90103759/174443053-a6d2fd8a-2fb6-43da-aae1-6fa38e4fca15.png)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

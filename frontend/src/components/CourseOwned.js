@@ -41,7 +41,7 @@ function CourseOwned(props) {
   }, [id]);
   return (
     <Card className="shadow">
-      <Link to={`/courses/slug/${course.slug}`}>
+      <Link to={`/courses/yours/slug/${course.slug}`}>
         <Card.Img
           className="card-img-top imagewidth"
           src={course.thumbnail}

@@ -96,6 +96,9 @@ function CourseScreen() {
     <MessageBox variant="danger">{error}</MessageBox>
   ) : (
     <div>
+      <Helmet>
+        <title>Educaify</title>
+      </Helmet>
       <div
         className="text-center h3"
         style={{

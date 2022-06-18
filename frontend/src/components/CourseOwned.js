@@ -5,6 +5,7 @@ import { Button, Card } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import getError from '../utils';
 import Rating from './Rating';
+import { Helmet } from 'react-helmet-async';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -41,6 +42,9 @@ function CourseOwned(props) {
   }, [id]);
   return (
     <Card className="shadow">
+    <Helmet>
+      <title>Educaify</title>
+    </Helmet>
       <Link to={`/courses/yours/slug/${course.slug}`}>
         <Card.Img
           className="card-img-top imagewidth"

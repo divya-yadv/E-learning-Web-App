@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
+import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import GetCourse from '../components/GetCourse';
 import Rating from '../components/Rating';
@@ -11,6 +12,9 @@ function TeacherDashboard() {
 
   return (
     <Container className="teacherdashboard">
+      <Helmet>
+        <title>Educaify</title>
+      </Helmet>
       <Link to="/teach/createnewcourse">
         <Button className="teachsignupbutton">Create new course</Button>
       </Link>

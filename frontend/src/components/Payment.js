@@ -7,6 +7,7 @@ import Loading from './Loading';
 import MessageBox from './MessageBox';
 import { Button } from 'react-bootstrap';
 import { Navigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 export default function Payment() {
   const { currentUser } = useUserAuth();
@@ -47,6 +48,9 @@ export default function Payment() {
     <MessageBox variant="danger">{error}</MessageBox>
   ) : (
     <div>
+    <Helmet>
+      <title>Educaify</title>
+    </Helmet>
       {display === 'none' ? (
         <div>
           <h1 className="mt-5">Select Payment Method</h1>

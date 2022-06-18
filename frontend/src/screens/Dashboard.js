@@ -4,11 +4,15 @@ import Sidebar from '../components/Sidebar';
 import Course from '../components/Course';
 import { Store } from '../store';
 import CourseOwned from '../components/CourseOwned';
+import { Helmet } from 'react-helmet-async';
 export default function Dashboard() {
   const { state } = useContext(Store);
   const { userInfo } = state;
   return (
     <div>
+    <Helmet>
+      <title>Dashboard</title>
+    </Helmet>
       <Sidebar />
       <div className="mt-4">
         {userInfo && userInfo.buyedCourses.length !== 0 && (

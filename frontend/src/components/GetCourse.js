@@ -20,7 +20,7 @@ const reducer = (state, action) => {
   }
 };
 function GetCourse(props) {
-  const id = props.courseid;
+  const id = props;
   const [{ loading, error, course }, dispatch] = useReducer(reducer, {
     loading: true,
     error: '',

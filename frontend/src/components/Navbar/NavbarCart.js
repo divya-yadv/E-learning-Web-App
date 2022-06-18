@@ -18,9 +18,12 @@ export default function NavbarCart() {
           <Link className="nav-link" to="/allcourses">
             Back to Browse Courses
           </Link>
-          <Link className="nav-link" to="/dashboard">
-            Dashboard
-          </Link>
+          {currentUser && (
+            <Link className="nav-link" to="/dashboard">
+              Dashboard
+            </Link>
+          )}
+
           {currentUser && userInfo && (
             <Link className="nav-link" to="/updateprofile">
               {userInfo.name}

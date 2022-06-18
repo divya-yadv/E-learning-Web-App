@@ -1,7 +1,7 @@
 {
   "name": "e-learning-web-app",
   "version": "1.0.0",
-  "description": "",
+  "description": "<div id=\"top\"></div>",
   "main": "index.js",
   "scripts": {
     "build": "cd backend && npm install && cd ../frontend && npm install && npm run build",
@@ -12,14 +12,10 @@
     "type": "git",
     "url": "git+https://github.com/divya-yadv/E-learning-Web-App.git"
   },
-  "author": "Divya",
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/divya-yadv/E-learning-Web-App/issues"
   },
-  "homepage": "https://github.com/divya-yadv/E-learning-Web-App",
-  "dependencies": {
-    "@reduxjs/toolkit": "^1.8.2",
-    "react-redux": "^8.0.2"
-  }
+  "homepage": "https://github.com/divya-yadv/E-learning-Web-App#readme"
 }

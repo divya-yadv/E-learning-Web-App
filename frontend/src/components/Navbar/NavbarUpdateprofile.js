@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import BrandLogo from '../BrandLogo';
-import { useNewUserAuth } from '../GetUser';
+import { Store } from '../../store';
 import { useUserAuth } from '../../contexts/AuthContext';
 export default function NavbarUpdateprofile() {
-  // const { user } = useNewUserAuth();
   const { currentUser } = useUserAuth();
+  const { state } = useContext(Store);
+  const { userInfo } = state;
   return (
     <Navbar bg="light" variant="light" expand="lg">
       <Container>
@@ -17,9 +18,9 @@ export default function NavbarUpdateprofile() {
             <Link className="nav-link" to="/dashboard">
               Go to Dashboard
             </Link>
-            {currentUser && (
-              <Link className="nav-link" to="/updateprofile">
-                {currentUser.email}
+            {currentUser && userInfo && (
+              <Link className="nav-link" to="/dashboard">
+                {userInfo.name}
               </Link>
             )}
           </Nav>

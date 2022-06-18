@@ -2,7 +2,7 @@
   "name": "e-learning-web-app",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "build": "cd backend && npm install && cd ../frontend && npm install && npm run build",
     "start": "node backend/server.js",
@@ -17,5 +17,9 @@
   "bugs": {
     "url": "https://github.com/divya-yadv/E-learning-Web-App/issues"
   },
-  "homepage": "https://github.com/divya-yadv/E-learning-Web-App"
+  "homepage": "https://github.com/divya-yadv/E-learning-Web-App",
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.8.2",
+    "react-redux": "^8.0.2"
+  }
 }

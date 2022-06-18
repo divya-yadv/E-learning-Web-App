@@ -1,7 +1,8 @@
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import getError, { Getcourse } from '../utils';
-import React, { useEffect, useReducer } from 'react';
+import getError from '../utils';
+import { useEffect, useReducer } from 'react';
 import UpdateCoursehelp from './UpdateCoursehelp';
 import axios from './axios';
 import Loading from './Loading';

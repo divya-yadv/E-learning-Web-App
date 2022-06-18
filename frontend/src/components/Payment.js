@@ -1,31 +1,31 @@
 import React, { useContext, useState } from 'react';
-import { useNewUserAuth } from './GetUser';
 import { useUserAuth } from '../contexts/AuthContext';
 import axios from 'axios';
 import { Store } from '../store';
-import { useNavigate } from 'react-router-dom';
 import getError from '../utils';
 import Loading from './Loading';
 import MessageBox from './MessageBox';
+import { Button } from 'react-bootstrap';
 
 export default function Payment() {
-  const { user } = useNewUserAuth();
+  const { currentUser } = useUserAuth();
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { userInfo } = state;
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState('');
-  const navigate = useNavigate();
-  const { state } = useContext(Store);
-  const {
-    cart: { cartItems },
-  } = state;
+  const [loading, setLoading] = useState(false);
+  const [display, setDisplay] = useState('none');
+  var newCart = [...new Set([...userInfo.cart, ...userInfo.buyedCourses])];
   const checkoutHandler = async () => {
     try {
       setLoading(false);
       setError('');
       try {
         const res = await axios.post('/api/users/buy', {
-          email: user.email,
-          cart: cartItems,
+          email: currentUser.email,
+          cart: newCart,
         });
+        ctxDispatch({ type: 'UPDATE_USER', payload: res.data });
+        setDisplay('notnone');
       } catch (error) {
         setError(error);
       }
@@ -39,8 +39,30 @@ export default function Payment() {
   ) : error ? (
     <MessageBox variant="danger">{error}</MessageBox>
   ) : (
-    <div onLoad={checkoutHandler} className="teachsignupbar p-5 text-center h4">
-      Congratulations, Go back to Dashboard and Start Learning!
+    <div>
+      {display === 'none' ? (
+        <div>
+          <h1 className="mt-5">Select Payment Method</h1>
+          <div className="mt-5">
+            <div className="mt-5">
+              <input type="radio" id="paypal" name="paymenttype" value="CSS" />
+              <label htmlFor="paypal">PayPal</label>
+            </div>
+            <div className="mt-3">
+              <input type="radio" id="stripe" name="paymenttype" value="CSS" />
+              <label htmlFor="stripe">Stripe</label>
+            </div>
+
+            <Button className="mt-4" onClick={checkoutHandler}>
+              Checkout
+            </Button>
+          </div>
+        </div>
+      ) : (
+        <div className="teachsignupbar p-5 text-center h4">
+          Congratulations, Go back to Dashboard and Start Learning!
+        </div>
+      )}
     </div>
   );
 }

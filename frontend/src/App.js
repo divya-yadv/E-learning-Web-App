@@ -1,3 +1,4 @@
+import React from 'react';
 import AboutScreen from './screens/AboutScreen';
 import ContactScreen from './screens/ContactScreen';
 import AllCourses from './screens/AllCourses';
@@ -6,7 +7,6 @@ import CourseScreenAuth from './screens/CourseScreenAuth';
 import SignInScreen from './screens/SignInScreen';
 import SignUpScreen from './screens/SignUpScreen';
 import GetStarted from './screens/GetStartedScreen';
-import ProfileScreen from './screens/ProfileScreen';
 import Dashboard from './screens/Dashboard';
 import TeacherDashboard from './screens/TeacherDashboard';
 
@@ -29,7 +29,6 @@ import NavbarCourse from './components/Navbar/NavbarCourse';
 import NavbarAllcourses from './components/Navbar/NavbarAllcourses';
 import UpdateProfile from './components/UpdateProfile';
 import Cart from './components/Cart';
-import { AuthUserProvider } from './components/GetUser';
 import NavbarCart from './components/Navbar/NavbarCart';
 import Payment from './components/Payment';
 import NavbarUpdateprofile from './components/Navbar/NavbarUpdateprofile';
@@ -56,9 +55,7 @@ function App() {
                 path="/dashboard"
                 element={
                   <PrivateRoute>
-                    <AuthUserProvider>
-                      <StudentNavbar />
-                    </AuthUserProvider>
+                    <StudentNavbar />
                   </PrivateRoute>
                 }
               />
@@ -67,9 +64,7 @@ function App() {
                 path="/courses/yours/slug/:slug"
                 element={
                   <PrivateRoute>
-                    <AuthUserProvider>
-                      <NavbarCourse />
-                    </AuthUserProvider>
+                    <NavbarCourse />
                   </PrivateRoute>
                 }
               />
@@ -77,9 +72,7 @@ function App() {
                 path="/teacherdashboard"
                 element={
                   <PrivateRoute>
-                    <AuthUserProvider>
-                      <TeacherNavbar />
-                    </AuthUserProvider>
+                    <TeacherNavbar />
                   </PrivateRoute>
                 }
               />
@@ -88,9 +81,7 @@ function App() {
                 path="/updateprofile"
                 element={
                   <PrivateRoute>
-                    <AuthUserProvider>
-                      <NavbarUpdateprofile />
-                    </AuthUserProvider>
+                    <NavbarUpdateprofile />
                   </PrivateRoute>
                 }
               />
@@ -124,7 +115,7 @@ function App() {
                 />
                 <Route path="/signin" element={<SignInScreen />} />
                 <Route path="/signup" element={<SignUpScreen />} />
-                <Route path="/profile" element={<ProfileScreen />} />
+
                 <Route path="/forgotpassword" element={<ForgotPassword />} />
                 <Route
                   path="/payment"
@@ -139,9 +130,7 @@ function App() {
                   path="/updateprofile"
                   element={
                     <PrivateRoute>
-                      <AuthUserProvider>
-                        <UpdateProfile />
-                      </AuthUserProvider>
+                      <UpdateProfile />
                     </PrivateRoute>
                   }
                 />
@@ -157,9 +146,7 @@ function App() {
                   path="/dashboard"
                   element={
                     <PrivateRoute>
-                      <AuthUserProvider>
-                        <Dashboard />
-                      </AuthUserProvider>
+                      <Dashboard />
                     </PrivateRoute>
                   }
                 />
@@ -167,9 +154,7 @@ function App() {
                   path="/teacherdashboard"
                   element={
                     <PrivateRoute>
-                      <AuthUserProvider>
-                        <TeacherDashboard />
-                      </AuthUserProvider>
+                      <TeacherDashboard />
                     </PrivateRoute>
                   }
                 />
@@ -177,9 +162,7 @@ function App() {
                   path="/courses/yours/slug/:slug"
                   element={
                     <PrivateRoute>
-                      <AuthUserProvider>
-                        <CourseScreenAuth />
-                      </AuthUserProvider>
+                      <CourseScreenAuth />
                     </PrivateRoute>
                   }
                 />

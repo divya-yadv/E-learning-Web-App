@@ -7,32 +7,52 @@ import MessageBox from './MessageBox';
 import { Link, useNavigate } from 'react-router-dom';
 import { useUserAuth } from '../contexts/AuthContext';
 import Course from './Course';
-import { withRouter } from 'react-router-dom';
-import { useNewUserAuth } from './GetUser';
 import axios from 'axios';
 import getError from '../utils';
 
 export default function AddCart() {
   const { currentUser } = useUserAuth();
-  const { user } = useNewUserAuth();
+
   const [error, setError] = useState('');
   const [loading, setLoading] = useState('');
   const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { userInfo } = state;
   const navigate = useNavigate();
   const {
     cart: { cartItems },
   } = state;
-  function removeItemHandler(item) {
-    ctxDispatch({ type: 'CART_REMOVE_ITEM', payload: item });
+  async function removeItemHandler(item) {
+    await ctxDispatch({ type: 'CART_REMOVE_ITEM', payload: item });
+    const newCart = cartItems.map((item) => {
+      return item._id;
+    });
+    if (currentUser) {
+      let resu = userInfo.cart.concat(newCart);
+      resu = resu.filter((item, index) => {
+        return resu.indexOf(item) === index;
+      });
+
+      try {
+        const result = await axios.post('/api/users/addcartall', {
+          email: userInfo.email,
+          cart: resu,
+        });
+        await ctxDispatch({ type: 'UPDATE_USER', payload: result.data });
+        localStorage.setItem('userInfo', JSON.stringify(result.data));
+        navigate('/cart');
+      } catch (err) {
+        getError(err);
+      }
+    }
   }
   const checkoutHandler = async () => {
-    if (user) {
+    if (userInfo) {
       try {
         setLoading(false);
         setError('');
         try {
           const res = await axios.post('/api/users/addcart', {
-            email: user.email,
+            email: userInfo.email,
             cart: cartItems,
           });
         } catch (error) {
@@ -44,7 +64,7 @@ export default function AddCart() {
       }
       setLoading(false);
     } else {
-      navigate('/signin');
+      navigate('/signin?redirect=/payment');
     }
   };
   return (
@@ -53,6 +73,7 @@ export default function AddCart() {
         <title>Cart</title>
       </Helmet>
       <h1>Buy Courses</h1>
+      {error && <MessageBox variant="danger">{error}</MessageBox>}
       <Row className="mt-5">
         <Col md={8}>
           {cartItems.length === 0 ? (

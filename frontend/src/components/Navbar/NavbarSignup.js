@@ -1,8 +1,6 @@
 import React from 'react';
-import { Container, Figure, Nav, Navbar } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
+import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import logo from '../../assests/Brand.png';
 import BrandLogo from '../BrandLogo';
 import CartIcon from '../CartIcon';
 export default function NavbarSignup() {

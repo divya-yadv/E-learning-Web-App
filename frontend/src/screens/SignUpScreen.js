@@ -1,16 +1,16 @@
 import { Button, Card, Form, FormGroup } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
-import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import React,{ useContext, useState } from 'react';
 import { useUserAuth } from '../contexts/AuthContext';
 import MessageBox from '../components/MessageBox';
 import GoogleButton from 'react-google-button';
 import axios from '../components/axios';
-import { sendEmailVerification } from 'firebase/auth';
+import { Store } from '../store';
+import getError from '../utils';
 
 function SignUpScreen() {
   const [name, setName] = useState('');
-  const [message, setMessage] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
@@ -18,6 +18,18 @@ function SignUpScreen() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   let navigate = useNavigate();
+  const { search } = useLocation();
+  const redirectInUrl = new URLSearchParams(search).get('redirect');
+  const redirect = redirectInUrl ? redirectInUrl : '/';
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+
+  const {
+    cart: { cartItems },
+  } = state;
+
+  const newCart = cartItems.map((item) => {
+    return item._id;
+  });
   async function handleSubmit(e) {
     e.preventDefault();
     if (password !== passwordConfirm) {
@@ -27,6 +39,7 @@ function SignUpScreen() {
       setError('');
       setLoading(true);
       const res = await signup(email, password);
+
       try {
         await axios.post('/api/users/signup', {
           email: res.user.email,
@@ -35,6 +48,18 @@ function SignUpScreen() {
         });
       } catch (error) {
         setError(error);
+      }
+      if (newCart.length !== 0) {
+        try {
+          const result = await axios.post('/api/users/addcartall', {
+            email: res.user.email,
+            cart: newCart,
+          });
+          await ctxDispatch({ type: 'UPDATE_USER', payload: result.data });
+          localStorage.setItem('userInfo', JSON.stringify(result.data));
+        } catch (err) {
+          getError(err);
+        }
       }
       navigate('/signin');
     } catch (error) {
@@ -50,17 +75,29 @@ function SignUpScreen() {
     e.preventDefault();
     try {
       const response = await googleSignIn();
-      sendEmailVerification(response.user);
       try {
         await axios.post('/api/users/signup', {
           email: response.user.email,
           name: response.user.displayName,
-          photoURL: response.user.photoURL,
+          photoURL: response.user.photoURL || '',
         });
+        if (newCart.length !== 0) {
+          try {
+            const result = await axios.post('/api/users/addcartall', {
+              email: response.user.email,
+              cart: newCart,
+            });
+            await ctxDispatch({ type: 'UPDATE_USER', payload: result.data });
+            localStorage.setItem('userInfo', JSON.stringify(result.data));
+          } catch (err) {
+            getError(err);
+          }
+        }
       } catch (error) {
         setError(error);
       }
-      navigate('/dashboard');
+
+      navigate('/signin');
     } catch (error) {
       console.log(error.message);
     }
@@ -74,7 +111,6 @@ function SignUpScreen() {
           </Helmet>
           <h4 className="my-3 text-center mb-4">Create new account </h4>
           {error && <MessageBox variant="danger">{error}</MessageBox>}
-          {message && <MessageBox variant="danger">{message}</MessageBox>}
           <Form onSubmit={handleSubmit}>
             <FormGroup className="mb-3" id="name">
               <Form.Label>Enter Name</Form.Label>

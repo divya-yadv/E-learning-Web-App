@@ -1,4 +1,4 @@
-import { useContext, useEffect, useReducer } from 'react';
+import React, { useContext, useEffect, useReducer } from 'react';
 import axios from '../components/axios';
 import Course from '../components/Course';
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import photo from '../assests/getStarted.jpg';
 import { useUserAuth } from '../contexts/AuthContext';
 import { Navigate } from 'react-router-dom';
+import { Store } from '../store';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -25,7 +26,6 @@ const reducer = (state, action) => {
 };
 function GetStarted() {
   const { currentUser } = useUserAuth();
-
   const [{ loading, error, courses }, dispatch] = useReducer(reducer, {
     loading: true,
     error: '',

@@ -1,4 +1,5 @@
-import { Badge, Container, Nav, Navbar } from 'react-bootstrap';
+import React from 'react';
+import { Container, Nav, Navbar } from 'react-bootstrap';
 import BrandLogo from '../BrandLogo';
 import { useUserAuth } from '../../contexts/AuthContext';
 import { Link } from 'react-router-dom';
@@ -9,7 +10,7 @@ import CartIcon from '../CartIcon';
 export default function NavbarGetStarted({ children }) {
   const { currentUser } = useUserAuth();
   const { state } = useContext(Store);
-  const { cart } = state;
+  const { userInfo } = state;
   return (
     <Navbar bg="light" variant="light" expand="lg">
       <Container>
@@ -38,6 +39,7 @@ export default function NavbarGetStarted({ children }) {
             <Link className="nav-link" to="/contact">
               Contact Us
             </Link>
+            <CartIcon />
             {!currentUser && (
               <Link className="nav-link" to="/signup">
                 Sign Up
@@ -48,10 +50,10 @@ export default function NavbarGetStarted({ children }) {
                 Sign In
               </Link>
             )}
-            <CartIcon />
-            {currentUser && (
-              <Link className="nav-link" to="/dashboard">
-                {currentUser.email}
+
+            {currentUser && userInfo && (
+              <Link className="nav-link" to="/updateprofile">
+                {userInfo.name}
               </Link>
             )}
           </Nav>

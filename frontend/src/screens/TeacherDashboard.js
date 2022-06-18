@@ -1,10 +1,13 @@
+import React, { useContext } from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import GetCourse from '../components/GetCourse';
-import { useNewUserAuth } from '../components/GetUser';
+import { Store } from '../store';
 
 function TeacherDashboard() {
-  const { user } = useNewUserAuth();
+  const { state } = useContext(Store);
+  const { userInfo } = state;
+
   return (
     <Container className="teacherdashboard">
       <Link to="/teach/createnewcourse">
@@ -14,8 +17,8 @@ function TeacherDashboard() {
         <h2>Created Courses</h2>
         <div className="courses mt-5">
           <Row>
-            {user.createdCourses &&
-              user.createdCourses.map((courseid, index) => (
+            {userInfo.createdCourses &&
+              userInfo.createdCourses.map((courseid, index) => (
                 <Col key={index} sm={6} md={4} lg={4} className="mb-3">
                   <GetCourse courseid={courseid} />
                 </Col>

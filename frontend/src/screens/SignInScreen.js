@@ -1,12 +1,14 @@
 import { Button, Card, Form, FormGroup } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import React,{ useContext, useEffect, useState } from 'react';
 import GoogleButton from 'react-google-button';
 import { useUserAuth } from '../contexts/AuthContext';
 import MessageBox from '../components/MessageBox';
 import axios from '../components/axios';
 import { sendEmailVerification } from 'firebase/auth';
+import { useLocation } from 'react-router-dom';
+import { Store } from '../store';
 
 function SignInScreen() {
   const [email, setEmail] = useState('');
@@ -14,8 +16,13 @@ function SignInScreen() {
   const { signin, googleSignIn } = useUserAuth();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  let navigate = useNavigate();
-
+  const { search } = useLocation();
+  const redirectUrl = new URLSearchParams(search).get('redirect');
+  const redirect = redirectUrl ? redirectUrl : '/dashboard';
+  const navigate = useNavigate();
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { userInfo } = state;
+  
   async function handleSubmit(e) {
     e.preventDefault();
     try {
@@ -28,10 +35,12 @@ function SignInScreen() {
           const response = await axios.post('/api/users/signin', {
             email: data.user.email,
           });
+          ctxDispatch({ type: 'USER_SIGNIN', payload: response.data });
+          localStorage.setItem('userInfo', JSON.stringify(response.data));
         } catch (error) {
           setError(error);
         }
-        navigate('/dashboard');
+        navigate(redirect || '/dashboard');
       } else {
         sendEmailVerification(data.user);
         setError('Check your inbox and verify your email first!');
@@ -55,14 +64,21 @@ function SignInScreen() {
         const response = await axios.post('/api/users/signin', {
           email: data.user.email,
         });
+        ctxDispatch({ type: 'USER_SIGNIN', payload: response.data });
+        localStorage.setItem('userInfo', JSON.stringify(response.data));
       } catch (error) {
         setError(error);
       }
-      navigate('/dashboard');
+      navigate(redirect || '/dashboard');
     } catch (error) {
       console.log(error.message);
     }
   };
+  useEffect(() => {
+    if (userInfo) {
+      navigate(redirect);
+    }
+  }, [navigate, redirect, userInfo]);
   return (
     <div className="shadow w-40 m-auto mt-5 p-4 pb-5">
       <Card>

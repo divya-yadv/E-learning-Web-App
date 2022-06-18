@@ -1,12 +1,16 @@
+import React from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import BrandLogo from '../BrandLogo';
 import { useUserAuth } from '../../contexts/AuthContext';
 import { Link } from 'react-router-dom';
-import { useNewUserAuth } from '../GetUser';
 import CartIcon from '../CartIcon';
+import { Store } from '../../store';
+
+import { useContext } from 'react';
 export default function NavbarCourse({ children }) {
   const { currentUser } = useUserAuth();
-  // const { user } = useNewUserAuth();
+  const { state } = useContext(Store);
+  const { userInfo } = state;
   return (
     <Navbar bg="light" variant="light" expand="lg">
       <Container>
@@ -34,9 +38,9 @@ export default function NavbarCourse({ children }) {
               </Link>
             )}
             <CartIcon />
-            {currentUser && (
+            {currentUser && userInfo && (
               <Link className="nav-link" to="/updateprofile">
-                {currentUser.email}
+                {userInfo.name}
               </Link>
             )}
           </Nav>

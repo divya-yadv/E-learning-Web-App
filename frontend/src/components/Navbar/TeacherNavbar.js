@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import BrandLogo from '../BrandLogo';
 import { useUserAuth } from '../../contexts/AuthContext';
-import { useNewUserAuth } from '../GetUser';
+import { Store } from '../../store';
 import CartIcon from '../CartIcon';
 export default function TeacherNavbar() {
   const { currentUser } = useUserAuth();
-  // const { user } = useNewUserAuth();
+  const { state } = useContext(Store);
+  const { userInfo } = state;
   return (
     <Navbar bg="light" variant="light" expand="lg">
       <Container>
@@ -15,7 +16,7 @@ export default function TeacherNavbar() {
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav className="me-0 nav-tabs homenavbar" navbarScroll>
-          {currentUser && (
+            {currentUser && (
               <Link className="nav-link" to="/dashboard">
                 Dashboard
               </Link>
@@ -24,9 +25,9 @@ export default function TeacherNavbar() {
               Browse Courses
             </Link>
             <CartIcon />
-            {currentUser && (
+            {currentUser && userInfo && (
               <Link className="nav-link" to="/updateprofile">
-                {currentUser.email}
+                {userInfo.name}
               </Link>
             )}
           </Nav>

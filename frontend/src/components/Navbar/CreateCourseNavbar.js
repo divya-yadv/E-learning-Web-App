@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import BrandLogo from '../BrandLogo';
-import { useNewUserAuth } from '../GetUser';
 import { useUserAuth } from '../../contexts/AuthContext';
+import { Store } from '../../store';
 export default function CreateCourseNavbar() {
-  // const { user } = useNewUserAuth();
   const { currentUser } = useUserAuth();
+  const { state } = useContext(Store);
+  const { userInfo } = state;
   return (
     <Navbar bg="light" variant="light" expand="lg">
       <Container>
@@ -17,9 +18,9 @@ export default function CreateCourseNavbar() {
             <Link className="nav-link" to="/teacherdashboard">
               Go to Dashboard
             </Link>
-            {currentUser && (
+            {currentUser && userInfo && (
               <Link className="nav-link" to="/updateprofile">
-                {currentUser.email}
+                {userInfo.email}
               </Link>
             )}
           </Nav>

@@ -1,22 +1,28 @@
+import React from 'react';
 import { Button, Card, Form, FormGroup } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import MessageBox from '../components/MessageBox';
 import axios from '../components/axios';
 import getError from '../utils';
-import { useNewUserAuth } from './GetUser';
+import { useUserAuth } from '../contexts/AuthContext';
+import { Store } from '../store';
 
 export default function UpdateProfile() {
-  const { user } = useNewUserAuth();
+  const { currentUser } = useUserAuth();
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { userInfo } = state;
+
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState('');
+  const [loading, setLoading] = useState(false);
+
   let navigate = useNavigate();
-  const [name, setName] = useState(user.name);
-  const [username, setUserName] = useState(user.user_name);
+  const [name, setName] = useState(userInfo.name);
+  const [username, setUserName] = useState(userInfo.user_name);
   const [img, setImg] = useState('upload profile pic');
   const [profileURL, setProfileURL] = useState(
-    user.image ||
+    userInfo.image ||
       'https://m.media-amazon.com/images/I/51UW1849rJL._AC_SY450_.jpg'
   );
 
@@ -49,11 +55,13 @@ export default function UpdateProfile() {
       setError('');
       try {
         const res = await axios.post('/api/users/updateuser', {
-          email: user.email,
+          email: userInfo.email,
           name: name,
           user_name: username,
           image: profileURL,
         });
+        console.log(res);
+        ctxDispatch({ type: 'UPDATE_USER', payload: res.data });
       } catch (error) {
         setError(error);
       }
@@ -109,7 +117,7 @@ export default function UpdateProfile() {
                 type="text"
                 autoComplete="name"
                 onChange={(e) => setName(e.target.value)}
-                defaultValue={user.name}
+                defaultValue={userInfo.name}
               />
             </FormGroup>
             <FormGroup className="mb-3" id="username">
@@ -118,7 +126,7 @@ export default function UpdateProfile() {
                 type="text"
                 autoComplete="username"
                 onChange={(e) => setUserName(e.target.value)}
-                defaultValue={user.user_name}
+                defaultValue={userInfo.user_name}
               />
             </FormGroup>
             <Button className="w-100" disabled={loading} type="submit">

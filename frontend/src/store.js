@@ -1,4 +1,4 @@
-import { createContext, useReducer } from 'react';
+import React, { createContext, useReducer } from 'react';
 
 export const Store = createContext();
 const initialState = {
@@ -7,8 +7,10 @@ const initialState = {
       ? JSON.parse(localStorage.getItem('cartItems'))
       : [],
   },
+  userInfo: localStorage.getItem('userInfo')
+    ? JSON.parse(localStorage.getItem('userInfo'))
+    : null,
 };
-
 function reducer(state, action) {
   switch (action.type) {
     case 'CART_ADD_ITEM':
@@ -35,6 +37,19 @@ function reducer(state, action) {
       );
       localStorage.setItem('cartItems', JSON.stringify(cartitems));
       return { ...state, cart: { ...state.cart, cartitems } };
+    case 'USER_SIGNIN':
+      return { ...state, userInfo: action.payload };
+
+    case 'USER_SIGNOUT':
+      return {
+        ...state,
+        userInfo: null,
+        cart: {
+          cartItems: [],
+        },
+      };
+    case 'UPDATE_USER':
+      return { ...state, userInfo: action.payload };
     default:
       return state;
   }

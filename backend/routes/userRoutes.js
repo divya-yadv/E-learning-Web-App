@@ -3,6 +3,7 @@ import User from '../models/userModel.js';
 import expressAsyncHandler from 'express-async-handler';
 const userRouter = express.Router();
 import Course from '../models/courseModel.js';
+import lodash from 'lodash';
 
 userRouter.post(
   '/api/users/signup',
@@ -15,7 +16,7 @@ userRouter.post(
       image: req.body.photoURL,
     });
     const user = await newUser.save();
-    res.send('receieved');
+    res.send(newUser);
   })
 );
 
@@ -63,9 +64,7 @@ userRouter.post(
             });
           } else {
             console.log(result);
-            res.status(200).send({
-              data: 'User Updated',
-            });
+            res.status(200).send(result);
           }
         }
       );
@@ -75,37 +74,31 @@ userRouter.post(
   })
 );
 userRouter.post(
-  '/api/users/addcart',
+  '/api/users/addcartall',
   express.json(),
   expressAsyncHandler(async (req, res) => {
+    const getuser = await User.findOne({ email: req.body.email });
     try {
       User.findOneAndUpdate(
         { email: req.body.email },
         {
           $set: {
-            cart: [
-              req.body.cart.map((course) => {
-                return course._id;
-              }),
-            ],
+            cart: req.body.cart,
           },
         },
         { new: true },
         (err, result) => {
           if (err) {
             res.status(400).send({
-              data: "couldn't add to cart",
+              data: "couldn't add",
             });
           } else {
-            console.log(result);
-            res.status(200).send({
-              data: 'Added to cart',
-            });
+            res.status(200).send(result.data);
           }
         }
       );
     } catch (err) {
-      res.status(500).send(err);
+      res.status(200).send(result);
     }
   })
 );
@@ -119,7 +112,7 @@ userRouter.post(
         {
           $set: {
             buyedCourses: [
-              req.body.buyedCourses.map((course) => {
+              req.body.cart.map((course) => {
                 return course._id;
               }),
             ],
@@ -140,7 +133,7 @@ userRouter.post(
         }
       );
     } catch (err) {
-      res.status(500).send(err);
+      res.status(200).send(result);
     }
   })
 );

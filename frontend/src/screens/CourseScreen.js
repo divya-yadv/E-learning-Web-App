@@ -1,5 +1,5 @@
 import axios from '../components/axios';
-import { useContext, useEffect, useReducer } from 'react';
+import React,{ useContext, useEffect, useReducer } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Row, Col, ListGroup, Button, Card } from 'react-bootstrap';
 import Rating from '../components/Rating';
@@ -7,8 +7,8 @@ import { Helmet } from 'react-helmet-async';
 import Loading from '../components/Loading';
 import MessageBox from '../components/MessageBox';
 import getError from '../utils';
-import Section from '../components/Section';
 import { Store } from '../store';
+import { useUserAuth } from '../contexts/AuthContext';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -27,7 +27,8 @@ function CourseScreen() {
   const params = useParams();
   const { slug } = params;
   const { state, dispatch: ctxDispatch } = useContext(Store);
-  const { cart } = state;
+  const { userInfo, cart } = state;
+  const { currentUser } = useUserAuth();
   const navigate = useNavigate();
 
   const [{ loading, error, course }, dispatch] = useReducer(reducer, {
@@ -48,11 +49,33 @@ function CourseScreen() {
     };
     fetchData();
   }, [slug]);
-  const addToCartHandler = () => {
+  const addToCartHandler = async () => {
     const existItem = cart.cartItems.find((x) => x._id === course._id);
     const quantity = existItem ? existItem.quantity : 1;
-    ctxDispatch({ type: 'CART_ADD_ITEM', payload: { ...course, quantity: 1 } });
-    navigate('/cart');
+    await ctxDispatch({
+      type: 'CART_ADD_ITEM',
+      payload: { ...course, quantity: 1 },
+    });
+    const newCart = cart.cartItems.map((item) => {
+      return item._id;
+    });
+    if (currentUser) {
+      let resu = userInfo.cart.concat(newCart);
+      resu = resu.filter((item, index) => {
+        return resu.indexOf(item) === index;
+      });
+      try {
+        const result = await axios.post('/api/users/addcartall', {
+          email: userInfo.email,
+          cart: newCart,
+        });
+        await ctxDispatch({ type: 'UPDATE_USER', payload: result.data });
+        localStorage.setItem('userInfo', JSON.stringify(result.data));
+        navigate('/cart');
+      } catch (err) {
+        getError(err);
+      }
+    }
   };
   return loading ? (
     <Loading />
@@ -143,16 +166,21 @@ function CourseScreen() {
         <Col sm={1} md={2}>
           <Card className="shadow sections">
             <h3>Course Sections</h3>
-            {course.sections &&
-              course.sections.map((section, index) => {
-                return (
-                  <li key={index}>
-                    <Row sm={12} md={12} lg={12}>
-                      <Section section={section} />
-                    </Row>
-                  </li>
-                );
-              })}
+            <ul>
+              {course.CourseContent &&
+                course.CourseContent.map((section, index) => {
+                  return (
+                    <li key={index}>
+                      <input name="video" key={index} id={index} type="radio" />
+                      <label htmlFor={index}>
+                        {index + 1}
+                        {''}
+                        {section.title}
+                      </label>
+                    </li>
+                  );
+                })}
+            </ul>
           </Card>
         </Col>
       </Row>

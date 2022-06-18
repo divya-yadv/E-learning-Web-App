@@ -94,16 +94,19 @@ function App() {
                 path="/teach/createnewcourse"
                 element={<CreateCourseNavbar />}
               />
+              <Route
+                path="/courses/yours/slug/:slug"
+                element={
+                  <PrivateRoute>
+                    <NavbarCourse />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/courses/cart/slug/:slug"
+                element={<NavbarCourse />}
+              />
             </Routes>
-            <Route
-              path="/courses/yours/slug/:slug"
-              element={
-                <PrivateRoute>
-                  <NavbarCourse />
-                </PrivateRoute>
-              }
-            />
-            <Route path="/courses/cart/slug/:slug" element={<NavbarCourse />} />
           </header>
         </AuthProvider>
         <main className="marginsetapp marginbottom">

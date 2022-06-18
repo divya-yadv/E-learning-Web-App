@@ -60,7 +60,7 @@ function SignInScreen() {
         } catch (error) {
           setError(error);
         }
-        navigate(redirect || '/dashboard');
+        navigate('/dashboard');
       } else {
         sendEmailVerification(data.user);
         setError('Check your inbox and verify your email first!');
@@ -104,7 +104,9 @@ function SignInScreen() {
             payload: response.data.cart,
           });
           localStorage.setItem('cartItems', JSON.stringify(response.data.cart));
+
         }
+        navigate('/dashboard')
       } catch (error) {
         console.log(error.message);
       }

@@ -8,7 +8,7 @@ import GoogleButton from 'react-google-button';
 import axios from '../components/axios';
 import { Store } from '../store';
 import getError from '../utils';
-
+import { sendEmailVerification } from 'firebase/auth';
 function SignUpScreen() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -22,7 +22,7 @@ function SignUpScreen() {
   const redirectInUrl = new URLSearchParams(search).get('redirect');
   const redirect = redirectInUrl ? redirectInUrl : '/';
   const { state } = useContext(Store);
-  const {cart } = state;
+  const { cart } = state;
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -33,6 +33,7 @@ function SignUpScreen() {
       setError('');
       setLoading(true);
       const res = await signup(email, password);
+      sendEmailVerification(res.user);
       try {
         await axios.post('/api/users/signup', {
           email: res.user.email,
@@ -41,7 +42,7 @@ function SignUpScreen() {
         });
         if (cart.length !== 0) {
           try {
-              await axios.post('/api/users/addcartall', {
+            await axios.post('/api/users/addcartall', {
               email: res.user.email,
               cart: cart,
             });
@@ -66,8 +67,9 @@ function SignUpScreen() {
     e.preventDefault();
     try {
       const response = await googleSignIn();
+      sendEmailVerification(response.user);
       try {
-         await axios.post('/api/users/signup', {
+        await axios.post('/api/users/signup', {
           email: response.user.email,
           name: response.user.displayName,
           photoURL: response.user.photoURL || '',
@@ -78,11 +80,11 @@ function SignUpScreen() {
               email: response.user.email,
               cart: cart,
             });
-            navigate('/signin');
           } catch (err) {
             getError(err);
           }
         }
+        navigate('/signin');
       } catch (error) {
         setError(error);
       }

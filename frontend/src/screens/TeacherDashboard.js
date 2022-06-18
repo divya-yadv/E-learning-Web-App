@@ -19,7 +19,7 @@ function TeacherDashboard() {
       <Row className="mt-5">
         {userInfo.createdCourses &&
           userInfo.createdCourses.map((course, index) => (
-            <Col key={index} sm={6} md={4} lg={4} className="mb-3">
+            <Col key={index} sm={4} md={3} lg={3} className="mb-3">
               {console.log(course)};
               <Card className="shadow ">
                 <Link to={`/courses/yours/slug/${course.slug}`}>

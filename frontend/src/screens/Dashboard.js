@@ -17,7 +17,7 @@ export default function Dashboard() {
             <Row style={{marginRight:"18rem"}}>
               {userInfo &&
                 userInfo.buyedCourses.map((id, index) => (
-                  <Col key={index} sm={6} md={4} lg={4} className="mb-5 mt-5">
+                  <Col key={index} sm={4} md={3} lg={3} className="mb-5 mt-5">
                     <CourseOwned id={id} />
                   </Col>
                 ))}

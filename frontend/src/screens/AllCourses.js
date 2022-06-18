@@ -59,7 +59,7 @@ function AllCourses() {
           <Row>
             {userInfo &&
               userInfo.cart.map((id, index) => (
-                <Col key={index} sm={6} md={4} lg={4} className="mb-5 mt-5">
+                <Col key={index} sm={4} md={3} lg={3} className="mb-5 mt-5">
                   <CourseCart id={id} />
                 </Col>
               ))}
@@ -72,7 +72,7 @@ function AllCourses() {
           <Row>
             {userInfo &&
               userInfo.buyedCourses.map((id, index) => (
-                <Col key={index} sm={6} md={4} lg={4} className="mb-5 mt-5">
+                <Col key={index} sm={4} md={3} lg={3} className="mb-5 mt-5">
                   <CourseOwned id={id} />
                 </Col>
               ))}
@@ -90,7 +90,7 @@ function AllCourses() {
         ) : (
           <Row>
             {courses.courses.map((course) => (
-              <Col key={course.slug} sm={6} md={4} lg={4} className="mb-5 mt-5">
+              <Col key={course.slug} sm={4} md={3} lg={3} className="mb-5 mt-5">
                 <Course course={course} />
               </Col>
             ))}

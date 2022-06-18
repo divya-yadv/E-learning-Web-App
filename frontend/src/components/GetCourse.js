@@ -47,10 +47,10 @@ function GetCourse(props) {
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
-        <Card className="shadow">
+        <Card className="shadow ">
           <Link to={`/courses/yours/slug/${course.slug}`}>
             <Card.Img
-              className="card-img-top"
+              className="card-img-top imagewidth"
               src={course.thumbnail}
               alt={course.Course_name}
               height={250}

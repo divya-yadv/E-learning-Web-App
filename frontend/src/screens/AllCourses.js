@@ -55,7 +55,6 @@ function AllCourses() {
 
       {userInfo && userInfo.cart.length !== 0 && (
         <div className="mt-4">
-          {console.log(userInfo)}
           <h1>Courses in Your Cart</h1>
           <Row>
             {userInfo &&

@@ -49,16 +49,20 @@ function CourseScreen() {
     };
     fetchData();
   }, [slug]);
-  const changeLink = (link) => {
-    let id = link.split('?v=')[1]; //sGbxmsDFVnE
-    let newid = id.split('&')[0];
-    var embedlink = 'http://www.youtube.com/embed/' + newid;
-    return embedlink;
-  };
+  // const changeLink = (link) => {
+  //   if (link !== ' ') {
+  //     let id = link.split('?v=')[1]; //sGbxmsDFVnE
+  //     let newid = id.split('&')[0];
+  //     var embedlink = 'http://www.youtube.com/embed/' + newid;
+  //     return embedlink;
+  //   } else {
+  //     return '';
+  //   }
+  // };
 
-  const newLink = course.CourseContent
-    ? changeLink(course.CourseContent[0].link)
-    : '';
+  // const newLink = changeLink(
+  //   course.CourseContent ? course.CourseContent[0].link : ''
+  // );
   const addToCartHandler = async () => {
     const res = await ctxDispatch({
       type: 'CART_ADD_ITEM',
@@ -106,22 +110,22 @@ function CourseScreen() {
         <Row>
           <Col sm={12} md={6}>
             <Card className="shadow videospacecard border border-primary justify-content-center ">
-              {newLink === '' ? (
-                <img
-                  className="img-large imgcoursescreen"
-                  src={course.thumbnail}
-                  alt={course.Course_name}
-                ></img>
-              ) : (
+              {/* {'' ? ( */}
+              <img
+                className="img-large imgcoursescreen"
+                src={course.thumbnail}
+                alt={course.Course_name}
+              ></img>
+              {/* ) : (
                 <iframe
                   className="imgcoursescreen"
-                  src={newLink}
+                  src={''}
                   frameBorder="0"
                   allow="autoplay; encrypted-media"
                   allowFullScreen
                   title="video"
                 />
-              )}
+              )} */}
             </Card>
             <Card className="mb-3">
               <h1
@@ -131,33 +135,7 @@ function CourseScreen() {
                 {course.Course_name}
               </h1>
             </Card>
-          </Col>
-          <Col sm={12} md={6} lg={6}>
-            <Card className="shadow">
-              <h3>Course Sections</h3>
-              <ul>
-                {course.CourseContent &&
-                  course.CourseContent.map((section, index) => {
-                    return (
-                      <li key={index}>
-                        <input
-                          name="video"
-                          key={index}
-                          id={index}
-                          type="radio"
-                        />
-                        <label htmlFor={index}>
-                          {index + 1}
-                          {''}
-                          {section.title}
-                        </label>
-                      </li>
-                    );
-                  })}
-              </ul>
-            </Card>
-          </Col>
-          <Col sm={12} md={6} lg={6}>
+
             <Card className="shadow p-3">
               <ListGroup>
                 <Helmet>
@@ -188,11 +166,7 @@ function CourseScreen() {
                 <ListGroup.Item>
                   <h1>${course.price}</h1>
                 </ListGroup.Item>
-                <ListGroup.Item>
-                  <Button onClick={addToCartHandler} className="btn-lg">
-                    Add to cart
-                  </Button>
-                </ListGroup.Item>
+                <Button onClick={addToCartHandler}>Add to cart</Button>
                 <ListGroup.Item className="text-center">
                   <p>30-Day Money-back Gurantee</p>
                   <p>Full Lifetime Access</p>
@@ -231,6 +205,31 @@ function CourseScreen() {
                   </ul>
                 </ListGroup.Item>
               </ListGroup>
+            </Card>
+          </Col>
+          <Col sm={12} md={6} lg={6}>
+            <Card className="shadow" style={{ height: '100vh' }}>
+              <h3>Course Sections</h3>
+              <ul>
+                {course.CourseContent &&
+                  course.CourseContent.map((section, index) => {
+                    return (
+                      <li key={index}>
+                        <input
+                          name="video"
+                          key={index}
+                          id={index}
+                          type="radio"
+                        />
+                        <label htmlFor={index}>
+                          {index + 1}
+                          {''}
+                          {section.title}
+                        </label>
+                      </li>
+                    );
+                  })}
+              </ul>
             </Card>
           </Col>
         </Row>

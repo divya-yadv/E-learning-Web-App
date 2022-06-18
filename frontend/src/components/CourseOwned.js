@@ -43,13 +43,13 @@ function CourseOwned(props) {
     <Card className="shadow">
       <Link to={`/courses/slug/${course.slug}`}>
         <Card.Img
-          className="card-img-top"
+          className="card-img-top imagewidth"
           src={course.thumbnail}
           alt={course.Course_name}
         />
       </Link>
       <Card.Body>
-        <Link className="title" to={`/courses/slug/${course.slug}`}>
+        <Link className="title" to={`/courses/yours/slug/${course.slug}`}>
           <Card.Title>{course.Course_name}</Card.Title>
         </Link>
         <Card.Text>
@@ -61,7 +61,7 @@ function CourseOwned(props) {
         </Card.Text>
         <Button
           onClick={() => {
-            navigate(`/courses/slug/${course.slug}`);
+            navigate(`/courses/yours/slug/${course.slug}`);
           }}
         >
           Go to Course

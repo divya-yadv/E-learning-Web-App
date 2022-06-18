@@ -4,6 +4,7 @@ import ContactScreen from './screens/ContactScreen';
 import AllCourses from './screens/AllCourses';
 import CourseScreen from './screens/CourseScreen';
 import CourseScreenAuth from './screens/CourseScreenAuth';
+import CourseCartScreen from './screens/CourseCartScreen';
 import SignInScreen from './screens/SignInScreen';
 import SignUpScreen from './screens/SignUpScreen';
 import GetStarted from './screens/GetStartedScreen';
@@ -165,6 +166,10 @@ function App() {
                       <CourseScreenAuth />
                     </PrivateRoute>
                   }
+                />
+                <Route
+                  path="/courses/cart/slug/:slug"
+                  element={<CourseCartScreen />}
                 />
               </Routes>
             </AuthProvider>

@@ -58,7 +58,6 @@ body {
 }
 figure {
   margin: 0px;
-
 }
 
 .links {
@@ -280,7 +279,7 @@ span.mr-4 {
 }
 .teacherdashboard {
   margin-top: 6rem !important;
-  min-width: 90vh !important;
+  min-width: 100vh !important;
 }
 .addbutton {
   width: 25%;
@@ -370,8 +369,12 @@ span.mr-4 {
 .searchbutton {
   margin-left: 0 !important;
 }
-.imgcoursescreen{
-   width: 100%;
-   height: 100%;
-   margin-top: 1px !important;
+.imgcoursescreen {
+  width: 100%;
+  height: 100%;
+  margin-top: 1px !important;
+}
+.imagewidth {
+  width: 100% !important;
+  height: 20rem !important;
 }

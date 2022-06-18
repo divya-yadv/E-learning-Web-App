@@ -45,7 +45,7 @@ function Course(props) {
     <Card className="shadow">
       <Link to={`/courses/slug/${course.slug}`}>
         <Card.Img
-          className="card-img-top"
+          className="card-img-top imagewidth"
           src={course.thumbnail}
           alt={course.Course_name}
         />

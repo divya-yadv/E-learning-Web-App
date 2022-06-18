@@ -21,7 +21,7 @@ export default function AddCart() {
   const navigate = useNavigate();
 
   const checkoutHandler = async () => {
-    return currentUser?<Navigate to="/payment" />:<Navigate to="/signin"/>;
+    return currentUser ? navigate('/payment') : navigate('/signin');
   };
   return (
     <div className="mt-5">
@@ -58,11 +58,7 @@ export default function AddCart() {
                       onClick={checkoutHandler}
                       disabled={cart.length === 0}
                     >
-                      {currentUser ? (
-                        'Proceed to Buy Courses'
-                      ) : (
-                        "Sign In first"
-                      )}
+                      {currentUser ? 'Proceed to Buy Courses' : 'Sign In first'}
                     </Button>
                   </div>
                 </ListGroup.Item>

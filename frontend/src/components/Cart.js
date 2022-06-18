@@ -4,11 +4,12 @@ import { useContext } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Button, Card, Col, ListGroup, Row } from 'react-bootstrap';
 import MessageBox from './MessageBox';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useUserAuth } from '../contexts/AuthContext';
 import Course from './Course';
 import axios from 'axios';
 import getError from '../utils';
+import Cartitem from './cartitem';
 
 export default function AddCart() {
   const { currentUser } = useUserAuth();
@@ -16,56 +17,11 @@ export default function AddCart() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState('');
   const { state, dispatch: ctxDispatch } = useContext(Store);
-  const { userInfo } = state;
+  const { userInfo, cart } = state;
   const navigate = useNavigate();
-  const {
-    cart: { cartItems },
-  } = state;
-  async function removeItemHandler(item) {
-    await ctxDispatch({ type: 'CART_REMOVE_ITEM', payload: item });
-    const newCart = cartItems.map((item) => {
-      return item._id;
-    });
-    if (currentUser) {
-      let resu = userInfo.cart.concat(newCart);
-      resu = resu.filter((item, index) => {
-        return resu.indexOf(item) === index;
-      });
 
-      try {
-        const result = await axios.post('/api/users/addcartall', {
-          email: userInfo.email,
-          cart: resu,
-        });
-        await ctxDispatch({ type: 'UPDATE_USER', payload: result.data });
-        localStorage.setItem('userInfo', JSON.stringify(result.data));
-        navigate('/cart');
-      } catch (err) {
-        getError(err);
-      }
-    }
-  }
   const checkoutHandler = async () => {
-    if (userInfo) {
-      try {
-        setLoading(false);
-        setError('');
-        try {
-          const res = await axios.post('/api/users/addcart', {
-            email: userInfo.email,
-            cart: cartItems,
-          });
-        } catch (error) {
-          setError(error);
-        }
-        navigate('/payment');
-      } catch (error) {
-        getError(error);
-      }
-      setLoading(false);
-    } else {
-      navigate('/signin?redirect=/payment');
-    }
+    return currentUser?<Navigate to="/payment" />:<Navigate to="/signin"/>;
   };
   return (
     <div className="mt-5">
@@ -76,58 +32,15 @@ export default function AddCart() {
       {error && <MessageBox variant="danger">{error}</MessageBox>}
       <Row className="mt-5">
         <Col md={8}>
-          {cartItems.length === 0 ? (
+          {cart.length === 0 ? (
             <MessageBox>
               Cart is empty. <Link to="/allcourses">Browse Courses</Link>
             </MessageBox>
           ) : (
             <ListGroup>
-              {cartItems.map((item) => (
-                <ListGroup.Item key={item._id} className="mb-5 p-3">
-                  <Card>
-                    <Row className="align-items-center">
-                      <Col md={4}>
-                        <Link to={`/courses/slug/${item.slug}`}>
-                          <img
-                            className="img-fluid rounded img-thumbnail"
-                            src={item.thumbnail}
-                            alt={item.Course_name}
-                          />
-                        </Link>
-                      </Col>
-                      <Col md={5}>
-                        <Link
-                          className="title"
-                          to={`/courses/slug/${item.slug}`}
-                        >
-                          <Card.Title>{item.Course_name}</Card.Title>
-                        </Link>
-                        <span
-                          className=" text-wrap text-break"
-                          style={{
-                            width: '8rem',
-                          }}
-                        >
-                          {item.description}
-                        </span>
-                        <p>
-                          By <strong>{item.course_instructor}</strong>
-                        </p>
-                        <h3>${item.price}</h3>
-                      </Col>
-                      <Col md={1}></Col>
-                      <Col md={2}>
-                        <a href="/cart">
-                          <Button
-                            onClick={() => removeItemHandler(item)}
-                            variant="light"
-                          >
-                            <i className="fas fa-trash"></i>
-                          </Button>
-                        </a>
-                      </Col>
-                    </Row>
-                  </Card>
+              {cart.map((item, index) => (
+                <ListGroup.Item key={item} className="mb-5 p-3">
+                  <Cartitem id={item} />
                 </ListGroup.Item>
               ))}
             </ListGroup>
@@ -138,21 +51,18 @@ export default function AddCart() {
             <Card.Body>
               <ListGroup variant="flush">
                 <ListGroup.Item>
-                  <h3>
-                    Subtotal ({cartItems.reduce((a, c) => a + c.quantity, 0)}{' '}
-                    items) : $
-                    {cartItems.reduce((a, c) => a + c.price * c.quantity, 0)}
-                  </h3>
-                </ListGroup.Item>
-                <ListGroup.Item>
                   <div className="d-grid">
                     <Button
                       type="button"
                       variant="primary"
                       onClick={checkoutHandler}
-                      disabled={cartItems.length === 0}
+                      disabled={cart.length === 0}
                     >
-                      Proceed to Buy Courses
+                      {currentUser ? (
+                        'Proceed to Buy Courses'
+                      ) : (
+                        "Sign In first"
+                      )}
                     </Button>
                   </div>
                 </ListGroup.Item>

@@ -19,6 +19,7 @@ export default function Sidebar() {
       await logOut();
       ctxDispatch({ type: 'USER_SIGNOUT' });
       localStorage.removeItem('userInfo');
+      localStorage.removeItem('cartItems');
       window.location.href = '/signin';
       navigate('/signin');
     } catch (err) {

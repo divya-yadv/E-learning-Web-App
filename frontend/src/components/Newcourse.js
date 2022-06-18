@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   Button,
   Card,
@@ -12,6 +12,7 @@ import { useUserAuth } from '../contexts/AuthContext';
 import MessageBox from '../components/MessageBox';
 import axios from './axios';
 import { useNavigate } from 'react-router-dom';
+import { Store } from '../store';
 
 export default function NewCourse() {
   const [coursename, setCoursename] = useState('');
@@ -32,7 +33,8 @@ export default function NewCourse() {
   const [thumbnailURL, setThumbnailURL] = useState(
     'https://m.media-amazon.com/images/I/51UW1849rJL._AC_SY450_.jpg'
   );
-
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { userInfo, cart } = state;
   const navigate = useNavigate();
   const uploadThumbnail = async (event) => {
     var filename = event.target.value.replace(/^.*(\\|\/|\:)/, '');
@@ -75,7 +77,8 @@ export default function NewCourse() {
           sections: sections,
           thumbnail: thumbnailURL,
         });
-        console.log(res);
+        await ctxDispatch({ type: 'UPDATE_USER', payload: res.data });
+        localStorage.setItem('userInfo', JSON.stringify(res.data));
         navigate('/teacherdashboard');
       } catch (error) {
         setError(error);
@@ -243,9 +246,7 @@ export default function NewCourse() {
                         {keyword}{' '}
                         <Button
                           className="ms-5"
-                          onClick={() =>
-                            deleteHandlekeywords(keyword)
-                          }
+                          onClick={() => deleteHandlekeywords(keyword)}
                           variant="light"
                         >
                           <i className="fas fa-trash "></i>

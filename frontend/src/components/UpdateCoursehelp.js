@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import axios from './axios';
 import {
   Row,
@@ -14,6 +14,7 @@ import Loading from './Loading';
 import MessageBox from './MessageBox';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Store } from '../store';
 
 export default function UpdateCoursehelp(props) {
   const { course } = props;
@@ -35,6 +36,8 @@ export default function UpdateCoursehelp(props) {
   const [img, setImg] = useState('upload thumbnail');
   const [thumbnailURL, setThumbnailURL] = useState(course.thumbnail);
   const navigate = useNavigate();
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { userInfo, cart } = state;
 
   const uploadThumbnail = async (event) => {
     var filename = event.target.value.replace(/^.*(\\|\/|\:)/, '');
@@ -77,6 +80,8 @@ export default function UpdateCoursehelp(props) {
           sections: sections,
           thumbnail: thumbnailURL,
         });
+        await ctxDispatch({ type: 'UPDATE_USER', payload: res.data });
+        localStorage.setItem('userInfo', JSON.stringify(res.data));
         navigate('/teacherdashboard');
       } catch (error) {
         setError(error);

@@ -7,7 +7,7 @@ import { Store } from '../store';
 function TeacherDashboard() {
   const { state } = useContext(Store);
   const { userInfo } = state;
-
+  
   return (
     <Container className="teacherdashboard">
       <Link to="/teach/createnewcourse">

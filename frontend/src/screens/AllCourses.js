@@ -1,7 +1,8 @@
-import React,{ useContext, useEffect, useReducer } from 'react';
+import React, { useContext, useEffect, useReducer } from 'react';
 import axios from '../components/axios';
 import Course from '../components/Course';
 import CourseOwned from '../components/CourseOwned';
+import CourseCart from '../components/CourseCart';
 import { Col, Row } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
 import Loading from '../components/Loading';
@@ -51,31 +52,34 @@ function AllCourses() {
       <Helmet>
         <title>Educatify Courses</title>
       </Helmet>
-      {userInfo && userInfo.buyedCourses.length !== 0 && (
-        <div className="mt-4">
-          <h1>Your Courses</h1>
-          <Row>
-            {userInfo && userInfo.buyedCourses.map((course) => (
-              <Col key={course.slug} sm={6} md={4} lg={4} className="mb-5 mt-5">
-                <CourseOwned course={course} />
-              </Col>
-            ))}
-          </Row>
-        </div>
-      )}
-      {userInfo && userInfo.cart.length !== 0 ? (
+
+      {userInfo && userInfo.cart.length !== 0 && (
         <div className="mt-4">
           {console.log(userInfo)}
           <h1>Courses in Your Cart</h1>
           <Row>
-            {userInfo && userInfo.cart.map((id, index) => (
-              <Col key={index} sm={6} md={4} lg={4} className="mb-5 mt-5">
-                <CourseOwned id={id} />
-              </Col>
-            ))}
+            {userInfo &&
+              userInfo.cart.map((id, index) => (
+                <Col key={index} sm={6} md={4} lg={4} className="mb-5 mt-5">
+                  <CourseCart id={id} />
+                </Col>
+              ))}
           </Row>
         </div>
-      ) : null}
+      )}
+      {userInfo && userInfo.buyedCourses.length !== 0 && (
+        <div className="mt-4">
+          <h1>Your Courses</h1>
+          <Row>
+            {userInfo &&
+              userInfo.buyedCourses.map((id, index) => (
+                <Col key={index} sm={6} md={4} lg={4} className="mb-5 mt-5">
+                  <CourseOwned id={id} />
+                </Col>
+              ))}
+          </Row>
+        </div>
+      )}
       <h1 className="mt-5 mb-5">All Courses</h1>
       <div className="courses">
         {loading ? (

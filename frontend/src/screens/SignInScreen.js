@@ -1,7 +1,7 @@
 import { Button, Card, Form, FormGroup } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
 import { Link, useNavigate } from 'react-router-dom';
-import React,{ useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import GoogleButton from 'react-google-button';
 import { useUserAuth } from '../contexts/AuthContext';
 import MessageBox from '../components/MessageBox';
@@ -9,6 +9,7 @@ import axios from '../components/axios';
 import { sendEmailVerification } from 'firebase/auth';
 import { useLocation } from 'react-router-dom';
 import { Store } from '../store';
+import getError from '../utils';
 
 function SignInScreen() {
   const [email, setEmail] = useState('');
@@ -21,22 +22,41 @@ function SignInScreen() {
   const redirect = redirectUrl ? redirectUrl : '/dashboard';
   const navigate = useNavigate();
   const { state, dispatch: ctxDispatch } = useContext(Store);
-  const { userInfo } = state;
+  const { userInfo, cart } = state;
   
   async function handleSubmit(e) {
     e.preventDefault();
+
     try {
       setError('');
       setLoading(true);
-
       const data = await signin(email, password);
       if (data.user.emailVerified === true) {
         try {
           const response = await axios.post('/api/users/signin', {
             email: data.user.email,
           });
-          ctxDispatch({ type: 'USER_SIGNIN', payload: response.data });
+          await ctxDispatch({ type: 'USER_SIGNIN', payload: response.data });
           localStorage.setItem('userInfo', JSON.stringify(response.data));
+          if (userInfo.cart.length === 0 && cart.length !== 0) {
+            try {
+              const result = await axios.post('/api/users/addcartall', {
+                email: response.user.email,
+                cart: cart,
+              });
+              await ctxDispatch({ type: 'UPDATE_USER', payload: result.data });
+              localStorage.setItem('userInfo', JSON.stringify(result.data));
+              console.log(userInfo);
+            } catch (err) {
+              getError(err);
+            }
+          } else if (userInfo.cart.length !== 0) {
+            await ctxDispatch({
+              type: 'CART_UPDATE',
+              payload: userInfo.cart,
+            });
+            localStorage.setItem('cartItems', JSON.stringify(userInfo.cart));
+          }
         } catch (error) {
           setError(error);
         }
@@ -64,14 +84,32 @@ function SignInScreen() {
         const response = await axios.post('/api/users/signin', {
           email: data.user.email,
         });
-        ctxDispatch({ type: 'USER_SIGNIN', payload: response.data });
+        await ctxDispatch({ type: 'USER_SIGNIN', payload: response.data });
         localStorage.setItem('userInfo', JSON.stringify(response.data));
+        if (userInfo.cart.length === 0 && cart.length !== 0) {
+          try {
+            const result = await axios.post('/api/users/addcartall', {
+              email: response.user.email,
+              cart: cart,
+            });
+            await ctxDispatch({ type: 'UPDATE_USER', payload: result.data });
+            localStorage.setItem('userInfo', JSON.stringify(result.data));
+            console.log(userInfo);
+          } catch (err) {
+            getError(err);
+          }
+        } else if (userInfo.cart.length !== 0) {
+          await ctxDispatch({
+            type: 'CART_UPDATE',
+            payload: response.data.cart,
+          });
+          localStorage.setItem('cartItems', JSON.stringify(response.data.cart));
+        }
       } catch (error) {
-        setError(error);
+        console.log(error.message);
       }
-      navigate(redirect || '/dashboard');
-    } catch (error) {
-      console.log(error.message);
+    } catch (err) {
+      getError(err);
     }
   };
   useEffect(() => {

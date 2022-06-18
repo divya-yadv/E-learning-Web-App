@@ -15,31 +15,30 @@ function Course(props) {
   const { currentUser } = useUserAuth();
 
   const addToCartHandler = async () => {
-    const existItem = cart.cartItems.find((x) => x._id === course._id);
-    const quantity = existItem ? existItem.quantity : 1;
-    await ctxDispatch({
+    const res = await ctxDispatch({
       type: 'CART_ADD_ITEM',
-      payload: { ...course, quantity: 1 },
+      payload: course._id,
     });
-    const newCart = cart.cartItems.map((item) => {
-      return item._id;
-    });
-    if (currentUser) {
-      let resu = userInfo.cart.concat(newCart);
-      resu = resu.filter((item, index) => {
-        return resu.indexOf(item) === index;
-      });
-      try {
-        const result = await axios.post('/api/users/addcartall', {
-          email: userInfo.email,
-          cart: newCart,
-        });
-        await ctxDispatch({ type: 'UPDATE_USER', payload: result.data });
-        localStorage.setItem('userInfo', JSON.stringify(result.data));
-        navigate('/cart');
-      } catch (err) {
-        getError(err);
+    try {
+      if (currentUser) {
+        const newItem = course._id;
+        const existItem = userInfo.cart.find((item) => item === newItem);
+        const cartItems = existItem
+          ? userInfo.cart.map((item) => (item === existItem ? newItem : item))
+          : [...userInfo.cart, newItem];
+        try {
+          const result = await axios.post('/api/users/addcartall', {
+            email: userInfo.email,
+            cart: cartItems,
+          });
+          await ctxDispatch({ type: 'UPDATE_USER', payload: result.data });
+          localStorage.setItem('userInfo', JSON.stringify(result.data));
+        } catch (err) {
+          getError(err);
+        }
       }
+    } catch (err) {
+      getError(err);
     }
   };
   return (

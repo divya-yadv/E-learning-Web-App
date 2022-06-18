@@ -15,9 +15,9 @@ export default function CreateCourseNavbar() {
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav className="me-0 nav-tabs homenavbar" navbarScroll>
-            <Link className="nav-link" to="/teacherdashboard">
+            {currentUser && <Link className="nav-link" to="/teacherdashboard">
               Go to Dashboard
-            </Link>
+            </Link>}
             {currentUser && userInfo && (
               <Link className="nav-link" to="/updateprofile">
                 {userInfo.email}

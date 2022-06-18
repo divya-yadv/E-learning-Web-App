@@ -6,11 +6,12 @@ import getError from '../utils';
 import Loading from './Loading';
 import MessageBox from './MessageBox';
 import { Button } from 'react-bootstrap';
+import { Navigate } from 'react-router-dom';
 
 export default function Payment() {
   const { currentUser } = useUserAuth();
   const { state, dispatch: ctxDispatch } = useContext(Store);
-  const { userInfo } = state;
+  const { userInfo, cart } = state;
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [display, setDisplay] = useState('none');
@@ -20,17 +21,23 @@ export default function Payment() {
       setLoading(false);
       setError('');
       try {
-        const res = await axios.post('/api/users/buy', {
-          email: currentUser.email,
+        const result = await axios.post('/api/users/buy', {
+          email: userInfo.email,
           cart: newCart,
         });
-        ctxDispatch({ type: 'UPDATE_USER', payload: res.data });
-        setDisplay('notnone');
-      } catch (error) {
-        setError(error);
+        await ctxDispatch({ type: 'UPDATE_USER', payload: result.data });
+        localStorage.setItem('userInfo', JSON.stringify(result.data));
+        const res = await ctxDispatch({
+          type: 'CART_EMPTY',
+          payload: '',
+        });
+        localStorage.setItem('cartItems', []);
+        setDisplay('...');
+      } catch (err) {
+        getError(err);
       }
-    } catch (error) {
-      getError(error);
+    } catch (err) {
+      getError(err);
     }
     setLoading(false);
   };

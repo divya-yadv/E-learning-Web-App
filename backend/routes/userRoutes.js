@@ -93,7 +93,7 @@ userRouter.post(
               data: "couldn't add",
             });
           } else {
-            res.status(200).send(result.data);
+            res.status(200).send(result);
           }
         }
       );
@@ -106,29 +106,24 @@ userRouter.post(
   '/api/users/buy',
   express.json(),
   expressAsyncHandler(async (req, res) => {
+    const getuser = await User.findOne({ email: req.body.email });
     try {
       User.findOneAndUpdate(
         { email: req.body.email },
         {
           $set: {
-            buyedCourses: [
-              req.body.cart.map((course) => {
-                return course._id;
-              }),
-            ],
+            buyedCourses: req.body.cart,
+            cart: [],
           },
         },
         { new: true },
         (err, result) => {
           if (err) {
             res.status(400).send({
-              data: "couldn't buy",
+              data: "couldn't add",
             });
           } else {
-            console.log(result);
-            res.status(200).send({
-              data: 'User buyed',
-            });
+            res.status(200).send(result);
           }
         }
       );

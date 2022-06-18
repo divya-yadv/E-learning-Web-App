@@ -23,7 +23,7 @@ const reducer = (state, action) => {
   }
 };
 
-function CourseScreen() {
+function CourseCartScreen() {
   const params = useParams();
   const { slug } = params;
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -59,33 +59,6 @@ function CourseScreen() {
   const newLink = course.CourseContent
     ? changeLink(course.CourseContent[0].link)
     : '';
-  const addToCartHandler = async () => {
-    const res = await ctxDispatch({
-      type: 'CART_ADD_ITEM',
-      payload: course._id,
-    });
-    try {
-      if (currentUser) {
-        const newItem = course._id;
-        const existItem = userInfo.cart.find((item) => item === newItem);
-        const cartItems = existItem
-          ? userInfo.cart.map((item) => (item === existItem ? newItem : item))
-          : [...userInfo.cart, newItem];
-        try {
-          const result = await axios.post('/api/users/addcartall', {
-            email: userInfo.email,
-            cart: cartItems,
-          });
-          await ctxDispatch({ type: 'UPDATE_USER', payload: result.data });
-          localStorage.setItem('userInfo', JSON.stringify(result.data));
-        } catch (err) {
-          getError(err);
-        }
-      }
-    } catch (err) {
-      getError(err);
-    }
-  };
   return loading ? (
     <Loading />
   ) : error ? (
@@ -189,8 +162,12 @@ function CourseScreen() {
                   <h1>${course.price}</h1>
                 </ListGroup.Item>
                 <ListGroup.Item>
-                  <Button onClick={addToCartHandler} className="btn-lg">
-                    Add to cart
+                  <Button
+                    onClick={() => {
+                      navigate('/cart');
+                    }}
+                  >
+                    Buy now
                   </Button>
                 </ListGroup.Item>
                 <ListGroup.Item className="text-center">
@@ -239,4 +216,4 @@ function CourseScreen() {
   );
 }
 
-export default CourseScreen;
+export default CourseCartScreen;

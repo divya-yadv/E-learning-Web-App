@@ -1,7 +1,7 @@
 import { Button, Card, Form, FormGroup } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import React,{ useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useUserAuth } from '../contexts/AuthContext';
 import MessageBox from '../components/MessageBox';
 import GoogleButton from 'react-google-button';
@@ -21,15 +21,9 @@ function SignUpScreen() {
   const { search } = useLocation();
   const redirectInUrl = new URLSearchParams(search).get('redirect');
   const redirect = redirectInUrl ? redirectInUrl : '/';
-  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { state } = useContext(Store);
+  const {cart } = state;
 
-  const {
-    cart: { cartItems },
-  } = state;
-
-  const newCart = cartItems.map((item) => {
-    return item._id;
-  });
   async function handleSubmit(e) {
     e.preventDefault();
     if (password !== passwordConfirm) {
@@ -39,27 +33,24 @@ function SignUpScreen() {
       setError('');
       setLoading(true);
       const res = await signup(email, password);
-
       try {
         await axios.post('/api/users/signup', {
           email: res.user.email,
           name: name,
           photoURL: '',
         });
+        if (cart.length !== 0) {
+          try {
+              await axios.post('/api/users/addcartall', {
+              email: res.user.email,
+              cart: cart,
+            });
+          } catch (err) {
+            getError(err);
+          }
+        }
       } catch (error) {
         setError(error);
-      }
-      if (newCart.length !== 0) {
-        try {
-          const result = await axios.post('/api/users/addcartall', {
-            email: res.user.email,
-            cart: newCart,
-          });
-          await ctxDispatch({ type: 'UPDATE_USER', payload: result.data });
-          localStorage.setItem('userInfo', JSON.stringify(result.data));
-        } catch (err) {
-          getError(err);
-        }
       }
       navigate('/signin');
     } catch (error) {
@@ -76,19 +67,18 @@ function SignUpScreen() {
     try {
       const response = await googleSignIn();
       try {
-        await axios.post('/api/users/signup', {
+         await axios.post('/api/users/signup', {
           email: response.user.email,
           name: response.user.displayName,
           photoURL: response.user.photoURL || '',
         });
-        if (newCart.length !== 0) {
+        if (cart.length !== 0) {
           try {
-            const result = await axios.post('/api/users/addcartall', {
+            await axios.post('/api/users/addcartall', {
               email: response.user.email,
-              cart: newCart,
+              cart: cart,
             });
-            await ctxDispatch({ type: 'UPDATE_USER', payload: result.data });
-            localStorage.setItem('userInfo', JSON.stringify(result.data));
+            navigate('/signin');
           } catch (err) {
             getError(err);
           }
@@ -96,8 +86,6 @@ function SignUpScreen() {
       } catch (error) {
         setError(error);
       }
-
-      navigate('/signin');
     } catch (error) {
       console.log(error.message);
     }

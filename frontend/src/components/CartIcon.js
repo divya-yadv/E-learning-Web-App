@@ -9,9 +9,9 @@ export default function CartIcon() {
   return (
     <Link className="nav-link" to="/cart">
       <i className="fa-solid fa-cart-shopping"></i>
-      {cart.cartItems.length > 0 && (
+      {cart.length > 0 && (
         <Badge pill bg="danger">
-          {cart.cartItems.length}
+          {cart.length}
         </Badge>
       )}
     </Link>

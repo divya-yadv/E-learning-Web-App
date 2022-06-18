@@ -1,5 +1,5 @@
 import axios from '../components/axios';
-import React,{ useEffect, useReducer, useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Row, Col, ListGroup, Card } from 'react-bootstrap';
 import Rating from '../components/Rating';
@@ -44,9 +44,17 @@ function CourseScreenAuth() {
     };
     fetchData();
   }, [slug]);
-  const [selected, setSelect] = useState(
-    course.CourseContent ? course.CourseContent[0].link : ''
-  );
+
+  const changeLink = (link) => {
+    let id = link.split('?v=')[1]; //sGbxmsDFVnE
+    let newid = id.split('&')[0];
+    var embedlink = 'http://www.youtube.com/embed/' + newid;
+    return embedlink;
+  };
+
+  const newLink = course.CourseContent
+    ? changeLink(course.CourseContent[0].link)
+    : '';
   return loading ? (
     <Loading />
   ) : error ? (
@@ -66,26 +74,31 @@ function CourseScreenAuth() {
       <div className="coursescreendiv">
         <Row>
           <Col sm={12} md={6}>
-            <Card className="align-center">
-              <Card className="shadow videospacecard border border-primary justify-content-center ">
-                {!selected && (
-                  <img
-                    style={{ height: '500px !important' }}
-                    className="img-large"
-                    src={course.thumbnail}
-                    alt={course.Course_name}
-                  ></img>
-                )}
-
+            <Card className="shadow videospacecard border border-primary justify-content-center ">
+              {newLink === '' ? (
+                <img
+                  className="img-large imgcoursescreen"
+                  src={course.thumbnail}
+                  alt={course.Course_name}
+                ></img>
+              ) : (
                 <iframe
-                  className="videospace"
-                  src={selected}
+                  className="imgcoursescreen"
+                  src={newLink}
                   frameBorder="0"
                   allow="autoplay; encrypted-media"
                   allowFullScreen
                   title="video"
                 />
-              </Card>
+              )}
+            </Card>
+            <Card className="mb-3">
+              <h1
+                className="title bg-black text-center m-0"
+                style={{ color: 'white' }}
+              >
+                {course.Course_name}
+              </h1>
             </Card>
           </Col>
           <Col sm={12} md={6} lg={6}>
@@ -116,14 +129,9 @@ function CourseScreenAuth() {
           <Col sm={12} md={6} lg={6}>
             <Card className="shadow p-3">
               <ListGroup>
-                <ListGroup.Item>
-                  <Helmet>
-                    <title>{course.Course_name}</title>
-                  </Helmet>
-                  <h1 className="title bg-black" style={{ color: 'white' }}>
-                    {course.Course_name}
-                  </h1>
-                </ListGroup.Item>
+                <Helmet>
+                  <title>{course.Course_name}</title>
+                </Helmet>
                 <ListGroup.Item>
                   <h4>{course.description}</h4>
                 </ListGroup.Item>
@@ -174,8 +182,12 @@ function CourseScreenAuth() {
                       {course.Requirements &&
                         course.Requirements.map((requirement, index) => {
                           return (
-                            <Col sm={6} className="text-wrap text-break">
-                              <li key={index}>{requirement}</li>
+                            <Col
+                              key={index}
+                              sm={6}
+                              className="text-wrap text-break"
+                            >
+                              <li>{requirement}</li>
                             </Col>
                           );
                         })}

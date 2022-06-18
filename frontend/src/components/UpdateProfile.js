@@ -60,8 +60,8 @@ export default function UpdateProfile() {
           user_name: username,
           image: profileURL,
         });
-        console.log(res);
-        ctxDispatch({ type: 'UPDATE_USER', payload: res.data });
+        await ctxDispatch({ type: 'UPDATE_USER', payload: res.data });
+        localStorage.setItem('userInfo', JSON.stringify(res.data));
       } catch (error) {
         setError(error);
       }
